@@ -1038,7 +1038,7 @@ function initLogin(){
 
   const tryLogin = async () => {
     const v = inp.value.trim();
-    if(!/^0\d{6}$/.test(v)){ err.textContent = '工號必須為 7 位數字，並以 0 開頭'; inp.focus(); return; }
+    if(!v){ err.textContent = '請輸入工號'; inp.focus(); return; }
     
     err.textContent = '驗證權限中...';
     state.empId = v;
@@ -1073,8 +1073,7 @@ function initLogin(){
   
   newBtn.addEventListener('click', tryLogin);
   inp.addEventListener('keydown', e => { if(e.key === 'Enter') tryLogin(); });
-  inp.addEventListener('input', () => { inp.value = inp.value.replace(/\D/g,'').slice(0,7); });
-  setTimeout(() => inp.focus(), 200);
+   setTimeout(() => inp.focus(), 200);
 }
 
 /* ============ 應用 ============ */
