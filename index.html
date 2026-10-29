@@ -440,7 +440,6 @@ body.resizing *{cursor:col-resize !important}
   import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
   import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
-  // 填入你的 Firebase 設定
   const firebaseConfig = {
     apiKey: "AIzaSyAQdobSQroDNhSWWslrZgy3Y6vMW3Ram5E",
     authDomain: "firstaidcar.firebaseapp.com",
@@ -528,7 +527,6 @@ let state = {
 let saveTimer = null;
 let isSavingLocally = false;
 
-// 取代原本的 saveState：加入 1 秒防抖，避免每打一個字就上傳
 function saveState() {
   try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch(e) {}
 
@@ -592,8 +590,18 @@ function migrateData(data){
   });
 }
 
-// 取代原本的 loadState：從雲端讀取
 async function loadStateFromCloud() {
+  // 等待 Firebase 載入完成
+  let retries = 0;
+  while (!window.firebaseAPI && retries < 10) {
+    await new Promise(r => setTimeout(r, 500));
+    retries++;
+  }
+  if (!window.firebaseAPI) {
+    console.error("❌ Firebase 模組載入失敗");
+    return;
+  }
+
   try {
     const { doc, getDoc, db, authReady } = window.firebaseAPI;
     await authReady;
@@ -618,7 +626,6 @@ async function loadStateFromCloud() {
   }
 }
 
-// 實時監聽
 function initRealtimeListener() {
     if (!window.firebaseAPI) return;
     const { doc, onSnapshot, db } = window.firebaseAPI;
@@ -652,7 +659,6 @@ function initRealtimeListener() {
     });
 }
 
-// 檢查權限
 async function checkWritePermission() {
     if (!window.firebaseAPI) return false;
     const { doc, getDoc, db, authReady, getDeviceUID } = window.firebaseAPI;
@@ -673,7 +679,6 @@ async function checkWritePermission() {
     }
     return false;
 }
-
 
 const TYPES = {
   common:   { label:'共用物品',   icon:'📦' },
@@ -747,6 +752,38 @@ function newPage(type, name){
 const getPage  = id => state.pages.find(p => p.id === id);
 const getArea  = (p, id) => p?.areas.find(a => a.id === id);
 const getItem  = (p, aid, iid) => getArea(p, aid)?.items.find(i => i.id === iid);
+
+/* ============ seedDemo 修正 ============ */
+function seedDemo(){
+  const p1 = newPage('common', '共用物品倉');
+  p1.areas = [ newArea('A 區') ];
+  p1.areas[0].items = [
+    { id:uid(), code:'SP-0001', name:'螺絲 M4', baseQty:200, curQty:150, out:false,
+      expiry: isoDate(120), notes:['常備件'], contactList:[], extras:[], noExpiry:false },
+    { id:uid(), code:'SP-0002', name:'墊片',     baseQty:100, curQty:0,   out:true,
+      expiry: isoDate(45),  notes:['已通知採購'], contactList:[], extras:[], noExpiry:false },
+    { id:uid(), code:'SP-0003', name:'六角扳手', baseQty:30,  curQty:25,  out:false,
+      expiry: isoDate(200), notes:['工具類'], contactList:[], extras:[], noExpiry:false },
+  ];
+  const p2 = newPage('supplier', '供應商資料');
+  p2.areas = [ newArea('主要供應商') ];
+  p2.areas[0].items = [
+    { id:uid(), name:'永達五金',
+      contacts:[
+        { name:'陳先生', phone:'9123 4567', tags:['五金','螺絲'] },
+        { name:'李小姐', phone:'2345 6789', tags:['發票'] },
+      ] },
+    { id:uid(), name:'大昌行',
+      contacts:[{ name:'陳先生', phone:'9988 7766', tags:['工具'] }] },
+  ];
+  state.pages = [p1, p2];
+  saveState();
+}
+function isoDate(offsetDays){
+  const d = new Date(Date.now() + offsetDays * 86400000);
+  return `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}`;
+}
+
 
 /* ============ 日期 / 狀態 ============ */
 function daysLeft(expiry){
@@ -996,7 +1033,6 @@ function lookupContact(label){
 function initLogin(){
   const inp = $('#empInput'), btn = $('#loginBtn'), err = $('#loginErr');
   
-  // 清除舊的監聽，避免重複綁定
   const newBtn = btn.cloneNode(true);
   btn.parentNode.replaceChild(newBtn, btn);
 
@@ -3402,9 +3438,9 @@ window.addEventListener('resize', () => {
   }, 120);
 });
 
-/* ============ 系統啟動 ============ */
+/* ============ 啟動 ============ */
 async function initApp() {
-    // 1. 先讀本地快取
+    // 先嘗試載入本地快取
     try {
         const raw = localStorage.getItem(LS_KEY);
         if(raw) {
@@ -3419,14 +3455,22 @@ async function initApp() {
         }
     } catch(e){}
 
-    // 2. 從雲端拉取最新
-    await loadStateFromCloud();
+    // 等待 Firebase API 準備就緒
+    let retries = 0;
+    while (!window.firebaseAPI && retries < 20) {
+        await new Promise(r => setTimeout(r, 200));
+        retries++;
+    }
     
-    // 3. 啟動登入
+    if (window.firebaseAPI) {
+        await loadStateFromCloud();
+    } else {
+        console.warn("⚠️ Firebase 無法載入，使用離線模式");
+    }
+
     initLogin();
 }
 
-// 執行
 initApp();
 
 </script>
