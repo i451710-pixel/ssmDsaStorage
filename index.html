@@ -1128,6 +1128,7 @@ function initLogin(){
     } else {
         isReadOnly = false; // 👈 管理員則設為 false
     }
+  }; 
   
   newBtn.addEventListener('click', tryLogin);
   inp.addEventListener('keydown', e => { if(e.key === 'Enter') tryLogin(); });
