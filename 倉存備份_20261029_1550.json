@@ -1,0 +1,5570 @@
+{
+  "pages": [
+    {
+      "id": "munk8c48himne",
+      "name": "供應商資料",
+      "type": "supplier",
+      "areas": [
+        {
+          "id": "munk8c48h8vlp",
+          "name": "主要供應商",
+          "items": [
+            {
+              "id": "munswk5ns7wbn",
+              "name": "通澳",
+              "contacts": [
+                {
+                  "name": "Constant",
+                  "phone": "63560672",
+                  "tags": [
+                    "Medtronic",
+                    "Cook",
+                    "BD stent",
+                    "Long Shealth",
+                    "18G 64mm IV針",
+                    "Onxy"
+                  ]
+                },
+                {
+                  "name": "",
+                  "phone": "",
+                  "tags": []
+                }
+              ],
+              "brands": [
+                "BD stent",
+                "Cook",
+                "Medtronic"
+              ]
+            },
+            {
+              "id": "munsxbqxcmnhg",
+              "name": "創基",
+              "contacts": [
+                {
+                  "name": "美華",
+                  "phone": "66605076",
+                  "tags": [
+                    "Merit",
+                    "手術包",
+                    "Embosphere",
+                    "Power Injector樽",
+                    "AngioJet",
+                    "FNA 22G腰穿針",
+                    "Torque"
+                  ]
+                },
+                {
+                  "name": "Alfred",
+                  "phone": "852-92747509",
+                  "tags": []
+                }
+              ],
+              "brands": [
+                "Embosphere",
+                "power injector樽",
+                "Merit",
+                "手術包"
+              ]
+            },
+            {
+              "id": "munsxc093xx9k",
+              "name": "科達",
+              "contacts": [
+                {
+                  "name": "RAY",
+                  "phone": "62330357",
+                  "tags": [
+                    "Stryker",
+                    "心科IVUS",
+                    "Sroke物料",
+                    "Boston Scientific",
+                    "GDC coil",
+                    "AngioJet",
+                    "PENUMBRA"
+                  ]
+                },
+                {
+                  "name": "Pen",
+                  "phone": "66518633",
+                  "tags": [
+                    "暖風墊"
+                  ]
+                }
+              ],
+              "brands": [
+                "Stryker",
+                "心科IVUS",
+                "Sroke物料",
+                "GDC coil",
+                "Boston Scientific"
+              ]
+            },
+            {
+              "id": "munsxc612gjsi",
+              "name": "美儉",
+              "contacts": [
+                {
+                  "name": "Hydi",
+                  "phone": "",
+                  "tags": [
+                    "Terumo  Shealth",
+                    "常用Guild wire"
+                  ]
+                }
+              ],
+              "brands": []
+            },
+            {
+              "id": "munsxcb5brdkj",
+              "name": "康狄",
+              "contacts": [
+                {
+                  "name": "Sandy",
+                  "phone": "66625369",
+                  "tags": [
+                    "Y connector",
+                    "Tsuna Balloon",
+                    "Probe套"
+                  ]
+                }
+              ],
+              "brands": [
+                "Y connector"
+              ]
+            },
+            {
+              "id": "munsxcghlq8dz",
+              "name": "吉時",
+              "contacts": [
+                {
+                  "name": "Fai",
+                  "phone": "852-52874682",
+                  "tags": [
+                    "Begraft"
+                  ]
+                }
+              ],
+              "brands": [
+                "Begraft"
+              ]
+            },
+            {
+              "id": "munsxcllvtiqv",
+              "name": "",
+              "contacts": [
+                {
+                  "name": "Rico",
+                  "phone": "852-60803919",
+                  "tags": [
+                    "Terumo Angioseal"
+                  ]
+                }
+              ],
+              "brands": [
+                "Terumo Angioseal"
+              ]
+            },
+            {
+              "id": "munsxcvdmuuqq",
+              "name": "新康輝",
+              "contacts": [
+                {
+                  "name": "Lena",
+                  "phone": "66848423",
+                  "tags": [
+                    "Abbott",
+                    "Supera",
+                    "Proglide",
+                    "骨水泥",
+                    "Vascular Plug"
+                  ]
+                }
+              ],
+              "brands": [
+                "Abbott",
+                "Supera",
+                "Proglide",
+                "骨水泥"
+              ]
+            },
+            {
+              "id": "munsxd0hfwggl",
+              "name": "健輝",
+              "contacts": [
+                {
+                  "name": "Libra",
+                  "phone": "62827262",
+                  "tags": [
+                    "Drainage豬尾",
+                    "Mamotone機+針",
+                    "Rotarex"
+                  ]
+                }
+              ],
+              "brands": [
+                "Drainage",
+                "Mamotone",
+                "Rotarex"
+              ]
+            },
+            {
+              "id": "muuz6ayggnaxq",
+              "name": "駿康",
+              "contacts": [
+                {
+                  "name": "Emily",
+                  "phone": "63172322",
+                  "tags": [
+                    "Viablem",
+                    "Gore"
+                  ]
+                }
+              ],
+              "brands": []
+            },
+            {
+              "id": "muuz6b4wqn0s0",
+              "name": "",
+              "contacts": [
+                {
+                  "name": "",
+                  "phone": "",
+                  "tags": []
+                }
+              ],
+              "brands": []
+            },
+            {
+              "id": "muuz6bagrmejy",
+              "name": "",
+              "contacts": [
+                {
+                  "name": "",
+                  "phone": "",
+                  "tags": []
+                }
+              ],
+              "brands": []
+            },
+            {
+              "id": "muuz6bfc29fkb",
+              "name": "",
+              "contacts": [
+                {
+                  "name": "",
+                  "phone": "",
+                  "tags": []
+                }
+              ],
+              "brands": []
+            }
+          ],
+          "collapsed": false
+        }
+      ]
+    },
+    {
+      "id": "munt48cw0lek9",
+      "name": "支援人員資料",
+      "type": "supplier",
+      "areas": [
+        {
+          "id": "munt48cwe9s88",
+          "name": "支援人員資料",
+          "items": [
+            {
+              "id": "muuzczcdjmirm",
+              "name": "Medtronic",
+              "contacts": [
+                {
+                  "name": "Alex",
+                  "phone": "852-92608112",
+                  "tags": [
+                    "EVAR",
+                    "TEVAR",
+                    "Abre venous stent",
+                    "Sliver hook",
+                    "Peripheral Onxy(大支)"
+                  ]
+                },
+                {
+                  "name": "Dennis",
+                  "phone": "852-92600395",
+                  "tags": [
+                    "Pinepline",
+                    "Neuro Onxy(細支)"
+                  ]
+                },
+                {
+                  "name": "Constant",
+                  "phone": "63560672",
+                  "tags": [
+                    "Endo Anchor",
+                    "DEB Balloon",
+                    "TIPS",
+                    "ICA stent",
+                    "Filter wire"
+                  ]
+                }
+              ],
+              "brands": []
+            },
+            {
+              "id": "muuzczj145q2c",
+              "name": "Cook",
+              "contacts": [
+                {
+                  "name": "Wilson",
+                  "phone": "852-52072642",
+                  "tags": [
+                    "EVAR",
+                    "TEVAR"
+                  ]
+                },
+                {
+                  "name": "Constant",
+                  "phone": "63560672",
+                  "tags": []
+                }
+              ],
+              "brands": []
+            },
+            {
+              "id": "muuzczotadipc",
+              "name": "Relay(Terumo)",
+              "contacts": [
+                {
+                  "name": "Ernest",
+                  "phone": "852-66019730",
+                  "tags": [
+                    "EVAR",
+                    "TEVAR"
+                  ]
+                }
+              ],
+              "brands": []
+            },
+            {
+              "id": "muuzffu3rrzat",
+              "name": "Gore",
+              "contacts": [
+                {
+                  "name": "Emily",
+                  "phone": "63172322",
+                  "tags": [
+                    "Viablem"
+                  ]
+                }
+              ],
+              "brands": []
+            },
+            {
+              "id": "muuzpaugygtzb",
+              "name": "Boston Scientific",
+              "contacts": [
+                {
+                  "name": "Jackson",
+                  "phone": "852-93173800",
+                  "tags": [
+                    "Ovation EVAR",
+                    "WallFLEX",
+                    "PTCD Y stent",
+                    "DEB stent",
+                    "DEB balloon"
+                  ]
+                }
+              ],
+              "brands": [
+                "藥stent"
+              ]
+            },
+            {
+              "id": "muuzqayrdig3f",
+              "name": "Stryker",
+              "contacts": [
+                {
+                  "name": "Steven",
+                  "phone": "852-91686857",
+                  "tags": [
+                    "GDC coil",
+                    "Neuroform",
+                    "Wingspen"
+                  ]
+                }
+              ],
+              "brands": [
+                "GDC coil",
+                "Neuroform",
+                "Ruby Coil"
+              ]
+            },
+            {
+              "id": "muuzumlew7ek0",
+              "name": "Begraft",
+              "contacts": [
+                {
+                  "name": "Fai",
+                  "phone": "852-52874682",
+                  "tags": [
+                    "CREAB"
+                  ]
+                }
+              ],
+              "brands": []
+            },
+            {
+              "id": "muuzuo5ebmwbv",
+              "name": "Abbott",
+              "contacts": [
+                {
+                  "name": "Lena",
+                  "phone": "66848423",
+                  "tags": []
+                }
+              ],
+              "brands": []
+            },
+            {
+              "id": "muv2hww5a0k0u",
+              "name": "Rotarex",
+              "contacts": [
+                {
+                  "name": "Joshua",
+                  "phone": "852-56625580",
+                  "tags": []
+                }
+              ]
+            },
+            {
+              "id": "muv2hxx9g584g",
+              "name": "AngioJet",
+              "contacts": [
+                {
+                  "name": "KM Chung",
+                  "phone": "852-91315790",
+                  "tags": []
+                }
+              ]
+            },
+            {
+              "id": "muv2layaozvov",
+              "name": "",
+              "contacts": [
+                {
+                  "name": "",
+                  "phone": "",
+                  "tags": []
+                }
+              ]
+            }
+          ],
+          "collapsed": false
+        }
+      ]
+    },
+    {
+      "id": "munk9et9n7d2d",
+      "name": "公用物品",
+      "type": "common",
+      "areas": [
+        {
+          "id": "muv4sk17d3yqf",
+          "name": "無菌醫療物品",
+          "items": [
+            {
+              "id": "muv5402zuzzo3",
+              "code": "2428030217",
+              "name": "手術室專用外科消毒手套 NO. 6 (無粉)\n",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv540mbojqct",
+              "code": "2428030225",
+              "name": "手術室專用外科消毒手套 NO. 6.5 (無粉)\n",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv540ub1czj3",
+              "code": "2428030233\t",
+              "name": "手術室專用外科消毒手套 NO. 7 (無粉)\n",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv541b721yxg",
+              "code": "2428030241\t",
+              "name": "手術室專用外科消毒手套 NO. 7.5 (無粉)",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv541gjamnxe",
+              "code": "2428030250",
+              "name": "手術室專用外科消毒手套 NO. 8 (無粉)\n",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv541m3vs6o0",
+              "code": "2428091500",
+              "name": "即棄透明消毒手套－中（檢查用）\n",
+              "notes": [
+                "雞翼手套"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv541r7g7hq2",
+              "code": "2412060825",
+              "name": "眼科用彎頭針 30G CANULA OFTALMICA P/ CAMARA ANTERIOR (RYCROFT) - 30G",
+              "notes": [
+                "乳腺造影用"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw0s9f8tf3wt",
+              "code": "2140030506",
+              "name": "2/0號絲線／角針(3/8 CIRC 30MM)\nSEDA 2/0 AG LANCEOLADA 3/8 CIRC 30MM",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw0sbwstz1fa",
+              "code": "2412061341",
+              "name": "23號腰椎穿刺針22G X 3 1/2\n",
+              "notes": [
+                "黑"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw0sbr8x44wl",
+              "code": "2412060809",
+              "name": "22號腰椎穿刺針22G X 3 1/2",
+              "notes": [
+                "藍",
+                "FNA用",
+                "專用"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "美華（創基）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw0sbm43oan1",
+              "code": "2412060850",
+              "name": "20號腰椎穿刺針20G X 0,9X86MM",
+              "notes": [
+                "黃"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw0sc1ohr5ji",
+              "code": "2412060353",
+              "name": "21號消毒針咀 21G X 1\"\"1/2 - 0,8X38/40MM AGULHA HIPODERMICA ESTERILIZADA 21G X 1\"\"1/2 - 0,8X38/40MM",
+              "notes": [
+                "綠"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw0sc6kn1tqs",
+              "code": "2412060655",
+              "name": "18號消毒針咀 18G X 1\"\"1/2 - 1,2X38/40MM AGULHA HIPODERMICA ESTERILIZADA 18G X 1\"\"1/2 - 1,2X38/40MM",
+              "notes": [
+                "粉紅"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw19l6vo97i6",
+              "code": "2408030750",
+              "name": "靜脈留置針 18G, 1.3 X 32MM",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw19mzjrpls7",
+              "code": "2408030806\t",
+              "name": "靜脈留置針 20G",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw19o67h5fux",
+              "code": "2408030857",
+              "name": "靜脈留置針 22G",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw19r9r6tmi8",
+              "code": "2412030209",
+              "name": "蝶形針咀(8/10 -21G)\nAGULHA COM ALETA 8/10 - 21G",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw0scbg5kc3t",
+              "code": "2420060451",
+              "name": "結核菌素針筒\nSERINGA IRRECUPERAVEL TUBERCULINA 3 PECAS 1ML\nTUBERCULIN WITH NEEDLE 1CC 27G X 1/2",
+              "notes": [
+                "1mL"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": true,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw0scg4balvb",
+              "code": "2420060508",
+              "name": "3 C.C.針筒連針咀23G X 1\"\" 1/4",
+              "notes": [
+                "3mL"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw0scksxwl8o",
+              "code": "2420060559",
+              "name": "5 C.C. 一次性針筒連針咀 23G X 1 1/4",
+              "notes": [
+                "5mL"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw0scp8k12a1",
+              "code": "2420060150",
+              "name": "一次性無針咀10 C.C.針筒",
+              "notes": [
+                "10mL"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw0sctwp7iu4",
+              "code": "2420060168",
+              "name": "一次性無針咀20 C.C.針筒",
+              "notes": [
+                "20mL"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw0scys6qmn9",
+              "code": "2436030030",
+              "name": "（配電針機）針筒, 50ML, \"B. BRAUN\"",
+              "notes": [
+                "50mL",
+                "Leur Lock",
+                "DSA用"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw0sd38nezpo",
+              "code": "2420060176",
+              "name": "一次性無針咀50 C.C.針筒, \"TERUMO\" ",
+              "notes": [
+                "50mL",
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw0sd7wg3epq",
+              "code": "2420060206",
+              "name": "一次性60 C.C.針筒(餵食用)",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw19r1yp9bbk",
+              "code": "",
+              "name": "18*64 IV針\n18*45 IV針",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Constant（通澳）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw19rfyo3kgk",
+              "code": "2912120514",
+              "name": "肝素閘(黃頭仔）TAMPA P/ SONDAS C/ MEMBRANA DE LATEX P/ ANTICOAGULACAO INJECTION SITE ADAPTER",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw19rlac22in",
+              "code": "2912121359",
+              "name": "三路掣（藍色）",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": true,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw19rr3dsa4c",
+              "code": "2912120581",
+              "name": "胸腔引流（三瓶）",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw19s12v672f",
+              "code": "2112060378",
+              "name": "消毒紗布 10X10CM / COMPR GAZE HIDROF ESTERIL S/CONTRASTE - 10X10CM",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw19s5q9gvex",
+              "code": "2112060157",
+              "name": "消毒紗布 20X 15CM / COMPR GAZE HIDROF ESTERIL S/CONTRASTE - 20X15CM",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxghwso7vmg1",
+              "code": "2112030304",
+              "name": "X光顯影消毒紗布, 10 X 10CM, 24 PLY\nCOMPR GAZE HIDROF ESTERIL C/CONTRASTE, 10X10CM, 24 PLY",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxgt4ne66ff9",
+              "code": "2112030320",
+              "name": "X光顯影消毒紗布, 12 PLY, 30 X 15 CM\nCOMPRESSA GAZE ESTERIL C/CONTRASTE, 12PLY, 30X 15CM",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw19samxf1he",
+              "code": "2128990014\t",
+              "name": "換藥包BASIC DRESSING PACK, CONTENT: COTTON BALLS, STERILE FIELD, GAUZE SWABS, FORCEPS, TOWEL AND TRAY.",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw19sfra97lv",
+              "code": "2404034297",
+              "name": "CONECTOR UNIVERSAL CONICO EM LATEX P/ SONDA URETERAL\nUNIVERSAL CONNECTOR FOR URETERAL CATHETER",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw19slixu5ov",
+              "code": "2912991507",
+              "name": "MARCADOR DERMOGRAFICO P/ CIRURGIA SURGICAL MARKER",
+              "notes": [
+                "手術筆",
+                "Marker pen"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw19squpjw3f",
+              "code": "2124032183",
+              "name": "STERI-DRAPE ADHESIVE APERTURE DRAPE, ABSORBENT PREVENTION FABRIC, OVAL ADHESIVE APERTURE, 75X75CM - \"\"3M\"\" 9029",
+              "notes": [
+                "孔巾"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw19tqeyjik5",
+              "code": "2436990548",
+              "name": "FLUID IMPERVIOUS DRAPE >= 150 X 90 CM, REF.02030014 綠色隔水紙\n",
+              "notes": [
+                "綠巾"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw19u53vpk8m",
+              "code": "2124032191\t",
+              "name": "STERI-DRAPE ADHESIVE TOWEL DRAPE, ABSORBENT PREVENTION FABRIC, 100X75CM - \"3M\" 9086",
+              "notes": [
+                "S巾"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw1ycu2ls3q0",
+              "code": "2124032256",
+              "name": "SURGICAL SHEET - ADHESIVE DRAPE SHEET, 183CM X 183CM - \"3M\" 9087",
+              "notes": [
+                "M巾"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw19sw7pzijg",
+              "code": "2132990223",
+              "name": "傷口膠布，2 X 7CM PENSO RAPIDO SEM MEDICAMENTO INCORPORADO, 2 X 7 CM\nADHESIVE WOUND DRESSING STRIP 2 X 7CM",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw19t12qvt9m",
+              "code": "2124061051",
+              "name": "有敷料透明防水粘性滅菌膠布 6.5-7CM X5CM (敷料: 2.5CM X 3.8CM)\nPENSO CIRURG ADESIVO TRANSP ESTERIL C/COMPRESSA 6.5-7CM X 5CM (PAD: 2.5CM X 3.8CM)",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwalb2jbpizg",
+              "code": "2148060455",
+              "name": "STERI-STRIP SKIN CLOSURE SIZE 6MM X 100MM",
+              "notes": [
+                "整形膠紙"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxghwfsnugh4",
+              "code": "2124030202",
+              "name": "透明防水黏性滅菌膠紙 6 X 7CM",
+              "notes": [
+                "打針opsite"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxgt502o2npk",
+              "code": "2124061167",
+              "name": "10CM X 12CM - \"TEGADERM\" 1658R",
+              "notes": [
+                "C line 貼紙"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw19t66dvcqz",
+              "code": "2503993204",
+              "name": "REVOLUTION CATHETER SECUREMENT DEVICE - \"\"MERIT\"\" CFG624",
+              "notes": [
+                "引流固定器"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "美華（創基）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw19tg6gu2gy",
+              "code": "2604033473",
+              "name": "無菌消毒有蓋(螺旋扭式)尿杯 - 120ML\nCOPO ESTERIL.P/URINA C/TAMPA ROSCA EMBL.INDIV. - 120ML\nURINE BEAKER WITH SCREW CAP (WHITE CAP) 120ML, STERILESINGLE WRAPPED",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw19tvaeqca2",
+              "code": "2912080725",
+              "name": "即棄有柄之無菌刀片\nLANCETA C/LAMINA ESTERILIZADA DESCARTAVEL",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mv0smp3tw7lkf",
+              "code": "2912080466",
+              "name": "手術刀片 11號",
+              "notes": [
+                "少用, 2912080725",
+                "缺貨替代"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw19u07cjm0h",
+              "code": "2912990217",
+              "name": "無菌長棉枝約 15-18CM (1包＝3支）有碘酒",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw1yczm5ghdj",
+              "code": "2436990602\t\t",
+              "name": "中央靜脈壓測量管",
+              "notes": [
+                "CVP set"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw1yd4j6jcdx",
+              "code": "2436030102",
+              "name": "輸液管（有氣孔／過濾）－ INTRAFIX PRIMELINE, \"B.BRAUN\" ",
+              "notes": [
+                "Soro set"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw19rw6stt1d",
+              "code": "2432091000\t",
+              "name": "SISTEMA P/ ADMINISTRACAO DE SANGUE TRANSFUSION SET T-Y (AIR NEEDLE)",
+              "notes": [
+                "輸血set",
+                "不用領"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw1yd9nzp4yw",
+              "code": "2912121138",
+              "name": "LUER LOCK 接駁管",
+              "notes": [
+                "FNA用",
+                "公公頭"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw1ydjmmqj95",
+              "code": "2912990772",
+              "name": "FLUID DISPENSING CONNECTOR (FDC1000)- PROXIMAL AND DISTAL FEMALE LUER LOCK CONNECTIONS",
+              "notes": [
+                "化療two way",
+                "專用",
+                "可問藥房借 8588"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw1ydter4bdq",
+              "code": "2404031000\t",
+              "name": "吸液管CH10",
+              "notes": [
+                "黑"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw1ydoi9ovo4",
+              "code": "2404031107",
+              "name": "吸液管CH14",
+              "notes": [
+                "綠"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw1ydy2l2dgc",
+              "code": "2404031158",
+              "name": "吸液管CH16",
+              "notes": [
+                "少用, 慎領"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw1ye7vw5lec",
+              "code": "2506990990",
+              "name": "導電凝膠紙除顫機適用(綠色)\n",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwala1fkkb2o",
+              "code": "2128990227",
+              "name": "一次性無菌導尿包",
+              "notes": [
+                ""
+              ],
+              "baseQty": 20,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwala6r3luwn",
+              "code": "2416032150",
+              "name": "導尿管－CH14, 5/15ML",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": true,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwalajvbontc",
+              "code": "2416032206\t",
+              "name": "導尿管－CH16, 5/30ML",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw1ydei7cw9s",
+              "code": "2416091008",
+              "name": "成人尿袋　2000ML",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwalad7ht36w",
+              "code": "2436990050",
+              "name": "量度尿盒 500 ML",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxpspvpn8x0f",
+              "code": "2408033007",
+              "name": "EXTENSION TUBING 15CM",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mv0s4prt1vbaw",
+              "code": "2408033104",
+              "name": "STERILE EXTENSION TUBE, DRAIN, LUER LOCK, DISPOSABLE, 75- 100CM",
+              "notes": [
+                "750mm延長"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mv0s8ciq49p81",
+              "code": "2436030501",
+              "name": "輸液延長管 150 CM (內徑 3MM)",
+              "notes": [
+                "1500mm延長"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mv0sbso2wuo8p",
+              "code": "2912040111",
+              "name": "幼延長管150CM (4 BAR, DRAIN, LUER LOCK, DEHP-FREE), \"KDL\" ND05-0134M",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mv0s9u9oc65kx",
+              "code": "2604039137",
+              "name": "CENTRIFUGE TUBE-POLYPROPYLENE, STERILIZED, GRADUATED 15 ML",
+              "notes": [
+                "小痰樽"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mv0spybyuin9h",
+              "code": "2912121057",
+              "name": "STRAIGHT CONNECTOR (TRANSOFIX)",
+              "notes": [
+                "兩頭尖"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvje0m8rz1y3t",
+              "code": "2416060110",
+              "name": "負壓引流套裝 100ML\nWOUND-VAC SUCTION DRAINAGE KIT WITH TROCARS, 100ML",
+              "notes": [
+                "引流球"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "muv36vlzbbrkf",
+          "name": "非無菌醫療物品",
+          "items": [
+            {
+              "id": "muv37a1bpdoit",
+              "code": "2112060394",
+              "name": "無消毒紗布（綠色）10 X 10CM, 12 PLY\nCOMPRESSA GAZE HIDROF. N/ESTERIL S/CONTRASTE 10 X 10CM (VERDE), 12 PLY",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv37a7j7pehg",
+              "code": "2120090634",
+              "name": "截肢用彈性繃帶 10CM 此項目由 (21540) 康復科 MEDIC. FISICA E REABILITACAO 提供意見；\nLIGADURA ELASTICA FORTE PARA AMPUTADOS - 10CM",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv37acv6hejw",
+              "code": "2120090669",
+              "name": "截肢用彈性繃帶 12CM 此項目由 (21540) 康復科 MEDIC. FISICA E REABILITACAO 提供意見；\nCOMPRESSION BANDAGE -12CM",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv3g1lmfwjbr",
+              "code": "2104060105",
+              "name": "防過敏膠布 1\"X10J - 25MM X 9M\nADHESIVE TAPE 1\"X10J - 25MM X 9M",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv3g2fu8rha8",
+              "code": "2104060156",
+              "name": "防過敏膠布 2\"X10J - 50MM X 9M\nADHESIVE TAPE 2\"X10J - 50MM X 9M",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv3g37msa8c2",
+              "code": "2104060750",
+              "name": "10CM 強力低敏膠布\nADESIVO HIPOALERGENICO SUPORTE NAO TECIDO 10CM",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv3g46i8eva2",
+              "code": "2104060857",
+              "name": "20CM 強力低敏膠布\nADESIVO HIPOALERGENICO SUPORTE NAO TECIDO 20CM",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv3g582xh1mg",
+              "code": "2120120150\t",
+              "name": "黏貼彈性繃帶4CM - 1\" 1/2\nELASTIC ADHESIVE BANDAGE 4M - 1\"1/2",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv4zbxl0rm3e",
+              "code": "2120120207",
+              "name": "黏貼彈性繃帶10CM\nELASTIC ADHESIVE BANDAGE 10CM - 4\"",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv4zc2wf4n7c",
+              "code": "2424992251",
+              "name": "耳穴探熱槍專用即棄耳套 \"BRAUN\"\nCOVER PLOBE FOR THERMOSCAN THERMOMETER \"BRAUN\"",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv4zc8g6pho8",
+              "code": "2912120387",
+              "name": "識別手鐲　（成人）透明色\nPULSEIRA PARA IDENTIFICACAO DE ADULTOS - TRANSPARENTE\nWRISTBAND FOR ADULT, TRANSPARENT",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv4zcdsc4ykx",
+              "code": "2912040090\t",
+              "name": "即棄腰盤",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv4zewclx69x",
+              "code": "2506060322\t",
+              "name": "起博/監測/除纖電極 - \"MEDTRONIC\" 11996-000017",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxgfmvgoh8ft",
+              "code": "2506990893",
+              "name": "除顫機電極貼, \"PHILIPS\" M3713A",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxhuvyrtc1vm",
+              "code": "2404062231",
+              "name": "UNIVERSAL FUNNEL TUBING",
+              "notes": [
+                "吸液管"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mv0qnr4sc7ert",
+              "code": "2912081004",
+              "name": "尿袋架",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mv0rl3v8yvhq0",
+              "code": "2908044803",
+              "name": "暖風毯 3M 63500 BAIR HUGGER",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mv0saamkhuz6a",
+              "code": "2506060209",
+              "name": "心電圖電極貼片",
+              "notes": [
+                "心貼"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": true,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvoxnbtci4ifq",
+              "code": "2416991157",
+              "name": "雙翼氧氣喉 (約 7'呎) CANULA PARA OXIGENIO BI-NASAL +/- 7 PES CANNULA CURVD NON-FLARED TIP W/7' FEET.CRUSH RESISTANT TUBING",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvoxnd08q6o40",
+              "code": "2912040456",
+              "name": "OXYGEN FACE MASK ADULT WITH 7\" TUBING\nMASCARA P/ OXIGENIO TAM ADULTO, TUBOS DE 7",
+              "notes": [
+                "氧氣mask"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvoxndv3ualgj",
+              "code": "2912040812",
+              "name": "NON-REBREATHING OXYGEN MASK ADULT, WITH SAFETY VENT, \"HUDSON\" 1059",
+              "notes": [
+                "儲氧mask"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvoyoct7e8w7i",
+              "code": "2404060603",
+              "name": "氧氣連接管+/- 7'長\nOXYGEN CONNECTING TUBING +/- 7' LONG",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": false
+        },
+        {
+          "id": "muv4t7eeg3iiw",
+          "name": "環境物品",
+          "items": [
+            {
+              "id": "muv50m43zsxkb",
+              "code": "2132050905",
+              "name": "大碼成人尿片 (尿片/尿墊兩用) 60CMx90CM (左右有黏貼)",
+              "notes": [
+                "常用"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv5ehxtk15t5",
+              "code": "2424030107\t",
+              "name": "男手術帽-（一次性）\nTOUCA IRRECUPERAVEL PARA HOMEM MEN SURGEON CAP (DISPOSABLE)",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv50m9nh6bk8",
+              "code": "2424030123",
+              "name": "女手術帽-（一次性）藍色\nNURSE CAP (DISPOSABLE) BLUE",
+              "notes": [
+                "常用"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv50mezqtwuy",
+              "code": "2424030158\t",
+              "name": "PVC/無紡一次性鞋套\nSHOE COVER PVC/NONWOVEN",
+              "notes": [
+                "認証時不能用"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv50mkjvfvu4",
+              "code": "2424030182\t",
+              "name": "掛耳式三層外科口罩(用完即棄) 一般使用 ",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv5gtm7nsz19",
+              "code": "2424030735",
+              "name": "綁繩式三層外科口罩（用完即棄) 一般使用 ",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv5fap0ukszp",
+              "code": "2424030190",
+              "name": "防霧口罩 (用完即棄）\nMASCARA CIRURGICA IRRECUPERAVEL ANTI-EMBACIAMENTO\nANTI-FOG MASK DISPOSABLE",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv5mvg220pjf",
+              "code": "2424031286\t",
+              "name": "N95-FFP2 口罩 (馬生)",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": true
+            },
+            {
+              "id": "muv5mwg2qm6q7",
+              "code": "2424031103",
+              "name": "│應符合以下規格：NIOSH APPROVAL NO.84A-5726 (FDA)│可在外科手術期間使用\nAURA HEALTH CARE PARTICULATE RESPIRATOR AND SURGICAL MASK - \"3M\" 1870+",
+              "notes": [
+                "1870+"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": true
+            },
+            {
+              "id": "muv5mxte4cfds",
+              "code": "2424030328",
+              "name": "3M\" 1860, N95 杯型口罩 │應符合以下規格：NIOSH TC-84A-0006",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv5myyzqf6x0",
+              "code": "2424030611",
+              "name": "\"3M\" 1860S, N95 杯型口罩 (細碼) ",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": true
+            },
+            {
+              "id": "muv50mpf80a8v",
+              "code": "2428060221\t",
+              "name": "膠手套(LATEX,無粉無消毒，6號半／細碼)",
+              "notes": [
+                "常用"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": true
+            },
+            {
+              "id": "muv50mutardye",
+              "code": "2428060230\t",
+              "name": "膠手套(LATEX,無粉無消毒7號／中碼）",
+              "notes": [
+                "常用"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": true
+            },
+            {
+              "id": "muv50nkt960v5",
+              "code": "2428030500\t",
+              "name": "無粉丁腈長手套, 長度280-300MM, 細碼",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": true
+            },
+            {
+              "id": "muv50nq6drte8",
+              "code": "2428030519\t",
+              "name": "無粉丁腈長手套, 長度280-300MM, 中碼",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 50,
+              "out": false,
+              "expiry": "20261031",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": true
+            },
+            {
+              "id": "muv50n0d80wc5",
+              "code": "2604035301\t",
+              "name": "針咀棄置箱 1.0 L, 參考尺寸(18 x 10 x 8 CM)",
+              "notes": [
+                "小sharp box"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "20270101",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": true
+            },
+            {
+              "id": "muv50n4tytfta",
+              "code": "2604038440\t",
+              "name": "SHARP CONTAINER, AUTOCLAVABLE, SMALL 7.6L SPEC",
+              "notes": [
+                "中sharp box"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv50na5p8rlv",
+              "code": "2604038866",
+              "name": "利器收集箱 (容量約40L)",
+              "notes": [
+                "大sharp box"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv50nfpacf2l",
+              "code": "2912120573",
+              "name": "吸引瓶即棄內套, 2000ML, \"VACSAX\" VAL-201",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv5mtkjw6y8d",
+              "code": "2424031057",
+              "name": "小企領防水隔離衣, 中碼",
+              "notes": [
+                "PPE"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv5muhea4dkf",
+              "code": "2424031065",
+              "name": "小企領防水隔離衣, 大碼",
+              "notes": [
+                "PPE"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muv5n0mji02xy",
+              "code": "2912991116",
+              "name": "紅色急救車鎖 (有編號) CORPO DE CADEADO P/CARRO DE EMERGENCIA WATERLOO REF SL1-3\nRED COLOUR TWIST-LOCK FOR AMBULANCE (WITH UNIQUE NUMBER)",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "mv0t1mhqcjbxq",
+          "name": "4號倉",
+          "items": [
+            {
+              "id": "mv0t1w1inuqjb",
+              "code": "4204121341",
+              "name": "3合1全身清潔抹布 (8片/包)",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mv0t1w6mngici",
+              "code": "4904041640",
+              "name": "盛載樣本之透明索口膠袋(有內外袋及於外袋印有標誌及字樣）；外袋尺寸:總長18.5 CM (包括索口尺寸: 2 CM)X 15.5 (闊）CM ;內袋尺寸: 22長X 15.5 CM",
+              "notes": [
+                "標本袋"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": true
+            }
+          ],
+          "collapsed": true
+        }
+      ]
+    },
+    {
+      "id": "munk8lviwe03n",
+      "name": "DSA專用",
+      "type": "special",
+      "areas": [
+        {
+          "id": "mv0n5rfmcuvxp",
+          "name": "手術包",
+          "items": [
+            {
+              "id": "mv0n6pgvuwl57",
+              "code": "2503993239",
+              "name": "MULTIFUNCTION TRAY - \"\"MERIT\"\" K12T-07000",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 50,
+              "out": false,
+              "expiry": "20261230",
+              "contactList": [
+                "美華（創基）"
+              ],
+              "extras": [
+                {
+                  "qty": 100,
+                  "expiry": "20281230"
+                }
+              ],
+              "noExpiry": false
+            },
+            {
+              "id": "mv0n6pung2wlz",
+              "code": "2503995290",
+              "name": "ANGIOGRAPHY IR TRAY - \"MERIT, K12T-10613\"",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "美華（創基）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvdimt8glznxr",
+              "code": "2124032205",
+              "name": "一次性即棄消毒有孔巾 (孔大小要求約 12-15CM X 16-20CM)",
+              "notes": [
+                ""
+              ],
+              "baseQty": 50,
+              "curQty": 37,
+              "out": false,
+              "expiry": "20280220",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": false
+        },
+        {
+          "id": "munk8lvjs4665",
+          "name": "Shealth",
+          "items": [
+            {
+              "id": "muntc1m3jrki0",
+              "code": "2408037118",
+              "name": "INTRODUTOR CATETER P/ANGIOGRAFIA FR4/10 CM/0.035",
+              "notes": [
+                "4Fr"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muntc1rfo3h0g",
+              "code": "2408037231",
+              "name": "INTRODUTOR CATETER P/ANGIOGRAFIA FR5/10 CM/0.035\"\"\nRADIFOCUS INTRODUCER KIT A FR5",
+              "notes": [
+                "5Fr"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muntc1wbhegd6",
+              "code": "2408037240",
+              "name": "INTRODUTOR CATETER P/ANGIOGRAFIA FR6/10 CM/0.035\"\"\nRADIFOCUS INTRODUCER KIT A FR6",
+              "notes": [
+                "6Fr"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muntc20zv1cfv",
+              "code": "2408036596",
+              "name": "INTRODUTOR CATETER P/ANGIOGRAF.KIT C/AGULHA CH7-10CM-0.038",
+              "notes": [
+                "7Fr"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muntc26b02gmb",
+              "code": "2408036600",
+              "name": "INTRODUTOR CATETER P/ANGIOGRAF.KIT C/AGULHA CH8-10CM-0.038",
+              "notes": [
+                "8Fr"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muntc2arufc7h",
+              "code": "2408036618",
+              "name": "INTRODUTOR DE CATETER P/ ANGIOGRAFIA (KIT) CH9-10CM-0.038",
+              "notes": [
+                "9Fr"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muntc2fnxunts",
+              "code": "2408031594",
+              "name": "INTRODUTOR CATETER P/ANGIOGRAFIA FR10",
+              "notes": [
+                "10Fr"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muntc2kb5einy",
+              "code": "2408037312",
+              "name": "INTRODUTOR DE CATETER P/ANGIOGRAFIA 11F 10CM P/ VASCULAR INTERVENTION",
+              "notes": [
+                "11Fr"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muntc2p7gxqt7",
+              "code": "2408037320",
+              "name": "INTRODUTOR DE CATETER P/ANGIOGRAFIA 12F 10CM P/ ",
+              "notes": [
+                "12Fr"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxquzhmg6alc",
+              "code": "2503996203",
+              "name": "SENTRANT INTRODUCER SHEATH WITH HYDROPHILIC COATING",
+              "notes": [
+                "大Shealth"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Constant（通澳）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": false
+        },
+        {
+          "id": "muntjqj3r2srg",
+          "name": "Guide-wire",
+          "items": [
+            {
+              "id": "muntk4nqk57uj",
+              "code": "2408036723",
+              "name": "GUIA DE CATETER HIDROFILICO M FLEXIVEL ANGULADO O.D. 0.035\"",
+              "notes": [
+                "0.035 150cm"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muntk4t2yzztb",
+              "code": "2408036375\t",
+              "name": "GUIA DE TROCA CATETER P/ANGIOGRAFIA ANGULADO DIAM.035\"X260CM",
+              "notes": [
+                "0.035 260cm"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muntk4y6w8dp2",
+              "code": "2408036391",
+              "name": "GUIA DE TROCA CATETER P/ANGIOGRAFIA EM J - DIAM.018\"X260CM",
+              "notes": [
+                "0.018 260cm"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muntk53a2f5k0",
+              "code": "2408036820",
+              "name": "GUIA DE CATETER P/ANGIO. OD 0.038X150CM ANGULADO 3CM FLEXIVE",
+              "notes": [
+                "0.038 150cm"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxpx4r52m16c",
+              "code": "2503990124",
+              "name": "MICROGUIDEWIRE -TRANSEND EX 14 PLATINUM,205CM ,CAT.46-808",
+              "notes": [
+                "PLATINUM"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "RAY（科達）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxpx4wxmil72",
+              "code": "2503990507",
+              "name": "MICROGUIDWIRE TRANSEND EX 14 FLOPPY 205CM - \"BOSTON\" 46807",
+              "notes": [
+                "FLOPPY"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "RAY（科達）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxpx529nwhyu",
+              "code": "2503993301",
+              "name": "FATHOM STEERABLE GUIDEWIRE - \"\"BOSTON\"\" 50-910",
+              "notes": [
+                "FATHOM"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "RAY（科達）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxpx57tbofef",
+              "code": "2503995738",
+              "name": "SYNCHRO-10 NEURO GUIDEWIRE WITH HYDROPHILIC COATING",
+              "notes": [
+                "SYNCHRO-10"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "RAY（科達）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxpx5d55uq4l",
+              "code": "2503990515",
+              "name": "SYNCHRO SELECT GUIDEWIRES, STANDARD PRE-SHAPED, L: 215CM, OD: 0.36MM, “STRYKER” SSTD215PRE",
+              "notes": [
+                "SYNCHRO 215cm"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "RAY（科達）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxpx5ih0stu1",
+              "code": "2503994626",
+              "name": "SYNCHRO 2/14 300CM STANDARD",
+              "notes": [
+                "SYNCHRO 300cm"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "RAY（科達）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxq0zxbsltrb",
+              "code": "2503993654",
+              "name": "V-14 SHORT TAPER 300CM STRAIGHT TIP",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "RAY（科達）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxq10n2s5yhj",
+              "code": "2503990582",
+              "name": "HYDROPHILIC COATING GUIDEWIRE V-18 0.018\" WIRE 200CM/8CM",
+              "notes": [
+                "V-18 200cm"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "RAY（科達）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxq11h2jq4u4",
+              "code": "2503990590",
+              "name": "HYDROPHILIC COATING GUIDEWIRE V-18 0.018\" WIRE 300CM/8CM",
+              "notes": [
+                "V-18 300cm"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "RAY（科達）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxq12byncqnw",
+              "code": "2408036278",
+              "name": "交換引導鋼絲GUIA DE TROCA CATETER P/ANGIOGRAFIA EM J-DIAM.035\"\"X260CM - \"\"ST. JUDE\"\" 404577\n",
+              "notes": [
+                "exchange"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxq132uydrc8",
+              "code": "2503990264",
+              "name": "EXTRA STIFF GUIDE WIRE FOR ANGIOGRAPHY, 300CM",
+              "notes": [
+                "Amplaz"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Constant（通澳）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxq13zym868z",
+              "code": "2503993344",
+              "name": "LUNDERQUIST EXTRA STIFF CURVED EXCHANGE SUPPORT WIRE GUIDE\n",
+              "notes": [
+                "LUNDERQUIST"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Constant（通澳）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxq14umccubv",
+              "code": "2503995797",
+              "name": "Rosen Curved Wire Guide(THSCF-35-260-1.5-ROSEN)G01253",
+              "notes": [
+                "Rosen"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "muxq79sb8u94f",
+          "name": "Catheter",
+          "items": [
+            {
+              "id": "muxq7lebj8vi6",
+              "code": "2408038610",
+              "name": "PIGTAIL 4 FR 110CM ",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxq7lk35d8b5",
+              "code": "2408038637",
+              "name": "PIGTAIL 5 FR 110CM ",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxq7lq3vvobg",
+              "code": "2408031012",
+              "name": "RH 5FR 80CM ",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxq7mob91rjo",
+              "code": "2408038521",
+              "name": "COBRA LARGE 5FR 80CM",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxq7mx7kg9gu",
+              "code": "2408039056",
+              "name": "YASHIRO 5FR 100CM ",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxq7n9f633p9",
+              "code": "2408038513",
+              "name": "ANGIOGRAFIA VISCERAL COBRA C1 5F",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxq7nfn9dop8",
+              "code": "2503995223",
+              "name": "SIDEWINDER I 4FR 100CM ",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxq7nlvrx17f",
+              "code": "2503995231",
+              "name": "SIDEWINDER II 4FR 100CM ",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxq7nrnsl3iq",
+              "code": "2408038378",
+              "name": "SIDEWINDER I 5FR 100CM",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxq7nxn3kamq",
+              "code": "2408038408",
+              "name": "SIDEWINDER II 5FR 100CM ",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxq7o3vhyyl7",
+              "code": "2408038319",
+              "name": "SIDEWINDER III 5FR 100CM ",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxq7oa3suntz",
+              "code": "2408038246",
+              "name": "HEADHUNTER I 4FR 100CM ",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxq7ofve77a7",
+              "code": "2408038114",
+              "name": "HEADHUNTER I 5FR 100CM ",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxq7olfzpou7",
+              "code": "2503993557",
+              "name": "VERTEBRAL DIAGNOSTIC CATHETER FOR CEREBRAL, LENGTH 100CM, O.D. 5, TAPERED LENGTH 2CM - \"TERUMO\" RF*EH35010M",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxq7or7iqa8f",
+              "code": "2004034450",
+              "name": "bentson-hanafee-wilson2\n",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Hydi（美儉）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxq7owrkyvtm",
+              "code": "2402031452\t",
+              "name": "HYDROPHILIC ANGIOGRAPHIC CATHETER HEADHUNTER 2 FR5",
+              "notes": [
+                "125長"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxq7p2jxj5z5",
+              "code": "2402031444\t",
+              "name": "HYDROPHILIC ANGIOGRAPHIC CATHETER HEADHUNTER 2 FR4",
+              "notes": [
+                "125長"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "muxqelmr02k26",
+          "name": "Microcatheter",
+          "items": [
+            {
+              "id": "muxqf0jn6lj14",
+              "code": "2503993778",
+              "name": "EXCELSIOR SL-10 PRE-SHAPED 45 150CM - \"STRYKER\" 168190",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "RAY（科達）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxqf0pf0y7fx",
+              "code": "2503993786",
+              "name": "EXCELSIOR SL-10 PRE-SHAPED 90 150CM - \"STRYKER\" 168191",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "RAY（科達）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxqf0vn43xna",
+              "code": "2503993794\t",
+              "name": "EXCELSIOR SL-10 PRE-SHAPED J 150CM - \"STRYKER\" 168192",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "RAY（科達）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxqf11n9q7dk",
+              "code": "2503993808\t",
+              "name": "EXCELSIOR SL-10 PRE-SHAPED C 150CM - \"STRYKER\" 168193",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "RAY（科達）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxqf17nqm0px",
+              "code": "2503993816\t",
+              "name": "EXCELSIOR SL-10 PRE-SHAPED S 150CM - \"STRYKER\" 168194",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "RAY（科達）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxqf1df1zvhg",
+              "code": "2408032574",
+              "name": "MERIT MAESTRO MICROCATHETER (SWAN NECK) - \"MERIT\" 28MC28XXXSN\n",
+              "notes": [
+                "SWAN NECK"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "美華（創基）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxqf1jfb63j5",
+              "code": "2503993310",
+              "name": "EXCELSIOR XT-27 MICROCATHETER 2.9FR",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "RAY（科達）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxqjp9af8opn",
+              "code": "2503990493",
+              "name": "MICROCATHETER EXCELSIOR 1018, 2.6F/2.0F 150CM 2 TIP MAKER",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxqk0seblxts",
+              "code": "2503994324",
+              "name": "CXI2.6Fr\n\n",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxqk1adsony2",
+              "code": "2503994332",
+              "name": "CXI4 Fr",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "muxqeqyjjpcdy",
+          "name": "Guiding Catheter",
+          "items": [
+            {
+              "id": "muxqlwbjbgnoy",
+              "code": "2503992550",
+              "name": "PENUMBRA SYSTEM NEURON DELIVERY CATHETER 6FR NEURON 088,\n \"\"PENUMBRA\"\" PNML6F088904M",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "RAY（科達）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxqlwlr9telr",
+              "code": "2503994278",
+              "name": "PENUMBRA SYSTEM NEURON DELIVERY CATHETER 6FR NEURON 053,\n \"\"PENUMBRA\"\" PND6F1056M",
+              "notes": [
+                "停產"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "RAY（科達）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxqlwzjyx10m",
+              "code": "2503994286",
+              "name": "PENUMBRA SYSTEM NEURON DELIVERY CATHETER 6FR NEURON 071\n - \"\"PENUMBRA",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "RAY（科達）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxqlxkv1m0gx",
+              "code": "2503995525",
+              "name": "FLOWGATE 2 BALLOON GUIDE CATHETER 95CM, \"SKRTKER\" 90495",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "RAY（科達）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxqnkieiunvi",
+              "code": "2503995320",
+              "name": "SOFIA PLUS SOFT TORQUEABLE CATHETER OPTIMIZED FOR INTRACRANIAL ACCESS",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjeeqq6pqd25",
+              "code": "2503990604",
+              "name": "GATEWAY BALLOON CATHETER 20724XXXX, F/G, GATEWAY, OTW ",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "muxqpfb492uei",
+          "name": "Long Shealth",
+          "items": [
+            {
+              "id": "muxqpqwf5v47d",
+              "code": "2503991082",
+              "name": "INTRODUCER FLEXOR TUOHY-BORST SIDE-ARM SHUTTLE-SL \"COOK KSAW -5.0-18/38-90-RB-SHTL-HC\"",
+              "notes": [
+                "5Fr 90cm"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Constant（通澳）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxqprbb86boa",
+              "code": "2503991031\t",
+              "name": "INTRODUCER FLEXOR TUOHY-BORST SIDE-ARM ANSEL MODIFICATION \"COOK KSAW-6.-0-38-55-RB-ANL2-HC\"",
+              "notes": [
+                "6Fr 55cm"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Constant（通澳）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxqprh3l5eyv",
+              "code": "2503991945",
+              "name": "FLEXOR TUOHY-BORST SIDE-ARM INTRODUCER - \"COOK\" KSAW-6.0-38-90-RB-SHTL-FLEX-HC",
+              "notes": [
+                "6Fr 90cm"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Constant（通澳）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxqprmfvsmf6",
+              "code": "2503991040",
+              "name": "INTRODUCER FLEXOR TUOHY-BORST SIDE-ARM ANSEL MODIFICATION \"COOK KSAW-7.-0-38-55-RB-ANL2-HC\"\n",
+              "notes": [
+                "7Fr 55cm"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Constant（通澳）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxqprrz67htk",
+              "code": "2503991074",
+              "name": "INTRODUCER FLEXOR TUOHY-BORST SIDE-ARM SHUTTLE-SL \"COOK KSAW -7.0-38-90-RB-SHTL-HC\"\n",
+              "notes": [
+                "7Fr 90cm"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Constant（通澳）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxqprxjqgw45",
+              "code": "2503994383",
+              "name": "FLEXOR ANSEL GUIDING SHEATH WITH CHECK-FLO HEMOSTASIS VALVE 8FR 45CM MULTIPURPOSE - \"COOK\" KCFW-8.0-18/38-45-RB-ANL1-HC\n",
+              "notes": [
+                "8Fr 45cm"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Constant（通澳）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxqr8lufhq8u",
+              "code": "2503994391",
+              "name": "90CM FLEXOR RAABE CHECK FLO VALVE GUIDING SHEATH WITH CHECH FLO HEMOSTASIS VALVE 8.0FR 90CM - \"COOK\" KCFW-8.0-38-90-RB-RAABE\n",
+              "notes": [
+                "8Fr 90cm"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Constant（通澳）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxqrcbqcaijc",
+              "code": "2503993182",
+              "name": "LARGE CHECK-FLO INTRODUCERS LARGE VALVE ASSEMBLY (LENGTH SHEATH) - \"COOK\" G27023",
+              "notes": [
+                "16FR"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Constant（通澳）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "muxqww0x3locm",
+          "name": "血管縫合器",
+          "items": [
+            {
+              "id": "muxqx37c0njj0",
+              "code": "2004030888\t",
+              "name": "股動脈止血裝置(ANGIOSEAL) 6F \"ANGIOSEAL\" (植入物) ",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Rico"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxqx3hspr8jp",
+              "code": "2503994308",
+              "name": "股動脈止血裝置(ANGIOSEAL) 8F \"ANGIOSEAL\" (植入物) \n",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Rico"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxqx43sl6hss",
+              "code": "2503992607",
+              "name": "PERCLOSE PROGLIDE SUTURE- MEDIATED CLOSURE 6F - \"ABBOTT\" 12673 ",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Lena（新康輝）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "muxr0i0c0zw1h",
+          "name": "Marker Pigtail",
+          "items": [
+            {
+              "id": "muxr0jhcuxcf3",
+              "code": "2503991287",
+              "name": "CATHETER (PIGTAIL SIZING CATHETER) F5/100CM CAT.N5.0-35-100- -P-10S-PIG-CSC-20",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "muxr11h4ioqef",
+          "name": "Snare",
+          "items": [
+            {
+              "id": "muxr15qgp1cmb",
+              "code": "2503993280",
+              "name": "EN SNARE ENDOVASCULAR SNARE SYSTEM - \"\"MERIT\"\" EN200XXXX (先用後付款)\nEN SNARE ENDOVASCULAR SNARE SYSTEM - \"\"MERIT\"\" EN200XXXX (UTILIZACAO PREVIA AO PAGAMENTO)",
+              "notes": [
+                "EN SNARE"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "美華（創基）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxr166v44oar",
+              "code": "2004031345",
+              "name": "AMPLATZ GOOSE NECK MICROSNARE KIT, L :175 CM, DIA.:2/4/7 MM, CATHETER LENGTH/SIZE : 150 CM/2.3F-3.0F, \"EV3 SK200/400/700",
+              "notes": [
+                "MICROSNARE"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxr171zee5ly",
+              "code": "2408035565",
+              "name": "RETRIEVER CATHETER (AMPLATZ GOOSE NECK SNARE) KIT LOOP DIAM 10MM 4F/102CM",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxr3iem17pju",
+              "code": "2503995380",
+              "name": "THE INDY OTW VASCULAR RETRIEVER (先用後付款)",
+              "notes": [
+                "大花花"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Constant（通澳）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "muxr2pu2qdo2i",
+          "name": "Balloon",
+          "items": [
+            {
+              "id": "muxr4fy97045m",
+              "code": "2503990019",
+              "name": "連球囊導管 (先用後付款) PTCD 肝?管支架成型術 (BILIARY ENDOPROSTHESIS)\nCATETER COM BALAO F5 PARA PTA (UTILIZACAO PREVIA AO PAGAMENTO)\nPTA- BALLOON CATHETER",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxr4g41s9j27",
+              "code": "2503993689",
+              "name": "ARMADA 35 5MM/10MM ON 135CM CATHETER WW (先用後付款)",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Lena（新康輝）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxr4gixj8zv2",
+              "code": "2503996696",
+              "name": "TOKAI RESCUE BALLOON 7FR, 80CM LENGTH (實用實付) 此項物品需提供代理證明 ESTE ITEM REQUER UMA PROVA DE AGENCIA DO PRODUTO A FORNECER\nTOKAI RESCUE BALLOON 7FR, 80CM LENGTH (UTILIZACAO PREVIA AO PAGAMENTO)\"\n",
+              "notes": [
+                "rescue balloon"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjf9tgsrqvbd",
+              "code": "2004060086",
+              "name": "Inflation devices",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "muxr8cv432jfo",
+          "name": "Y Connector",
+          "items": [
+            {
+              "id": "muxr8r1c0k13m",
+              "code": "2503991678",
+              "name": "OK-CONNECTOR Y \"YOK0E\"\n",
+              "notes": [
+                "靚仔"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Sandy（康狄）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxr8r6wpinoy",
+              "code": "2503990850",
+              "name": "ROTATING HEMOSTATIC VALVE 8F CAT. 91400021 \" BOSTON SCIENTIFIC \"",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "muxr9v2zccgh7",
+          "name": "PTCD/ TIPS",
+          "items": [
+            {
+              "id": "muxra7e2kmga6",
+              "code": "2503991198\t",
+              "name": "HTPS-100 HASKAL TIPS SET (SCOO0194)\n",
+              "notes": [
+                "TIPS SET"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxra7kiw64jh",
+              "code": "2503991538",
+              "name": "PTCD SET\n",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxra7qy9qbux",
+              "code": "2412060345",
+              "name": "CHIBA needle\n",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjfd51mrj1gf",
+              "code": "2503993565",
+              "name": "BILIARY DRAINAGE CATHETER - \"COOK\" ULT8.5-38-40-P-32S-CLB-RH",
+              "notes": [
+                "多側孔",
+                "內外引流"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjfd5peyjtpb",
+              "code": "2503990043",
+              "name": "多用途引流導管J-TIPMULTI-USE DRAINAGE CATHETER 8F J-TIP 30CM LENGTH",
+              "notes": [
+                "白豬尾"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjfd8ea4xneh",
+              "code": "2503990060",
+              "name": "多用途引流導管LOCKING PIGTAIL\nMULTI-USE DRAINAGE CATHETER 6F LOCKING PIGTAIL 30CM LENGTH",
+              "notes": [
+                "白豬尾"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": false
+        },
+        {
+          "id": "muxrb5oeo7g00",
+          "name": "Stroke 物料",
+          "items": [
+            {
+              "id": "muxrehbdzn99z",
+              "code": "2503992372",
+              "name": "REPERFUSION CATHETER - \"PENUMBRA\" RED72\n\n",
+              "notes": [
+                "RED72"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxrehiahztg6",
+              "code": "2503992380",
+              "name": "3MAX REPERFUSION CATHTER 035,153-\"PENUMBRA\"3MAXC",
+              "notes": [
+                "Veta46"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxrehpma7xcr",
+              "code": "2503994529",
+              "name": "PENUMBRA ACCESSORIES IST3 LARGE LUMEN ASPIRATION TUBING (先用後付款)",
+              "notes": [
+                "tube"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxrehvlnolp7",
+              "code": "2503992445",
+              "name": "PENUMBRA SYSTEM ASPIRATION NON-STERILE PENUMBRA SYSTEM SUPPLIES",
+              "notes": [
+                "樽"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxrei3uanq58",
+              "code": "2503995509",
+              "name": "SOLITAIRE TM X REVASCULARIZATION EVICE 4MM X 20MM",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxrekpusxkzy",
+              "code": "2503995517",
+              "name": "SOLITAIRE TM X REVASCULARIZATION DEVICE 4MM X 40MM ",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxrel6ya3snx",
+              "code": "2503995487",
+              "name": "SOLITAIRE TM X REVASCULARIZATION DEVICE 6MM X 40MM",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxreldloes7k",
+              "code": "2503995495",
+              "name": "SOLITAIRE TM X REVASCULARIZATION DEVICE 6MM X 20MM",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxrhr6yoj2rg",
+              "code": "2503996327",
+              "name": "PHENOM TM 27 CATHETER 150CM (先用後付款)",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muxrhrwyk8yz2",
+              "code": "2503996025",
+              "name": "PHENOM TM 21 CATHETER",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvkiff0kx9gol",
+              "code": "2503996831",
+              "name": "NEUROVASCULAR APRO 70 CATHETER 0.080 X 132CM, HYDROPHILIC COATING, L:97CM, “MEDTRONIC” APRO-70-132 (植入物) (實用實付) 此項物品需提供代理證明 ESTE ITEM REQUER UMA PROVA DE AGENCIA DO PRODUTO A FORNECER\nNEUROVASCULAR APRO 70 CATHETER 0.080 X 132CM, HYDROPHILIC COATING, L:97CM, “MEDTRONIC” APRO-70-132 (IMPLANTES) (PAGAMENTO EFECTIVO)",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "mv0q2hmzqvob3",
+          "name": "Liver RFA needle",
+          "items": [
+            {
+              "id": "mvjeof9plmy7s",
+              "code": "2416991726",
+              "name": "DISPOSABLE MICROWAVE THERAPEUTIC ANTENNA 14G/16G,ECO” ECO-100CLXXC",
+              "notes": [
+                "微波"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjeoffp15fip",
+              "code": "2904040455",
+              "name": "COOL-TIP RF ELECTRODE KIT SINGLE 15CM X 1CM ",
+              "notes": [
+                "水針1cm"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjeoflgg8x66",
+              "code": "2904040420",
+              "name": "COOL TIP RF ELECTRODE KIT SINGLE 15CM X 2CM ",
+              "notes": [
+                "水針2cm"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjeonqk2p1iq",
+              "code": "2904040439",
+              "name": "COOL-TIP RF ELECTRODE KIT SINGLE 15CM X 3CM",
+              "notes": [
+                "水針3cm"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "mv0q3eias3vso",
+          "name": "雜項",
+          "items": [
+            {
+              "id": "mvdil07xrzyi6",
+              "code": "2503992984",
+              "name": "SEADRAGON GUIDE WIRE TORQUE DEVICE - \"MERIT\" TD500",
+              "notes": [
+                "TORQUE"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "美華（創基）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvdil0pglypyq",
+              "code": "2503994499",
+              "name": "MEDRAD ANGIOGRAPHIC DISPOSABLE SYRING KIT\n",
+              "notes": [
+                "DSA Power Injector樽"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "美華（創基）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvdil1icuqixq",
+              "code": "2408033228",
+              "name": "EXTENSOR CATETER ALTA PRESSAO LUER-LOCK M/F(ANGIOGRAF.)100CM\n",
+              "notes": [
+                "DSA Power Injector管"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjdigsso4xpg",
+              "code": "2912991582",
+              "name": "SURGICAL/INTRAOPERATIVE PROBE COVER, 15 X 244CM (WITH 2 ELASTIC BANDS, 2 ADHESIVE STRIPS, 1 ULTRASOUND GEL PACKET)",
+              "notes": [
+                "Probe 套"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjfhwvzr4lti",
+              "code": "2503992992",
+              "name": "THE RINGMASTER GUIDE WIRE BASIN - \"MERIT\" RM01\n",
+              "notes": [
+                "飛碟"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "mvjg1xk20aoqv",
+          "name": "filter wire",
+          "items": [
+            {
+              "id": "mvjg262xhdnbm",
+              "code": "2503994472",
+              "name": "EV3 SPIDER FX SPD2-060-190\n",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        }
+      ]
+    },
+    {
+      "id": "mvjduw5emp5or",
+      "name": "影像科專用",
+      "type": "special",
+      "areas": [
+        {
+          "id": "mvjduw5eovoiu",
+          "name": "14G 活檢針",
+          "items": [
+            {
+              "id": "mvjdv9l6t9wkv",
+              "code": "2503993514",
+              "name": "SOFT TISSUE BIOPSY NEEDLES (ACHIEVE NEEDLES 14G/9CM)\n",
+              "notes": [
+                "乳腺穿刺"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Constant（通澳）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjfsjea8r83r",
+              "code": "2412060701",
+              "name": "活檢針14GA X 15CM\nAGULHA P/ BIOPSIA 14GA X 15CM\nTEMNO AUTOMATIC DISPOSABLE BIOPSY NEEDLE",
+              "notes": [
+                "少用,不買"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "mvjdvbhlcarbm",
+          "name": "18G 活檢針",
+          "items": [
+            {
+              "id": "mvjdvdspqwe1r",
+              "code": "2412061066",
+              "name": "AGULHA P/ BIOPSIA 18GX 16CM \"MAGNUM REF.MN1816",
+              "notes": [
+                "內臟穿刺"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjdwvodkicyb",
+              "code": "2412060167",
+              "name": "AGULHA P/ BIOPSIA 18G X 20CM \" MAGNUM REF. MN 1820",
+              "notes": [
+                "內臟穿刺"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjfr7itooh7y",
+              "code": "2412060914",
+              "name": "AGULHA P/ BIOPSIA 20GX16CM \"MAGNUM REF.MN2016",
+              "notes": [
+                "內臟穿刺"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjfrncdne81e",
+              "code": "2412061120",
+              "name": "DISPOSABLE BIOPSY NEEDLE 18G X 6CM \"TEMNO T186\"",
+              "notes": [
+                "外周+淋巴穿刺"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjfrnotdn2r3",
+              "code": "2503993522",
+              "name": "TEMNO EVOLUTION BIOPSY NEEDLE WITH INTRODUCER",
+              "notes": [
+                "18G X 15CM"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "mvjdvjapkdgw0",
+          "name": "活檢針 Troca",
+          "items": [
+            {
+              "id": "mvjdwykdp3d53",
+              "code": "2412061422",
+              "name": "DISPOSABLE COAXIAL BIOPSY NEEDLE, 17GX13.8CM - \"BARD\" C1816A 此項物品需提供代理證明",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": false
+        },
+        {
+          "id": "mvjdx3lv2ckfg",
+          "name": "B超 IV針",
+          "items": [],
+          "collapsed": true
+        },
+        {
+          "id": "mvjdxs2q3zoik",
+          "name": "引流管 Drainage",
+          "items": [
+            {
+              "id": "mvjea3ai9hhhp",
+              "code": "2416990037",
+              "name": "NAVARRE UNIVERSAL DRAINAGE CATHETER WITH NITINOL 6F/15CM",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Libra（健輝）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjea3gjznggp",
+              "code": "2416990029",
+              "name": "NAVARRE UNIVERSAL DRAINAGE CATHETER WITH NITINOL 6F/30CM",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Libra（健輝）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjea3mbhw3du",
+              "code": "2416990053",
+              "name": "NAVARRE UNIVERSAL DRAINAGE CATHETER WITH NITINOL 8F/15CM",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjea44ig55rv",
+              "code": "2416990045",
+              "name": "NAVARRE UNIVERSAL DRAINAGE CATHETER WITH NITINOL 8F/30CM",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjea4ci3u0fj",
+              "code": "2416990061",
+              "name": "NAVARRE UNIVERSAL DRAINAGE CATHETER WITH NITINOL 10F/30CM",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjea4vuas3kq",
+              "code": "2416990070",
+              "name": "NAVARRE UNIVERSAL DRAINAGE CATHETER WITH NITINOL 12F/30CM",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "mvjepykxdcrtt",
+          "name": "MAMMOTOME",
+          "items": [
+            {
+              "id": "mvjeq4m78mnx7",
+              "code": "2503993484",
+              "name": "ENCOR PROBE STERIOTACTIC ULTRASOUND 7G",
+              "notes": [
+                "綠機"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjeq4svl854k",
+              "code": "2503993492",
+              "name": "ENCOR PROBE STERIOTACTIC ULTRASOUND 10G",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "mvjequsmjg42p",
+          "name": "微鈣化",
+          "items": [
+            {
+              "id": "mvjer9fh1newd",
+              "code": "2503994928",
+              "name": "MAMMOTOME REVOLVE DUAL VACUUM-ASSISTED BIOPSY SYSTEM ",
+              "notes": [
+                "紫機針"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjer9r9ywbo8",
+              "code": "2503994936",
+              "name": "Mammotome Revolve Probe Guide",
+              "notes": [
+                "紫機 probe guide"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjflhb0zz2wy",
+              "code": "2503994979",
+              "name": "8G 12CHAMBER REPLACEMENT VACUUM CANISTER \n",
+              "notes": [
+                "紫機標本樽"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjfnv2gh7mlq",
+              "code": "2503995410",
+              "name": "ENCOR BREAST BIOPSY SYSTEM NEEDLE GUIDE INSENT\n",
+              "notes": [
+                "紫機 probe guide"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        }
+      ]
+    },
+    {
+      "id": "mvjdg1ajc6j1r",
+      "name": "植入物",
+      "type": "special",
+      "areas": [
+        {
+          "id": "mvjedrqhqlozg",
+          "name": "Coil",
+          "items": [],
+          "collapsed": true
+        },
+        {
+          "id": "mvjdg1ajky8aw",
+          "name": "EVAR",
+          "items": [],
+          "collapsed": true
+        },
+        {
+          "id": "mvjdgdon0m3b8",
+          "name": "TEVAR",
+          "items": [],
+          "collapsed": true
+        },
+        {
+          "id": "mvjdgfxrcpm0v",
+          "name": "Onxy",
+          "items": [
+            {
+              "id": "mvrh5ah1lrecr",
+              "code": "2503991902",
+              "name": "ONXY AVM SYSTEM (ONYX 18/ONYX 34) (植入物) (實用實付) ",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Constant（通澳）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvrh5gatedsl5",
+              "code": "2503993719",
+              "name": "SQUID LIQUID EMBOLIE, \"BALT\"SQUIDXX/SQUIDXXLD (實用實付) ",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "美華（創基）",
+                "Alfred（創基）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "mvjdgnwvhf0d5",
+          "name": "Periphearal Stent",
+          "items": [
+            {
+              "id": "mvjdqq7o0twro",
+              "code": "2503995274",
+              "name": "FLUENCY PLUS VASCULAR STENT GRAFT (先用後付款)\nFLUENCY PLUS VASCULAR STENT GRAFT (UTILIZACAO PREVIA AO PAGAMENTO)",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjdqqjgwls67",
+              "code": "2503994448",
+              "name": "BE GRAFT PERIPHEARAL (先用後付款) (植入物) 此項物品需提供代理證明 \nBE GRAFT PERIPHEARAL (UTILIZACAO PREVIA AO PAGAMENTO) (IMPLANTES)\"",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjdqquslczwr",
+              "code": "2503990027",
+              "name": "連記憶支架導管 (實用實付) PTCD 肝膽管支架成型術 (BILIARY ENDOPROSTHESIS)/此項物品需提供代理證明 ESTE ITEM REQUER UMA PROVA DE AGENCIA DO PRODUTO A FORNECER\nPTA -EXPANDED STENT CATHETER",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "mvjdrx16qpjcg",
+          "name": "Neuroform",
+          "items": [
+            {
+              "id": "mvjds58x51jjk",
+              "code": "2503994464",
+              "name": "INTRACRANIAL STENT NEUROFORM ATLAS STENT SYSTEM 3.0MMX15MM",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjds5exsvc4o",
+              "code": "2503994553",
+              "name": "INTRACRANIAL STENT NEUROFORM ATLAS STENT SYSTEM 4.0MM X 21MM (IMPLANTES)",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjds5s0jubgm",
+              "code": "2503994260\t",
+              "name": "INTRACRANIAL STENT NEUROFORM ATLAS STENT SYSTEM 4.5MMX30CM - \"STRYKER\"",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "mvjdtanqqga2r",
+          "name": "Microspheres",
+          "items": [
+            {
+              "id": "mvjdtcg56qtay",
+              "code": "2503994430",
+              "name": "HEPASPHERE 25MG, 50-100UM ",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjdtcl90eexz",
+              "code": "2436081025",
+              "name": "ESTE ITEM REQUER UMA PROVA DE AGENCIA DO PRODUTO A FORNECER\nCOMPRESSIBLE MICROSPHERES FOR EMBOLISATION EB1SXXX (IMPLANTES)",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "mvjen5btshzsh",
+          "name": "IVC Filter",
+          "items": [
+            {
+              "id": "mvjeney9t2rc0",
+              "code": "2503993573",
+              "name": "VENA CAVA FILTER (JUGULAR DELIVERY)\n",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjenf3s3qqze",
+              "code": "2503993581",
+              "name": "VENA CAVA FILTER (FEMORAL DELIVERY)\n",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjenf94bztfa",
+              "code": "2503992658",
+              "name": "RECOVERY CONE REMOVAL SYSTEM - \"BARD\"",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "mvjeuyffo7tzf",
+          "name": "IA port",
+          "items": [
+            {
+              "id": "mvjev3zf4utnc",
+              "code": "2408031616",
+              "name": "ACCESS PORT 5F \" B. BRAUN ST305C/04436962 \"\n",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "mvjfw7hli3fgl",
+          "name": "靜脈支架 IVC stent",
+          "items": [
+            {
+              "id": "mvjfwm940v488",
+              "code": "2503995908",
+              "name": "ABRE VENOUS SELF-EXPANDING STENT SYSTEM (實用實付) 此項物品需提供代理證明 ESTE ITEM REQUER UMA PROVA DE AGENCIA DO PRODUTO A FORNECER\nABRE VENOUS SELF-EXPANDING STENT SYSTEM (UTILIZACAO PREVIA AO PAGAMENTO)",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjfwmfk60a0v",
+              "code": "2503995916",
+              "name": "TOURGUIDE TM STEERABLE SHEATH (實用實付) 此項物品需提供代理證明 ESTE ITEM REQUER UMA PROVA DE AGENCIA DO PRODUTO A FORNECER\nTOURGUIDE TM STEERABLE SHEATH (UTILIZACAO PREVIA AO PAGAMENTO)",
+              "notes": [
+                "靜脈支架鞘管"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "mvjfxskd1i2r2",
+          "name": "vascular plug",
+          "items": [
+            {
+              "id": "mvjfxzi4w6bob",
+              "code": "2503995649",
+              "name": "AMPLATZER VASCULAR PLUG II ",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Lena（Abbott）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjfxzod832b8",
+              "code": "",
+              "name": "",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjfy11xfs44k",
+              "code": "",
+              "name": "",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "mvjfyw6xl43fm",
+          "name": "ENDOANCHOR",
+          "items": [
+            {
+              "id": "mvjfz7op8776h",
+              "code": "2503994880\t",
+              "name": "GUIDE SG-64 AAA ENDOANCHOR 62CM MDT",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Constant（Medtronic）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjfz7zd1pc86",
+              "code": "2503994898",
+              "name": "ANCILLARY EBDOANCHOR CASSETTE (5 ENDOANCHORS",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [
+                "Constant（Medtronic）"
+              ],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        },
+        {
+          "id": "mvjesloyelok3",
+          "name": "乳腺Marker",
+          "items": [
+            {
+              "id": "mvjesqxb4at3s",
+              "code": "2503995355\t",
+              "name": "ULTRACOR TWIRI BREAST TISSUE MARKER 17G",
+              "notes": [
+                "圈圈"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjesrg0ihmly",
+              "code": "2503995436\t",
+              "name": "TUMARK VISION MARKER LENGTH 10CM, 18G, \"HOLOGIC\" (BOX OF 10)",
+              "notes": [
+                "魚蛋"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "mvjf7hbdz5q2g",
+              "code": "2503994952",
+              "name": "8G MAMMOMARK BIOPSY SITE IDENTIFIER ",
+              "notes": [
+                "紫機marker"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        }
+      ]
+    },
+    {
+      "id": "munk9slbg1ayq",
+      "name": "DSA藍箱",
+      "type": "consign",
+      "areas": [
+        {
+          "id": "munk9slb0rr85",
+          "name": "區域 1",
+          "items": [],
+          "collapsed": false
+        }
+      ]
+    },
+    {
+      "id": "munkbnevz1z1n",
+      "name": "C2物料",
+      "type": "special",
+      "areas": [
+        {
+          "id": "munkbnevx7y3o",
+          "name": "區域 1",
+          "items": [],
+          "collapsed": false
+        }
+      ]
+    },
+    {
+      "id": "munkc4nqeydg9",
+      "name": "新大樓 PATT車",
+      "type": "common",
+      "areas": [
+        {
+          "id": "munkc4nqsgy4g",
+          "name": "區域 1",
+          "items": [],
+          "collapsed": false
+        }
+      ]
+    },
+    {
+      "id": "muw1rhragrh2t",
+      "name": "DSA藥物",
+      "type": "common",
+      "areas": [
+        {
+          "id": "muw1rhraut32f",
+          "name": "藥物 W1,4領貨, W2,5返貨",
+          "items": [
+            {
+              "id": "muwaqky6u03f6",
+              "code": "1102020348\t",
+              "name": "2%LIDOCAINE400MG/ 20ML",
+              "notes": [
+                "常用"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwaql3q43a0e",
+              "code": "1102020118",
+              "name": "2%LICOCAINE +ADRENALINA\n",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwatrb3iji3j",
+              "code": "1120011417",
+              "name": "ALCOHOL(ABSOLUTE) 5MLpara peit",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muw1rldx3nxjl",
+              "code": "1105040046\t",
+              "name": "ABCIXIMAB2MG/ML (REOPRO)",
+              "notes": [
+                "溶栓藥"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwaqlyua1nvi",
+              "code": "1105040012",
+              "name": "ASPIRIN100MG",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwatrq7cw6tp",
+              "code": "1104040060",
+              "name": "Captopril 25mg",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwb2mpryrvak",
+              "code": "1105040030",
+              "name": "Clopidogrel 75mg",
+              "notes": [
+                "Plavix"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwatrg7gc89y",
+              "code": "1105020311\t",
+              "name": "EPTIFIBATIDE 20MG/10ML (INTEGRILIN)",
+              "notes": [
+                "溶栓藥"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwb5dy4jtpv8",
+              "code": "1113010335",
+              "name": "FAT EMULSION20% (250mL)\nIntralipid",
+              "notes": [
+                "局麻藥解毒劑"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwaql92qm1ua",
+              "code": "1105020038",
+              "name": "HEPARIN 5000U/ML\n",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwaqldy3w50z",
+              "code": "1119010434",
+              "name": "Iopamiro300",
+              "notes": [
+                "56/box"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwaqltivusva",
+              "code": "1119010426",
+              "name": "LIPIODOL 38%IODINE 10ML",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwaqliuv5ck0",
+              "code": "1119010466",
+              "name": "SULPHUR HEXAFLUORIDE 25MG IV(SONOVUE)",
+              "notes": [
+                "BBUS"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwaqlo6vq26e",
+              "code": "1104020115",
+              "name": "VERAPAMIL 5MG/2ML",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwatrlbtn2z0",
+              "code": "1109020083",
+              "name": "SOLU MEDVOE 500MG",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": false
+        },
+        {
+          "id": "muwavrxummeua",
+          "name": "製藥  W3領貨, W4返貨",
+          "items": [
+            {
+              "id": "muwayylq4bjbk",
+              "code": "1120010448\t",
+              "name": "Alcho-prep",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwayy603diza",
+              "code": "1101110814",
+              "name": "povidone-iodine 10%topical solution(500ml)",
+              "notes": [
+                "綠樽消毒",
+                "betadine"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwawscs4ybzp",
+              "code": "1101110580",
+              "name": "SPECIMEN CONTAINER WITH BUFFERED FORMALIN 10% 30ML 標本瓶",
+              "notes": [
+                "27/box"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwawsno3i7ji",
+              "code": "1101110245",
+              "name": "Unisept\n",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwawsicuakyd",
+              "code": "1119020138",
+              "name": "血糖機試紙",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwayysfenkd8",
+              "code": "1920010047",
+              "name": "i-stat(ACT) cartridges(一盒25)",
+              "notes": [
+                "寫005紙交採購組CAMAKE(8529)",
+                "*試劑有效期約為3個月,購買時需備註每次只交一盒,聯絡後才訂貨",
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwayzzrq8l7w",
+              "code": "2604035360",
+              "name": "hemochron ACT tube ",
+              "notes": [
+                "DSA用ACT LR"
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": false
+        },
+        {
+          "id": "muwaw10ipqxms",
+          "name": "注射用水  W3領貨",
+          "items": [
+            {
+              "id": "muwbbns1a0few",
+              "code": "1113010106",
+              "name": "1000",
+              "notes": [
+                ""
+              ],
+              "baseQty": 20,
+              "curQty": 0,
+              "out": false,
+              "expiry": "20300706",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwbbyqxqokxc",
+              "code": "1120010715",
+              "name": "藍蓋NS",
+              "notes": [
+                ""
+              ],
+              "baseQty": 10,
+              "curQty": 5,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwbbol549utg",
+              "code": "1113010092",
+              "name": "500",
+              "notes": [
+                ""
+              ],
+              "baseQty": 10,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwbbpo1biwja",
+              "code": "1113011038",
+              "name": "500袋",
+              "notes": [
+                ""
+              ],
+              "baseQty": 0,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwbbqjtslxjs",
+              "code": "1113010440",
+              "name": "100",
+              "notes": [
+                ""
+              ],
+              "baseQty": 10,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            },
+            {
+              "id": "muwbbrqxak66g",
+              "code": "1113010343",
+              "name": "LR",
+              "notes": [
+                ""
+              ],
+              "baseQty": 15,
+              "curQty": 0,
+              "out": false,
+              "expiry": "",
+              "contactList": [],
+              "extras": [],
+              "noExpiry": false
+            }
+          ],
+          "collapsed": true
+        }
+      ]
+    }
+  ],
+  "colWidths": {
+    "supplier": {
+      "brands": 662,
+      "contact": 507,
+      "name": 226,
+      "tags": 505,
+      "cphone": 225,
+      "cname": 241
+    },
+    "special": {
+      "note": 194,
+      "name": 448,
+      "code": 175,
+      "expiry": 152,
+      "out": 80
+    },
+    "common": {
+      "name": 370,
+      "out": 75,
+      "expiry": 184,
+      "note": 225,
+      "curQty": 73,
+      "baseQty": 72
+    }
+  },
+  "codeMode": "barcode",
+  "empId": "0206179",
+  "fontScale": 1.5,
+  "customContacts": []
+}
