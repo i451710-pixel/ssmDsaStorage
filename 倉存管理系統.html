@@ -1,0 +1,3387 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>倉存管理系統</title>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<style>
+:root{
+  --bg:#f4f6f9; --panel:#fff; --border:#e3e7ee; --text:#1e2430; --muted:#7a8395;
+  --accent:#2563eb; --accent-d:#1d4ed8;
+  --yellow:#fff6d6; --yellow-b:#f2b705;
+  --red:#ffe1e1;   --red-b:#e5484d;
+  --green:#f0fdf4; --green-b:#16a34a; --green-d:#15803d; --green-l:#bbf7d0;
+  --side:#111827; --side-hover:#1f2937;
+  --page-h:64px;
+  --area-h:40px;
+}
+*{box-sizing:border-box}
+html{font-size:16px}
+html,body{height:100%}
+body{margin:0;font-family:"Microsoft JhengHei","PingFang TC","Noto Sans TC",system-ui,sans-serif;
+     font-size:.84rem;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased}
+button{font-family:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit}
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+input[type=number]{-moz-appearance:textfield;appearance:textfield}
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-thumb{background:#c7cdd8;border-radius:5px}
+::-webkit-scrollbar-track{background:transparent}
+
+#login{position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 30% 20%,#1e3a8a,#0b1220 70%)}
+.login-box{width:340px;background:#fff;border-radius:16px;padding:38px 30px 30px;
+  box-shadow:0 24px 60px rgba(0,0,0,.45);text-align:center}
+.login-box h1{margin:0 0 24px;font-size:1.25rem;letter-spacing:1px}
+#empInput{width:100%;padding:13px 14px;font-size:1.25rem;letter-spacing:6px;text-align:center;
+  border:2px solid var(--border);border-radius:10px;outline:none;transition:.15s}
+#empInput:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(37,99,235,.12)}
+#loginBtn{margin-top:16px;width:100%;padding:12px;border:0;border-radius:10px;background:var(--accent);
+  color:#fff;font-size:.94rem;font-weight:600;transition:.15s}
+#loginBtn:hover{background:var(--accent-d)}
+.err{color:var(--red-b);font-size:.75rem;height:16px;margin-top:8px}
+
+#app{display:none;height:100vh}
+#app.on{display:flex}
+#sidebar{width:250px;flex:none;background:var(--side);color:#cbd5e1;display:flex;flex-direction:column;transition:width .18s}
+#sidebar.collapsed{width:0;overflow:hidden}
+.brand{padding:16px 16px 12px;font-size:.94rem;font-weight:700;color:#fff;letter-spacing:1px;
+  display:flex;align-items:center;gap:8px;border-bottom:1px solid #1f2937}
+.side-scroll{flex:1;overflow-y:auto;padding:8px 8px 8px}
+.nav-item{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:8px;margin-bottom:2px;
+  cursor:pointer;font-size:.81rem;user-select:none;position:relative;transition:.12s}
+.nav-item:hover{background:var(--side-hover)}
+.nav-item.active{background:var(--accent);color:#fff}
+.nav-item .ic{width:18px;text-align:center;flex:none}
+.nav-item .nm{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-item .del{opacity:0;font-size:.75rem;padding:2px 4px;border-radius:4px}
+.nav-item:hover .del{opacity:.75}
+.nav-item .del:hover{opacity:1;background:rgba(255,255,255,.18)}
+.nav-item .dh{opacity:.35;font-size:.69rem;cursor:grab;letter-spacing:-2px}
+.nav-item.dragging{opacity:.4}
+.nav-item.drop-target{outline:2px dashed var(--accent);outline-offset:-2px}
+.nav-item input.ren{width:100%;background:#fff;color:#111;border:0;border-radius:4px;padding:2px 4px;
+  font-size:.81rem;outline:none}
+.side-foot{padding:8px;border-top:1px solid #1f2937}
+.side-foot button{width:100%;padding:9px;border:1px dashed #475569;background:transparent;color:#94a3b8;
+  border-radius:8px;font-size:.78rem;transition:.15s}
+.side-foot button:hover{border-color:var(--accent);color:#fff;background:rgba(37,99,235,.2)}
+
+#main{flex:1;display:flex;flex-direction:column;min-width:0}
+#topbar{min-height:56px;flex:none;background:var(--panel);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:10px;padding:8px 14px;flex-wrap:wrap;z-index:200;position:relative}
+#menuBtn{border:0;background:transparent;font-size:1.125rem;padding:6px 8px;border-radius:6px;color:var(--muted)}
+#menuBtn:hover{background:#eef2f7}
+#search{flex:1;min-width:180px;max-width:520px;padding:8px 12px;border:1px solid var(--border);border-radius:9px;
+  outline:none;font-size:.81rem;background:#f8fafc;transition:.15s}
+#search:focus{background:#fff;border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.btn{padding:7px 13px;border:1px solid var(--border);background:#fff;border-radius:8px;font-size:.78rem;
+  color:var(--text);transition:.13s;white-space:nowrap}
+.btn:hover{border-color:var(--accent);color:var(--accent);background:#f5f9ff}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{background:var(--accent-d);color:#fff}
+.btn.danger:hover{border-color:var(--red-b);color:var(--red-b);background:#fff5f5}
+.btn.sm{padding:4px 9px;font-size:.75rem}
+.grow{flex:1}
+.font-ctrl{display:flex;align-items:center;gap:4px;border:1px solid var(--border);border-radius:8px;
+  padding:2px 4px;background:#fafbfd}
+.font-ctrl button{border:0;background:transparent;font-size:.81rem;font-weight:700;color:var(--muted);
+  padding:3px 7px;border-radius:6px;line-height:1}
+.font-ctrl button:hover{background:#eef4ff;color:var(--accent)}
+.font-ctrl span{font-size:.69rem;color:var(--muted);min-width:34px;text-align:center}
+
+#content{flex:1;overflow-y:auto;padding:0 18px 60px;position:relative}
+
+.page-head{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  position:sticky;top:0;z-index:100;
+  background:var(--bg);
+  padding:16px 0 14px;
+  margin:0;
+}
+.page-head h2{margin:0;font-size:1.06rem}
+.pill{background:#eef2ff;color:#4338ca;border-radius:20px;padding:3px 10px;font-size:.72rem;font-weight:600}
+.empty{background:#fff;border:1px dashed var(--border);border-radius:12px;padding:40px;text-align:center;
+  color:var(--muted);font-size:.81rem}
+
+.area{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:12px;
+  margin-bottom:16px;
+  position:relative;
+}
+.area.dragging-area{opacity:.4}
+.area.drop-target-area{outline:2px dashed var(--accent);outline-offset:-2px}
+
+.area-head{
+  display:flex;align-items:center;gap:6px;padding:9px 12px;
+  background:#fafbfd;
+  border-bottom:1px solid var(--border);
+  flex-wrap:wrap;
+  position:sticky;
+  top:var(--page-h);
+  z-index:90;
+  border-radius:11px 11px 0 0;
+  cursor:pointer;
+  user-select:none;
+  transition:background .12s;
+}
+.area-head:hover{background:#f4f7fc;}
+.area.collapsed .area-head{border-bottom:none;border-radius:11px}
+.area.collapsed .hrow,
+.area.collapsed .row{display:none}
+
+.area-head .area-name{cursor:text;user-select:text;}
+.area-head input,
+.area-head button,
+.area-head .area-drag-handle{cursor:auto;}
+.area-head .area-drag-handle{cursor:grab;}
+
+.area-drag-handle{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:16px;flex:none;cursor:grab;color:#c3cad6;font-size:.875rem;
+  user-select:none;padding:2px 0;line-height:1;
+}
+.area-drag-handle:hover{color:var(--accent)}
+.area-drag-handle:active{cursor:grabbing}
+.collapse-toggle{
+  border:0;background:transparent;color:#7a8395;font-size:.69rem;padding:3px 6px;
+  border-radius:5px;line-height:1;cursor:pointer;transition:transform .15s;
+  user-select:none;flex:none;
+}
+.collapse-toggle:hover{background:#eef2f7;color:var(--accent)}
+.area.collapsed .collapse-toggle{transform:rotate(-90deg)}
+.area-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex:none}
+.area-name{border:0;background:transparent;font-weight:700;font-size:.84rem;padding:3px 6px;
+  border-radius:6px;outline:none;min-width:120px;width:auto}
+.area-name:hover{background:#eef2f7}
+.area-name:focus{background:#fff;box-shadow:0 0 0 2px var(--accent) inset}
+.count{font-size:.72rem;color:var(--muted);background:#eef2f7;padding:2px 8px;border-radius:20px}
+
+.hrow,.row{display:flex;align-items:stretch;border-bottom:1px solid #eef1f6}
+.hrow{
+  background:#f7f9fc;
+  position:sticky;
+  top:calc(var(--page-h) + var(--area-h));
+  z-index:80;
+}
+.row:last-child{border-bottom:0;border-radius:0 0 11px 11px}
+.hrow:last-child{border-radius:0 0 11px 11px}
+.row:hover{background:#fafbfe}
+.row.red{background:var(--red);box-shadow:inset 3px 0 0 var(--red-b)}
+.row.red:hover{background:#ffd7d7}
+.row.yellow{background:var(--yellow);box-shadow:inset 3px 0 0 var(--yellow-b)}
+.row.yellow:hover{background:#ffefbe}
+.row.dragging-row{opacity:.35}
+.row.drop-target-row{outline:2px dashed var(--accent);outline-offset:-2px;background:#eef4ff}
+.cell{padding:6px 8px;border-right:1px solid #eef1f6;display:flex;flex-direction:column;
+  justify-content:flex-start;gap:3px;min-width:0;position:relative;overflow:hidden}
+.cell:last-child{border-right:0}
+.hcell{font-weight:700;font-size:.75rem;color:#5b6478;flex-direction:row;align-items:center;
+  justify-content:flex-start;user-select:none;padding:8px}
+.rz{position:absolute;right:-3px;top:0;bottom:0;width:7px;cursor:col-resize;z-index:6}
+.rz:hover{background:rgba(37,99,235,.35)}
+body.resizing{cursor:col-resize;user-select:none}
+body.resizing *{cursor:col-resize !important}
+
+.item-drag-handle{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:14px;flex:none;cursor:grab;color:#c3cad6;font-size:.875rem;
+  user-select:none;padding:2px 0;line-height:1;margin-top:2px;
+}
+.item-drag-handle:hover{color:var(--accent)}
+.item-drag-handle:active{cursor:grabbing}
+
+/* ====== 現存量欄 & 有效日期欄 ====== */
+.qty-wrap, .expiry-wrap{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  width:100%;
+}
+
+.qty-main-row, .expiry-main-row{
+  display:flex;
+  gap:3px;
+  align-items:center;
+  min-height:30px;
+  box-sizing:border-box;
+}
+
+.qty-main-row .inp{flex:1;min-width:36px;}
+
+.add-extra-btn{
+  flex:none;width:22px;height:22px;padding:0;
+  font-size:.875rem;line-height:1;font-weight:700;
+  border-radius:5px;
+  background:#eef4ff;color:var(--accent);border:1px solid #c7d8f7;
+  transition:.12s;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.add-extra-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent);}
+.add-extra-btn:active{transform:scale(.95);}
+
+.qty-extra-row, .expiry-extra-row{
+  display:flex;
+  gap:3px;
+  align-items:center;
+  min-height:28px;
+  padding:2px 3px;
+  box-sizing:border-box;
+  background:#f8fafc;
+  border:1px solid #eef1f6;
+  border-radius:5px;
+}
+
+.qty-extra-row .extra-qty{
+  flex:1;
+  min-width:36px;
+  text-align:center;
+  font-size:.75rem;
+  padding:3px 4px;
+  border-color:transparent;
+  background:transparent;
+}
+.qty-extra-row .extra-qty:hover{border-color:#dbe1ea;background:#fff;}
+.qty-extra-row .mini{padding:1px 5px;font-size:.72rem;flex:none;}
+
+.expiry-extra-row .extra-exp{
+  flex:1;
+  min-width:60px;
+  font-size:.75rem;
+  padding:3px 4px;
+  letter-spacing:.5px;
+  text-align:center;
+  border-color:transparent;
+  background:transparent;
+}
+.expiry-extra-row .extra-exp:hover{border-color:#dbe1ea;background:#fff;}
+
+/* ====== 有效日期欄：不過期按鈕（獨立一列，放在所有日期列下方） ====== */
+.expiry-main-row .exp-inp{flex:1;min-width:0;}
+
+.no-expiry-btn{
+  display:block;
+  width:100%;
+  min-height:28px;
+  margin-top:2px;
+  font-size:.72rem;
+  padding:6px 8px;
+  border-radius:5px;
+  background:var(--green);color:var(--green-d);border:1px solid var(--green-l);
+  line-height:1;font-weight:600;
+  cursor:pointer;transition:.12s;
+  text-align:center;
+  box-sizing:border-box;
+}
+.no-expiry-btn:hover{background:var(--green-b);color:#fff;border-color:var(--green-b);}
+.no-expiry-btn:active{transform:scale(.98);}
+
+.no-expiry-label{
+  display:flex;align-items:center;justify-content:center;gap:5px;
+  background:var(--green);color:var(--green-d);
+  padding:8px 10px;border-radius:6px;
+  font-size:.84rem;font-weight:600;
+  border:1px solid var(--green-l);
+  width:100%;
+  cursor:pointer;
+  transition:.12s;
+  user-select:none;
+  text-align:center;
+}
+.no-expiry-label:hover{
+  background:var(--green-b);color:#fff;border-color:var(--green-b);
+}
+.no-expiry-label:active{transform:scale(.98);}
+
+.supplier-drag-handle{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:16px;flex:none;cursor:grab;color:#c3cad6;font-size:.875rem;
+  user-select:none;padding:2px 0;line-height:1;
+}
+.supplier-drag-handle:hover{color:var(--accent)}
+.supplier-drag-handle:active{cursor:grabbing}
+
+.contacts-list, .phone-list, .ct-tags-list{
+  display:flex;flex-direction:column;gap:0;width:100%;
+}
+.contact-block, .phone-block, .ct-tags-block{
+  display:flex;align-items:center;
+  min-height:2rem;padding:2px 6px;
+  box-sizing:border-box;
+  border-bottom:1px dashed #eef1f6;
+  transition:height .12s ease;
+}
+.contact-block:last-child, .phone-block:last-child, .ct-tags-block:last-child{
+  border-bottom:none;
+}
+.contact-block.dragging-contact{opacity:.35}
+.contact-block.drop-target-contact{outline:2px dashed var(--accent);outline-offset:-2px;background:#eef4ff}
+.contact-head{display:flex;align-items:center;gap:5px;width:100%;}
+.contact-drag-handle{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:14px;flex:none;cursor:grab;color:#c3cad6;font-size:.75rem;
+  user-select:none;line-height:1;
+}
+.contact-drag-handle:hover{color:var(--accent)}
+.contact-drag-handle:active{cursor:grabbing}
+.contact-head .inp{flex:1;min-width:60px;}
+.phone-block .inp{flex:1;min-width:60px;}
+.ct-tag-list{display:flex;flex-wrap:wrap;gap:3px;flex:1;align-items:center;}
+
+.add-row, .add-row-placeholder{
+  min-height:1.5rem;padding:2px 6px;box-sizing:border-box;
+  display:flex;align-items:center;
+}
+.add-row-placeholder{visibility:hidden;}
+
+.tag-mini{
+  display:inline-flex;align-items:center;gap:3px;
+  background:#eef2ff;color:#4338ca;border-radius:12px;
+  padding:1px 6px;font-size:.69rem;line-height:1.4;
+}
+.tag-mini b{cursor:pointer;font-weight:400;opacity:.6;font-size:.72rem}
+.tag-mini b:hover{opacity:1;color:var(--red-b)}
+.tag-add{
+  border:1px dashed #cbd5e1;background:transparent;border-radius:12px;
+  padding:1px 7px;font-size:.69rem;outline:none;width:56px;
+  line-height:1.4;color:var(--muted);
+}
+.tag-add:focus{border-style:solid;border-color:var(--accent);background:#fff;color:var(--text);width:84px;}
+
+.inp{width:100%;border:1px solid transparent;background:transparent;padding:5px 6px;border-radius:6px;
+  font-size:.81rem;outline:none;transition:.12s;color:var(--text)}
+.inp:hover{border-color:#dbe1ea;background:#fff}
+.inp:focus{border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.inp.num{text-align:center}
+
+.inp.dup{
+  border-color:var(--red-b)!important;
+  background:#fff5f5!important;
+  box-shadow:0 0 0 3px rgba(229,72,77,.15)!important;
+}
+.code-wrap{display:flex;flex-direction:column;gap:2px;min-width:0;}
+.code-warn{
+  font-size:.69rem;color:var(--red-b);line-height:1.3;
+  background:#fff5f5;border:1px solid #ffd4d4;border-radius:5px;
+  padding:2px 6px;word-break:break-all;
+}
+
+.name-area{
+  resize:none;overflow:hidden;min-height:28px;line-height:1.4;
+  font-family:inherit;word-break:break-word;white-space:pre-wrap;display:block;
+  width:100%;
+}
+
+.out-btn{border:1px solid #cfd6e0;background:#fff;border-radius:6px;padding:4px 6px;font-size:.72rem;
+  color:var(--muted);font-weight:600;transition:.13s;align-self:flex-start}
+.out-btn:hover{border-color:var(--red-b);color:var(--red-b)}
+.out-btn.on{background:var(--red-b);border-color:var(--red-b);color:#fff}
+.icon-btn{border:0;background:transparent;color:#b9c0cc;font-size:.875rem;padding:4px 6px;border-radius:6px}
+.icon-btn:hover{background:#ffe9e9;color:var(--red-b)}
+.exp-inp{letter-spacing:1px;font-variant-numeric:tabular-nums;text-align:center}
+.cprev{margin-top:2px;line-height:0}
+.cprev svg{max-width:100%;height:auto;display:block}
+
+.notes{display:flex;flex-direction:column;gap:0}
+.note-line{display:flex;align-items:center;gap:3px;height:28px}
+.note-line .inp{font-size:.78rem;height:26px;padding:3px 6px}
+.mini{border:0;background:transparent;color:#b9c0cc;font-size:.75rem;padding:1px 4px;border-radius:4px}
+.mini:hover{background:#eef2f7;color:var(--red-b)}
+.mini.add{color:#9aa4b5;font-size:.69rem;padding:2px 6px;border-radius:6px;align-self:flex-start}
+.mini.add:hover{background:#eef4ff;color:var(--accent)}
+
+.tag{display:inline-flex;align-items:center;gap:4px;background:#eef2ff;color:#4338ca;border-radius:20px;
+  padding:3px 8px;font-size:.72rem;margin:2px 3px 2px 0}
+.tag b{cursor:pointer;font-weight:400;opacity:.6;font-size:.75rem}
+.tag b:hover{opacity:1;color:var(--red-b)}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
+.stat{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+.stat .n{font-size:1.5rem;font-weight:700;line-height:1.2}
+.stat .l{font-size:.75rem;color:var(--muted);margin-top:2px}
+.stat.warn .n{color:var(--yellow-b)} .stat.bad .n{color:var(--red-b)} .stat.ok .n{color:#16a34a}
+
+.modal-bg{position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:1500;display:flex;
+  align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(2px)}
+.modal{background:#fff;border-radius:14px;width:100%;max-width:460px;max-height:86vh;display:flex;
+  flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.3);animation:pop .16s ease}
+@keyframes pop{from{transform:scale(.96);opacity:0}to{transform:scale(1);opacity:1}}
+.modal h3{margin:0;padding:16px 20px;border-bottom:1px solid var(--border);font-size:.94rem}
+.modal-body{padding:18px 20px;overflow-y:auto}
+.modal-foot{padding:12px 20px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:.78rem;color:var(--muted);margin-bottom:6px;font-weight:600}
+.field input[type=text],.field select{width:100%;padding:9px 11px;border:1px solid var(--border);
+  border-radius:8px;outline:none;font-size:.84rem}
+.field input:focus,.field select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.checklist{display:flex;flex-direction:column;gap:2px;max-height:260px;overflow-y:auto;
+  border:1px solid var(--border);border-radius:9px;padding:6px}
+.checklist label{display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:7px;
+  cursor:pointer;font-size:.81rem}
+.checklist label:hover{background:#f5f8fd}
+.radio-row{display:flex;gap:14px;font-size:.81rem}
+.radio-row label{display:flex;align-items:center;gap:6px;cursor:pointer}
+.danger-note{background:#fff5f5;border:1px solid #ffd4d4;color:#b42318;border-radius:9px;padding:10px 12px;
+  font-size:.78rem;line-height:1.6}
+
+#ctxmenu{position:fixed;z-index:3000;background:#fff;border:1px solid var(--border);border-radius:10px;
+  box-shadow:0 12px 34px rgba(0,0,0,.16);padding:5px;min-width:220px;
+  max-width:340px;display:none;max-height:400px;overflow-y:auto;
+  overscroll-behavior:contain;}
+#ctxmenu .ctx-t{font-size:.69rem;color:var(--muted);padding:5px 10px 3px;font-weight:700;
+  position:sticky;top:0;background:#fff;z-index:1}
+#ctxmenu .ctx-i{padding:7px 12px;border-radius:7px;font-size:.81rem;cursor:pointer;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#ctxmenu .ctx-i:hover{background:#eef4ff;color:var(--accent)}
+#ctxmenu .ctx-check{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:7px;
+  cursor:pointer;font-size:.81rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#ctxmenu .ctx-check:hover{background:#eef4ff}
+#ctxmenu .ctx-check input{cursor:pointer;flex:none}
+#ctxmenu .ctx-check span{overflow:hidden;text-overflow:ellipsis}
+#ctxmenu .ctx-actions{display:flex;gap:6px;padding:6px 5px 3px;border-top:1px solid #eef1f6;margin-top:3px;
+  position:sticky;bottom:0;background:#fff}
+#ctxmenu .ctx-btn{flex:1;padding:6px 10px;border-radius:7px;border:1px solid var(--border);
+  background:#fff;font-size:.78rem;color:var(--text);cursor:pointer;transition:.12s;font-family:inherit}
+#ctxmenu .ctx-btn:hover{border-color:var(--accent);color:var(--accent)}
+#ctxmenu .ctx-btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+#ctxmenu .ctx-btn.primary:hover{background:var(--accent-d);color:#fff}
+#ctxmenu .ctx-empty{color:#9aa4b5;font-size:.78rem;padding:8px 12px}
+
+#toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:#111827;
+  color:#fff;padding:10px 20px;border-radius:10px;font-size:.81rem;opacity:0;pointer-events:none;
+  transition:.22s;z-index:4000}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+#tipbox{position:fixed;z-index:3500;background:#111827;color:#e5e7eb;padding:9px 12px;border-radius:9px;
+  font-size:.75rem;line-height:1.65;pointer-events:none;opacity:0;transition:opacity .12s;
+  box-shadow:0 8px 24px rgba(0,0,0,.35);max-width:320px;left:0;top:0}
+#tipbox.on{opacity:1}
+#tipbox .tt{font-weight:700;margin-bottom:4px;color:#93c5fd}
+#tipbox .row-t{display:flex;gap:8px}
+#tipbox .row-t b{color:#9ca3af;font-weight:400;min-width:60px;flex:none}
+#tipbox .ct-item{border-top:1px solid #374151;padding-top:5px;margin-top:5px}
+#tipbox .ct-item:first-child{border-top:0;padding-top:0;margin-top:0}
+
+.sec-title{font-size:.875rem;font-weight:700;margin:0 0 10px}
+.card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:14px}
+.card p{margin:0 0 12px;font-size:.78rem;color:var(--muted);line-height:1.65}
+@media(max-width:760px){
+  #sidebar{position:fixed;left:0;top:0;bottom:0;z-index:900}
+  #sidebar:not(.collapsed){box-shadow:0 0 40px rgba(0,0,0,.4)}
+}
+</style>
+</head>
+<body>
+
+<div id="login">
+  <div class="login-box">
+    <h1>📦 倉存管理系統</h1>
+    <input id="empInput" inputmode="numeric" maxlength="7" autocomplete="off">
+    <div class="err" id="loginErr"></div>
+    <button id="loginBtn">登 入</button>
+  </div>
+</div>
+
+<div id="app">
+  <aside id="sidebar">
+    <div class="brand">📦 倉存管理</div>
+    <div class="side-scroll" id="pageList"></div>
+    <div class="side-foot">
+      <button data-act="add-page">＋ 新增頁面</button>
+    </div>
+  </aside>
+  <div id="main">
+    <header id="topbar">
+      <button id="menuBtn">☰</button>
+      <input id="search" placeholder="全體搜索：編號 / 名稱 / 備注 / 聯絡人 / 標籤 / 供應商…">
+      <div class="font-ctrl">
+        <button data-act="font-down" title="縮小字體">A−</button>
+        <span id="fontPct">100%</span>
+        <button data-act="font-up" title="放大字體">A+</button>
+      </div>
+      <button class="btn" data-act="export">⬇ 匯出 Excel</button>
+      <button class="btn" data-act="admin">⚙ 管理</button>
+    </header>
+    <div id="content"></div>
+  </div>
+</div>
+
+<div id="ctxmenu"></div>
+<div id="tipbox"></div>
+<div id="toast"></div>
+
+<script>
+/* ============ 工具 ============ */
+const $  = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+const esc = s => String(s ?? '').replace(/[&<>"']/g,
+  c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function toast(msg){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('on');
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.classList.remove('on'), 2000);
+}
+
+function copyToClipboard(text){
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    return navigator.clipboard.writeText(text);
+  }
+  return new Promise((resolve, reject) => {
+    try{
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      ta.remove();
+      resolve();
+    }catch(e){ reject(e); }
+  });
+}
+
+/* ============ 資料模型 ============ */
+const LS_KEY = 'wms_state_v25';
+
+let state = {
+  pages: [],
+  colWidths: {},
+  codeMode: 'qrcode',
+  empId: '',
+  fontScale: 1,
+  customContacts: [],
+};
+
+function saveState(){
+  try { localStorage.setItem(LS_KEY, JSON.stringify(state)); }
+  catch(e){ console.warn('儲存失敗', e); }
+}
+
+function migrateData(data){
+  if(!data || !Array.isArray(data.pages)) return;
+  data.pages.forEach(p => {
+    if(!p.areas) p.areas = [];
+    p.areas.forEach(a => {
+      if(!a.items) a.items = [];
+      if(typeof a.collapsed !== 'boolean') a.collapsed = false;
+      a.items.forEach(it => {
+        if(p.type === 'supplier'){
+          if(!Array.isArray(it.contacts)) it.contacts = [];
+          it.contacts.forEach(c => {
+            if(!Array.isArray(c.tags)) c.tags = [];
+            if(typeof c.name !== 'string') c.name = '';
+            if(typeof c.phone !== 'string') c.phone = '';
+          });
+        }
+        if(p.type === 'common' || p.type === 'special' || p.type === 'consign'){
+          if(!Array.isArray(it.contactList)){
+            it.contactList = it.contact ? [it.contact] : [];
+          }
+          delete it.contact;
+        }
+        if(p.type !== 'supplier'){
+          if(!Array.isArray(it.notes)) it.notes = [''];
+        }
+        if(p.type === 'common' || p.type === 'special'){
+          if(!Array.isArray(it.extras)) it.extras = [];
+          it.extras.forEach(ex => {
+            if(typeof ex.qty !== 'number') ex.qty = 0;
+            if(typeof ex.expiry !== 'string') ex.expiry = '';
+          });
+          if(typeof it.noExpiry !== 'boolean') it.noExpiry = false;
+        }
+      });
+    });
+  });
+}
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(LS_KEY)
+             || localStorage.getItem('wms_state_v24')
+             || localStorage.getItem('wms_state_v23');
+    if(!raw) return;
+    const d = JSON.parse(raw);
+    if(!d || typeof d !== 'object') return;
+    state.pages     = Array.isArray(d.pages) ? d.pages : [];
+    state.colWidths = d.colWidths || {};
+    state.codeMode  = d.codeMode === 'barcode' ? 'barcode' : 'qrcode';
+    state.empId     = d.empId || '';
+    state.fontScale = typeof d.fontScale === 'number' ? d.fontScale : 1;
+    state.customContacts = Array.isArray(d.customContacts) ? d.customContacts : [];
+    migrateData(state);
+  }catch(e){ console.warn(e); }
+}
+
+const TYPES = {
+  common:   { label:'共用物品',   icon:'📦' },
+  special:  { label:'專用物品',   icon:'🔧' },
+  consign:  { label:'寄沽物品',   icon:'🏷️' },
+  supplier: { label:'供應商資料', icon:'🏢' },
+};
+
+const COLS = {
+  common: [
+    { k:'code',    t:'物品編號', w:200 },
+    { k:'name',    t:'物品名稱', w:200 },
+    { k:'note',    t:'備注',     w:180 },
+    { k:'baseQty', t:'基數量',   w:80  },
+    { k:'curQty',  t:'現存量',   w:120 },
+    { k:'out',     t:'缺貨',     w:72  },
+    { k:'expiry',  t:'有效日期', w:180 },
+    { k:'act',     t:'',         w:46  },
+  ],
+  special: [
+    { k:'code',    t:'物品編號', w:200 },
+    { k:'name',    t:'物品名稱', w:200 },
+    { k:'note',    t:'備注',     w:180 },
+    { k:'baseQty', t:'基數量',   w:80  },
+    { k:'curQty',  t:'現存量',   w:120 },
+    { k:'out',     t:'缺貨',     w:72  },
+    { k:'expiry',  t:'有效日期', w:180 },
+    { k:'act',     t:'',         w:46  },
+  ],
+  consign: [
+    { k:'code',    t:'物品編號', w:200 },
+    { k:'name',    t:'物品名稱', w:220 },
+    { k:'note',    t:'備注',     w:200 },
+    { k:'contact', t:'聯絡人員', w:230 },
+    { k:'act',     t:'',         w:46  },
+  ],
+  supplier: [
+    { k:'name',    t:'供應商',     w:200 },
+    { k:'cname',   t:'聯絡人員',   w:170 },
+    { k:'cphone',  t:'聯絡電話',   w:170 },
+    { k:'tags',    t:'聯絡人標籤', w:340 },
+    { k:'act',     t:'',           w:46  },
+  ],
+};
+
+function getWidths(type){
+  const saved = state.colWidths[type] || {};
+  const out = {};
+  COLS[type].forEach(c => out[c.k] = saved[c.k] || c.w);
+  return out;
+}
+
+function newArea(name){ return { id: uid(), name: name || '預設區域', items: [], collapsed: false }; }
+function newItem(type){
+  if(type === 'supplier'){
+    return { id: uid(), name:'', contacts:[{ name:'', phone:'', tags:[] }] };
+  }
+  const base = { id: uid(), code:'', name:'', notes:[''] };
+  if(type === 'common'){
+    return { ...base, baseQty:0, curQty:0, out:false, expiry:'', contactList:[], extras:[], noExpiry:false };
+  }
+  if(type === 'special'){
+    return { ...base, baseQty:0, curQty:0, out:false, expiry:'', contactList:[], extras:[], noExpiry:false };
+  }
+  return { ...base, contactList:[] };
+}
+function newPage(type, name){
+  return { id: uid(), name: name || TYPES[type].label, type, areas: [ newArea('區域 1') ] };
+}
+
+const getPage  = id => state.pages.find(p => p.id === id);
+const getArea  = (p, id) => p?.areas.find(a => a.id === id);
+const getItem  = (p, aid, iid) => getArea(p, aid)?.items.find(i => i.id === iid);
+
+/* ============ 日期 / 狀態 ============ */
+function daysLeft(expiry){
+  if(!expiry || !/^\d{8}$/.test(expiry)) return null;
+  const y = +expiry.slice(0,4), m = +expiry.slice(4,6), d = +expiry.slice(6,8);
+  const t = new Date(y, m-1, d, 23, 59, 59).getTime();
+  if(isNaN(t)) return null;
+  return Math.ceil((t - Date.now()) / 86400000);
+}
+function itemStatus(page, item){
+  if(!page) return 'normal';
+  if(page.type === 'supplier' || page.type === 'consign') return 'normal';
+  if(item.out) return 'red';
+  if(item.noExpiry) return 'normal';
+  const d = daysLeft(item.expiry);
+  if(d === null) return 'normal';
+  if(d < 30) return 'red';
+  if(d < 90) return 'yellow';
+  return 'normal';
+}
+function buildDateStr(y2, m, d){
+  let yy = parseInt(y2, 10) || 0;
+  let mm = parseInt(m, 10) || 1;
+  let dd = parseInt(d, 10) || 0;
+  if(mm < 1) mm = 1;
+  if(mm > 12) mm = 12;
+  const year = 2000 + yy;
+  const last = new Date(year, mm, 0).getDate();
+  if(dd < 1) dd = last;
+  if(dd > last) dd = last;
+  return `${year}${String(mm).padStart(2,'0')}${String(dd).padStart(2,'0')}`;
+}
+
+function normalizeDate8(raw){
+  let s = String(raw ?? '').replace(/\D/g, '');
+  if(!s) return '';
+  if(s.length < 6) return '';
+  if(s.length === 8){ /* ok */ }
+  else if(s.length === 6){ s = '20' + s; }
+  else { s = s.slice(0, 8).padEnd(8, '0'); }
+  let y = +s.slice(0,4);
+  let m = +s.slice(4,6);
+  let d = +s.slice(6,8);
+  if(!y || y < 2000 || y > 2099) return '';
+  if(!m || m < 1) m = 1;
+  if(m > 12) m = 12;
+  const last = new Date(y, m, 0).getDate();
+  if(!d || d < 1) d = last;
+  if(d > last) d = last;
+  return `${y}${String(m).padStart(2,'0')}${String(d).padStart(2,'0')}`;
+}
+
+/* ============ ★ 自動提升：主量為 0 時從批次取「有效日期最近」的 */
+function autoPromoteFromExtras(item){
+  if(!item) return false;
+  if(item.curQty > 0) return false;
+  if(!Array.isArray(item.extras) || !item.extras.length) return false;
+
+  /* 找出所有 qty > 0 的批次 */
+  const candidates = [];
+  item.extras.forEach((ex, i) => {
+    if((ex.qty || 0) > 0){
+      candidates.push({
+        idx: i,
+        qty: ex.qty,
+        expiry: ex.expiry || ''
+      });
+    }
+  });
+  if(!candidates.length) return false;
+
+  /* 排序：有效日期最近優先（YYYYMMDD 越小越近；空字串視為最遠） */
+  candidates.sort((a, b) => {
+    const da = a.expiry || '99999999';
+    const db = b.expiry || '99999999';
+    return da.localeCompare(db);
+  });
+
+  const pick = candidates[0];
+
+  /* 提升該批次為主量 */
+  item.curQty = pick.qty;
+  item.expiry = pick.expiry;
+  item.noExpiry = false;   /* 提升後以該批次的日期為準 */
+  item.out = false;
+
+  /* 從批次移除 */
+  item.extras.splice(pick.idx, 1);
+
+  return true;
+}
+
+/* ============ 條碼 ============ */
+const C128 = [
+"212222","222122","222221","121223","121322","131222","122213","122312","132212","221213",
+"221312","231212","112232","122132","122231","113222","123122","123221","223211","221132",
+"221231","213212","223112","312131","311222","321122","321221","312212","322112","322211",
+"212123","212321","232121","111323","131123","131321","112313","132113","132311","211313",
+"231113","231311","112133","112331","132131","113123","113321","133121","313121","211331",
+"231131","213113","213311","213131","311123","311321","331121","312113","312311","332111",
+"314111","221411","431111","111224","111422","121124","121421","141122","141221","112214",
+"112412","122114","122411","142112","142211","241211","221114","413111","241112","134111",
+"111242","121142","121241","114212","124112","124211","411212","421112","421211","212141",
+"214121","412121","111143","111341","131141","114113","114311","411113","411311","113141",
+"114131","311141","411131","211412","211214","211232","2331112"
+];
+function makeBarcode(text, h = 34){
+  const vals = [];
+  for(const ch of String(text)){
+    const c = ch.charCodeAt(0);
+    if(c < 32 || c > 126) continue;
+    vals.push(c - 32);
+  }
+  if(!vals.length) return null;
+  const START = 104;
+  let sum = START;
+  vals.forEach((v,i) => sum += v * (i + 1));
+  const seq = [START, ...vals, sum % 103, 106];
+  let pattern = '';
+  seq.forEach(v => pattern += C128[v]);
+  const total = [...pattern].reduce((a,c) => a + (+c), 0);
+  const mw = Math.max(1, Math.min(1.8, 260 / total));
+  const width = total * mw;
+  let x = 0, bar = true, rects = '';
+  for(const ch of pattern){
+    const w = (+ch) * mw;
+    if(bar) rects += `<rect x="${x.toFixed(2)}" y="0" width="${w.toFixed(2)}" height="${h}" fill="#0f172a"/>`;
+    x += w; bar = !bar;
+  }
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width.toFixed(1)}" height="${h}"
+    viewBox="0 0 ${width.toFixed(1)} ${h}" preserveAspectRatio="xMinYMin meet">${rects}</svg>`;
+}
+function renderCodePreview(el, text){
+  if(!el) return;
+  el.innerHTML = '';
+  if(!text) return;
+  if(state.codeMode === 'barcode'){
+    const svg = makeBarcode(text);
+    if(svg) el.innerHTML = svg; else el.textContent = text;
+  }else{
+    if(typeof qrcode === 'function'){
+      try{
+        const qr = qrcode(0, 'M');
+        qr.addData(String(text));
+        qr.make();
+        el.innerHTML = qr.createSvgTag(2, 0);
+        const s = el.querySelector('svg');
+        if(s){ s.removeAttribute('width'); s.removeAttribute('height'); s.style.width = '52px'; s.style.height = '52px'; }
+      }catch(err){ el.textContent = text; }
+    }else el.textContent = text;
+  }
+}
+const _codeTimers = {};
+function schedulePreview(itemId, text){
+  clearTimeout(_codeTimers[itemId]);
+  _codeTimers[itemId] = setTimeout(() => {
+    const el = document.querySelector(`[data-cprev="${itemId}"]`);
+    renderCodePreview(el, text);
+  }, 260);
+}
+
+/* ============ 字體 ============ */
+function applyFontScale(){
+  document.documentElement.style.fontSize = (16 * state.fontScale) + 'px';
+  const el = $('#fontPct');
+  if(el) el.textContent = Math.round(state.fontScale * 100) + '%';
+  setTimeout(() => {
+    autoResizeAllNames();
+    alignSupplierRows();
+    alignQtyExpiryRows();
+    updateStickyHeights();
+  }, 0);
+}
+
+function updateStickyHeights(){
+  const ph = document.querySelector('.page-head');
+  const ah = document.querySelector('.area-head');
+  const phH = ph ? Math.ceil(ph.getBoundingClientRect().height) : 0;
+  const ahH = ah ? Math.ceil(ah.getBoundingClientRect().height) : 0;
+  document.documentElement.style.setProperty('--page-h', phH + 'px');
+  document.documentElement.style.setProperty('--area-h', ahH + 'px');
+}
+
+/* ============ 聯絡人工具 ============ */
+function getAllContactsFull(){
+  const list = [];
+  state.pages.filter(p => p.type === 'supplier').forEach(p =>
+    p.areas.forEach(a => a.items.forEach(it =>
+      (it.contacts || []).forEach(c => {
+        if(c.name && c.name.trim()){
+          list.push({
+            name: c.name.trim(),
+            phone: c.phone || '',
+            supplier: it.name || '',
+            tags: Array.isArray(c.tags) ? c.tags : [],
+          });
+        }
+      })
+    ))
+  );
+  (state.customContacts || []).forEach(name => {
+    const n = String(name || '').trim();
+    if(n && !list.some(c => c.name === n)) list.push({ name:n, phone:'', supplier:'', tags:[] });
+  });
+  const seen = new Set();
+  const out = [];
+  list.forEach(c => {
+    const k = `${c.name}||${c.supplier}`;
+    if(seen.has(k)) return;
+    seen.add(k);
+    c.label = c.supplier ? `${c.name}（${c.supplier}）` : c.name;
+    out.push(c);
+  });
+  return out.sort((a,b) =>
+    a.name.localeCompare(b.name, 'zh-Hant') || a.supplier.localeCompare(b.supplier, 'zh-Hant')
+  );
+}
+function parseContactLabel(label){
+  if(!label) return { name:'', supplier:'' };
+  const m = String(label).match(/^(.+?)（(.+?)）\s*$/);
+  if(m) return { name:m[1].trim(), supplier:m[2].trim() };
+  return { name:String(label).trim(), supplier:'' };
+}
+function lookupContact(label){
+  if(!label) return { name:'—', phone:'—', supplier:'—', tags:[] };
+  const parsed = parseContactLabel(label);
+  const all = getAllContactsFull();
+  let found = all.find(c => c.label === label);
+  if(found){
+    return { name: parsed.name || '—', phone: found.phone || '—',
+             supplier: found.supplier || '—', tags: found.tags || [] };
+  }
+  if(parsed.name && parsed.supplier){
+    found = all.find(c => c.name === parsed.name && c.supplier === parsed.supplier);
+    if(found){
+      return { name: parsed.name, phone: found.phone || '—',
+               supplier: parsed.supplier || '—', tags: found.tags || [] };
+    }
+  }
+  if(parsed.name){
+    const candidates = all.filter(c => c.name === parsed.name);
+    if(candidates.length){
+      const withTags = candidates.find(c => (c.tags||[]).length) || candidates[0];
+      return { name: parsed.name, phone: withTags.phone || '—',
+               supplier: withTags.supplier || '—', tags: withTags.tags || [] };
+    }
+  }
+  return { name: parsed.name || '—', phone: '—', supplier: parsed.supplier || '—', tags: [] };
+}
+
+/* ============ 登入 ============ */
+function initLogin(){
+  const inp = $('#empInput'), btn = $('#loginBtn'), err = $('#loginErr');
+  const tryLogin = () => {
+    const v = inp.value.trim();
+    if(!/^0\d{6}$/.test(v)){ err.textContent = '工號必須為 7 位數字，並以 0 開頭'; inp.focus(); return; }
+    err.textContent = '';
+    state.empId = v;
+    saveState();
+    $('#login').style.display = 'none';
+    $('#app').classList.add('on');
+    startApp();
+  };
+  btn.addEventListener('click', tryLogin);
+  inp.addEventListener('keydown', e => { if(e.key === 'Enter') tryLogin(); });
+  inp.addEventListener('input', () => { inp.value = inp.value.replace(/\D/g,'').slice(0,7); });
+  setTimeout(() => inp.focus(), 200);
+}
+
+/* ============ 應用 ============ */
+let currentView = 'overview';
+let searchQuery = '';
+let lastRenderedView = null;
+
+function startApp(){
+  loadState();
+  applyFontScale();
+  if(!state.pages.length) seedDemo();
+  render();
+}
+
+function seedDemo(){
+  const p1 = newPage('common', '共用物品倉');
+  p1.areas = [ newArea('A 區') ];
+  p1.areas[0].items = [
+    { id:uid(), code:'SP-0001', name:'螺絲 M4', baseQty:200, curQty:150, out:false,
+      expiry: isoDate(120), notes:['常備件'], contactList:[], extras:[], noExpiry:false },
+    { id:uid(), code:'SP-0002', name:'墊片',     baseQty:100, curQty:0,   out:true,
+      expiry: isoDate(45),  notes:['已通知採購'], contactList:[], extras:[], noExpiry:false },
+    { id:uid(), code:'SP-0003', name:'六角扳手', baseQty:30,  curQty:25,  out:false,
+      expiry: isoDate(200), notes:['工具類'], contactList:[], extras:[], noExpiry:false },
+  ];
+  const p2 = newPage('supplier', '供應商資料');
+  p2.areas = [ newArea('主要供應商') ];
+  p2.areas[0].items = [
+    { id:uid(), name:'永達五金',
+      contacts:[
+        { name:'陳先生', phone:'9123 4567', tags:['五金','螺絲'] },
+        { name:'李小姐', phone:'2345 6789', tags:['發票'] },
+      ] },
+    { id:uid(), name:'大昌行',
+      contacts:[{ name:'陳先生', phone:'9988 7766', tags:['工具'] }] },
+  ];
+  state.pages = [p1, p2];
+  saveState();
+}
+function isoDate(offsetDays){
+  const d = new Date(Date.now() + offsetDays * 86400000);
+  return `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}`;
+}
+
+function render(){
+  const content = $('#content');
+  const viewChanged = (currentView !== lastRenderedView);
+  const savedScroll = content ? content.scrollTop : 0;
+
+  renderSidebar();
+  renderContent();
+
+  if(content){
+    if(viewChanged){
+      content.scrollTop = 0;
+    }else{
+      content.scrollTop = savedScroll;
+    }
+  }
+  lastRenderedView = currentView;
+}
+
+/* ---- 側邊欄 ---- */
+let dragIdx = null;
+let pageNavTimer = null;
+
+function renderSidebar(){
+  const list = $('#pageList');
+  let h = `<div class="nav-item ${currentView==='overview'?'active':''}" data-nav="overview">
+      <span class="ic">📊</span><span class="nm">總覽</span></div>`;
+
+  state.pages.forEach((p, i) => {
+    h += `<div class="nav-item ${currentView===p.id?'active':''}" data-nav="${p.id}"
+            draggable="true" data-idx="${i}">
+      <span class="ic">${TYPES[p.type]?.icon || '📄'}</span>
+      <span class="nm" data-rename="${p.id}" title="雙擊重新命名">${esc(p.name)}</span>
+      <span class="dh">⋮⋮</span>
+      <span class="del" data-delpage="${p.id}" title="刪除頁面">✕</span>
+    </div>`;
+  });
+
+  list.innerHTML = h;
+
+  list.onclick = e => {
+    const delBtn = e.target.closest('[data-delpage]');
+    if(delBtn){
+      e.stopPropagation();
+      const pid = delBtn.dataset.delpage;
+      const p = getPage(pid);
+      confirmBox(`確定刪除頁面「${p.name}」？此動作無法復原。`, () => {
+        state.pages = state.pages.filter(x => x.id !== pid);
+        if(currentView === pid) currentView = 'overview';
+        saveState(); render();
+        toast('頁面已刪除');
+      });
+      return;
+    }
+    const nav = e.target.closest('[data-nav]');
+    if(!nav) return;
+
+    const nm = e.target.closest('[data-rename]');
+    if(nm){
+      clearTimeout(pageNavTimer);
+      pageNavTimer = setTimeout(() => {
+        currentView = nav.dataset.nav;
+        searchQuery = '';
+        $('#search').value = '';
+        render();
+      }, 250);
+      return;
+    }
+
+    clearTimeout(pageNavTimer);
+    currentView = nav.dataset.nav;
+    searchQuery = '';
+    $('#search').value = '';
+    render();
+  };
+
+  list.ondblclick = e => {
+    const nm = e.target.closest('[data-rename]');
+    if(!nm) return;
+    clearTimeout(pageNavTimer);
+    e.stopPropagation();
+    const pid = nm.dataset.rename;
+    const p = getPage(pid);
+    if(!p) return;
+
+    const input = document.createElement('input');
+    input.className = 'ren';
+    input.value = p.name;
+    nm.replaceWith(input);
+    input.focus(); input.select();
+
+    let committed = false;
+    const commit = () => {
+      if(committed) return;
+      committed = true;
+      const v = input.value.trim();
+      if(v && v !== p.name){
+        p.name = v;
+        saveState();
+        toast('已重新命名：' + v);
+      }
+      render();
+    };
+    input.addEventListener('blur', commit);
+    input.addEventListener('keydown', ev => {
+      if(ev.key === 'Enter'){ ev.preventDefault(); input.blur(); }
+      if(ev.key === 'Escape'){ ev.preventDefault(); input.value = p.name; input.blur(); }
+    });
+  };
+
+  list.addEventListener('contextmenu', e => {
+    const nm = e.target.closest('[data-rename]');
+    if(!nm) return;
+    e.preventDefault();
+    const pid = nm.dataset.rename;
+    const p = getPage(pid);
+    if(!p) return;
+
+    ctx.innerHTML = `<div class="ctx-t">頁面操作</div>
+      <div class="ctx-i" data-ctx-prn>✏️ 重新命名</div>
+      <div class="ctx-i" data-ctx-pdel style="color:#e5484d">🗑 刪除此頁面</div>`;
+    ctx.style.display = 'block';
+    ctx.style.left = Math.min(e.clientX, innerWidth - 200) + 'px';
+    ctx.style.top  = Math.min(e.clientY, innerHeight - 100) + 'px';
+    ctx.onclick = ev => {
+      if(ev.target.closest('[data-ctx-prn]')){
+        closeCtx();
+        const nmEl = document.querySelector(`[data-rename="${pid}"]`);
+        if(!nmEl) return;
+        const input = document.createElement('input');
+        input.className = 'ren';
+        input.value = p.name;
+        nmEl.replaceWith(input);
+        input.focus(); input.select();
+        let committed = false;
+        const commit = () => {
+          if(committed) return;
+          committed = true;
+          const v = input.value.trim();
+          if(v && v !== p.name){ p.name = v; saveState(); toast('已重新命名：' + v); }
+          render();
+        };
+        input.addEventListener('blur', commit);
+        input.addEventListener('keydown', ev2 => {
+          if(ev2.key === 'Enter'){ ev2.preventDefault(); input.blur(); }
+          if(ev2.key === 'Escape'){ ev2.preventDefault(); input.value = p.name; input.blur(); }
+        });
+      }
+      if(ev.target.closest('[data-ctx-pdel]')){
+        closeCtx();
+        confirmBox(`確定刪除頁面「${p.name}」？`, () => {
+          state.pages = state.pages.filter(x => x.id !== pid);
+          if(currentView === pid) currentView = 'overview';
+          saveState(); render();
+          toast('頁面已刪除');
+        });
+      }
+    };
+  });
+
+  list.addEventListener('dragstart', e => {
+    const it = e.target.closest('[data-idx]');
+    if(!it) return;
+    dragIdx = +it.dataset.idx;
+    it.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+  });
+  list.addEventListener('dragover', e => {
+    e.preventDefault();
+    const it = e.target.closest('[data-idx]');
+    $$('.nav-item.drop-target').forEach(n => n.classList.remove('drop-target'));
+    if(it) it.classList.add('drop-target');
+  });
+  list.addEventListener('dragleave', e => {
+    const it = e.target.closest('[data-idx]');
+    if(it) it.classList.remove('drop-target');
+  });
+  list.addEventListener('drop', e => {
+    e.preventDefault();
+    const it = e.target.closest('[data-idx]');
+    $$('.nav-item').forEach(n => n.classList.remove('drop-target','dragging'));
+    if(!it || dragIdx === null) return;
+    const to = +it.dataset.idx;
+    if(to === dragIdx){ dragIdx = null; return; }
+    const [moved] = state.pages.splice(dragIdx, 1);
+    state.pages.splice(to, 0, moved);
+    dragIdx = null;
+    saveState(); renderSidebar();
+  });
+  list.addEventListener('dragend', () => {
+    dragIdx = null;
+    $$('.nav-item').forEach(n => n.classList.remove('drop-target','dragging'));
+  });
+}
+
+/* ---- 內容 ---- */
+function renderContent(){
+  const c = $('#content');
+  if(currentView === 'overview')      c.innerHTML = viewOverview();
+  else if(currentView === 'admin')    c.innerHTML = viewAdmin();
+  else if(currentView === 'search')   c.innerHTML = viewSearch();
+  else{
+    const p = getPage(currentView);
+    if(!p){ currentView = 'overview'; return renderContent(); }
+    c.innerHTML = `<div data-pageid="${p.id}">${viewPage(p)}</div>`;
+  }
+  afterRender();
+}
+
+function afterRender(){
+  $$('[data-cprev]').forEach(el => {
+    const iid = el.dataset.cprev;
+    const row = el.closest('[data-iid]');
+    if(!row) return;
+    const p = getPage(row.dataset.pid);
+    const it = getItem(p, row.dataset.aid, iid);
+    if(it && it.code) renderCodePreview(el, it.code);
+  });
+
+  updateStickyHeights();
+  autoResizeAllNames();
+  setTimeout(() => {
+    autoResizeAllNames();
+    alignQtyExpiryRows();
+    updateStickyHeights();
+  }, 30);
+
+  alignSupplierRows();
+  alignQtyExpiryRows();
+  setupSupplierObserver();
+  scanAllDuplicates();
+}
+
+function autoResize(el){
+  if(!el) return;
+  if(el.offsetParent === null) return;
+  el.style.height = 'auto';
+  const sh = el.scrollHeight;
+  el.style.height = Math.max(28, sh) + 'px';
+}
+function autoResizeAllNames(){
+  $$('.name-area').forEach(el => autoResize(el));
+}
+
+/* ============ 物品編號重複檢測 ============ */
+function normCode(c){ return String(c ?? '').trim().toUpperCase(); }
+
+function findDuplicateCodes(code, excludePid, excludeAid, excludeIid){
+  const norm = normCode(code);
+  if(!norm) return [];
+  const out = [];
+  state.pages.forEach(p => {
+    if(p.type === 'supplier') return;
+    p.areas.forEach(a => a.items.forEach(it => {
+      if(p.id === excludePid && a.id === excludeAid && it.id === excludeIid) return;
+      if(normCode(it.code) === norm){
+        out.push({
+          pid: p.id, pageName: p.name,
+          aid: a.id, areaName: a.name,
+          iid: it.id, itemName: it.name || '(未命名)',
+        });
+      }
+    }));
+  });
+  return out;
+}
+
+function updateDupWarning(inputEl){
+  const row = inputEl.closest('[data-iid]');
+  if(!row) return;
+  const p = getPage(row.dataset.pid);
+  const a = getArea(p, row.dataset.aid);
+  const it = getItem(p, row.dataset.aid, row.dataset.iid);
+  if(!it) return;
+
+  const wrap = inputEl.closest('.code-wrap');
+  if(!wrap) return;
+  let warn = wrap.querySelector('.code-warn');
+
+  const dups = findDuplicateCodes(inputEl.value, p.id, a.id, it.id);
+
+  if(dups.length){
+    inputEl.classList.add('dup');
+    if(!warn){
+      warn = document.createElement('div');
+      warn.className = 'code-warn';
+      wrap.appendChild(warn);
+    }
+    const names = dups.slice(0, 2).map(d => `${d.pageName} / ${d.areaName}`).join('、');
+    warn.textContent = `⚠ 編號重複：${names}${dups.length > 2 ? ` 等 ${dups.length} 處` : ''}`;
+  }else{
+    inputEl.classList.remove('dup');
+    if(warn) warn.remove();
+  }
+  setTimeout(updateStickyHeights, 0);
+}
+
+function refreshDuplicatesFor(code){
+  const norm = normCode(code);
+  $$('.row[data-iid]').forEach(row => {
+    const inputEl = row.querySelector('input[data-f="code"]');
+    if(!inputEl) return;
+    if(normCode(inputEl.value) === norm){
+      updateDupWarning(inputEl);
+    }
+  });
+}
+
+function scanAllDuplicates(){
+  const codeMap = new Map();
+  $$('.row[data-iid]').forEach(row => {
+    const inputEl = row.querySelector('input[data-f="code"]');
+    if(!inputEl) return;
+    const norm = normCode(inputEl.value);
+    if(!norm) return;
+    if(!codeMap.has(norm)) codeMap.set(norm, []);
+    codeMap.get(norm).push({ inputEl });
+  });
+  codeMap.forEach(list => {
+    if(list.length > 1){
+      list.forEach(o => updateDupWarning(o.inputEl));
+    }
+  });
+}
+
+/* ============ 現存量欄 & 有效日期欄 逐列對齊 ============ */
+function alignQtyExpiryRows(){
+  $$('.row[data-iid]').forEach(row => {
+    const qtyCell = row.querySelector('[data-col="curQty"]');
+    const expCell = row.querySelector('[data-col="expiry"]');
+    if(!qtyCell || !expCell) return;
+
+    /* 只選「主列 + 批次列」，不含「不過期」按鈕 */
+    const qtyRows = qtyCell.querySelectorAll('.qty-main-row, .qty-extra-row');
+    const expRows = expCell.querySelectorAll('.expiry-main-row, .expiry-extra-row');
+
+    qtyRows.forEach(r => { r.style.height = ''; });
+    expRows.forEach(r => { r.style.height = ''; });
+
+    const len = Math.min(qtyRows.length, expRows.length);
+    for(let i = 0; i < len; i++){
+      const qr = qtyRows[i], er = expRows[i];
+      const maxH = Math.max(qr.offsetHeight, er.offsetHeight);
+      qr.style.height = maxH + 'px';
+      er.style.height = maxH + 'px';
+    }
+  });
+}
+
+/* ============ 供應商三欄列高對齊 ============ */
+function alignSupplierRows(){
+  $$('.row[data-iid]').forEach(row => {
+    const nameCell  = row.querySelector('[data-col="cname"]');
+    const phoneCell = row.querySelector('[data-col="cphone"]');
+    const tagCell   = row.querySelector('[data-col="tags"]');
+    if(!nameCell || !phoneCell || !tagCell) return;
+
+    const nameBlocks  = nameCell.querySelectorAll('.contact-block');
+    const phoneBlocks = phoneCell.querySelectorAll('.phone-block');
+    const tagBlocks   = tagCell.querySelectorAll('.ct-tags-block');
+
+    const len = nameBlocks.length;
+    for(let i = 0; i < len; i++){
+      const trio = [nameBlocks[i], phoneBlocks[i], tagBlocks[i]];
+      trio.forEach(b => { if(b) b.style.height = ''; });
+      const maxH = Math.max(0, ...trio.map(b => b ? b.offsetHeight : 0));
+      trio.forEach(b => { if(b) b.style.height = maxH + 'px'; });
+    }
+  });
+}
+
+let _ro = null, _roTimer = null;
+function setupSupplierObserver(){
+  if(_ro) _ro.disconnect();
+  if(typeof ResizeObserver === 'undefined') return;
+  _ro = new ResizeObserver(() => {
+    clearTimeout(_roTimer);
+    _roTimer = setTimeout(alignSupplierRows, 30);
+  });
+  $$('[data-col="tags"] .ct-tags-block').forEach(el => _ro.observe(el));
+  $$('[data-col="cname"] .contact-block').forEach(el => _ro.observe(el));
+}
+
+/* ============ 總覽 ============ */
+function getAllRecords(){
+  const out = [];
+  state.pages.forEach(p => p.areas.forEach(a => a.items.forEach(it => {
+    out.push({ page:p, area:a, item:it });
+  })));
+  return out;
+}
+
+function viewOverview(){
+  const recs = getAllRecords();
+  let total = 0, reds = 0, yellows = 0, outs = 0;
+  recs.forEach(r => {
+    if(r.page.type === 'supplier') return;
+    total++;
+    const st = itemStatus(r.page, r.item);
+    if(st === 'red') reds++;
+    if(st === 'yellow') yellows++;
+    if(r.item.out) outs++;
+  });
+
+  let h = `<div class="page-head"><h2>總覽</h2>
+      <span class="pill">工號 ${esc(state.empId)}</span>
+      <div class="grow"></div>
+      <button class="btn" data-act="export">⬇ 匯出 Excel</button>
+    </div>`;
+
+  h += `<div class="stats">
+    <div class="stat"><div class="n">${total}</div><div class="l">物品總數</div></div>
+    <div class="stat bad"><div class="n">${reds}</div><div class="l">紅色警示（&lt;30 天 / 缺貨）</div></div>
+    <div class="stat warn"><div class="n">${yellows}</div><div class="l">黃色提醒（&lt;90 天）</div></div>
+    <div class="stat bad"><div class="n">${outs}</div><div class="l">缺貨物品</div></div>
+  </div>`;
+
+  const alerts = recs.filter(r => r.page.type !== 'supplier' && itemStatus(r.page, r.item) !== 'normal')
+                     .sort((a,b) => {
+                       const da = daysLeft(a.item.expiry) ?? 99999;
+                       const db = daysLeft(b.item.expiry) ?? 99999;
+                       return da - db;
+                     });
+
+  if(alerts.length){
+    h += `<div class="area">
+      <div class="area-head"><span class="area-dot" style="background:#e5484d"></span>
+        <span style="font-weight:700">⚠ 需要關注的物品</span>
+        <span class="count">${alerts.length} 項</span></div>
+      <div class="hrow">
+        <div class="cell hcell" style="width:130px">倉庫</div>
+        <div class="cell hcell" style="width:110px">區域</div>
+        <div class="cell hcell" style="width:150px">物品編號</div>
+        <div class="cell hcell" style="width:180px">物品名稱</div>
+        <div class="cell hcell" style="width:80px">現存量</div>
+        <div class="cell hcell" style="width:110px">有效日期</div>
+        <div class="cell hcell" style="width:90px">剩餘天數</div>
+      </div>`;
+    alerts.forEach(r => {
+      const st = itemStatus(r.page, r.item);
+      const d = daysLeft(r.item.expiry);
+      h += `<div class="row ${st}">
+        <div class="cell" style="width:130px">${esc(r.page.name)}</div>
+        <div class="cell" style="width:110px">${esc(r.area.name)}</div>
+        <div class="cell" style="width:150px">${esc(r.item.code||'—')}</div>
+        <div class="cell" style="width:180px;word-break:break-word">${esc(r.item.name||'—')}</div>
+        <div class="cell" style="width:80px">${r.item.out ? '<b style="color:#e5484d">缺貨</b>' : (r.item.curQty ?? '—')}</div>
+        <div class="cell" style="width:110px">${esc(r.item.noExpiry ? '不過期' : (r.item.expiry || '—'))}</div>
+        <div class="cell" style="width:90px">${r.item.noExpiry ? '—' : (d === null ? '—' : (d < 0 ? '已過期' : d + ' 天'))}</div>
+      </div>`;
+    });
+    h += `</div>`;
+  }
+
+  if(state.pages.length){
+    h += `<div class="sec-title" style="margin-top:20px">各倉庫摘要</div>`;
+    h += `<div class="stats">`;
+    state.pages.forEach(p => {
+      const n = p.areas.reduce((s,a) => s + a.items.length, 0);
+      h += `<div class="stat" style="cursor:pointer" data-goto="${p.id}">
+        <div class="n">${n}</div>
+        <div class="l">${TYPES[p.type].icon} ${esc(p.name)}</div></div>`;
+    });
+    h += `</div>`;
+  }
+
+  if(!recs.length) h += `<div class="empty">尚未有任何資料。點擊左側「＋ 新增頁面」開始建立倉庫。</div>`;
+  return h;
+}
+
+/* ============ 頁面 ============ */
+function cellHTML(key, width, inner, type){
+  return `<div class="cell" data-col="${key}" data-type="${type}" style="width:${width}px;min-width:${width}px">${inner}</div>`;
+}
+function notesHTML(item){
+  const notes = item.notes || [];
+  let h = `<div class="notes">`;
+  notes.forEach((n, i) => {
+    h += `<div class="note-line">
+      <input class="inp" data-f="note" data-ni="${i}" value="${esc(n)}" placeholder="備注">
+      <button class="mini" data-act="delnote" data-ni="${i}" title="刪除此備注">✕</button>
+    </div>`;
+  });
+  h += `<div class="note-line"><button class="mini add" data-act="addnote">＋ 備注</button></div></div>`;
+  return h;
+}
+
+/* ★ 現存量欄：只放數量（主量 + 追加數量） */
+function qtyCellHTML(item){
+  let h = `<div class="qty-wrap">
+    <div class="qty-main-row">
+      <input class="inp num" type="text" inputmode="numeric"
+        data-f="curQty" data-num="1" value="${item.curQty ?? 0}">
+      <button class="add-extra-btn" data-act="add-extra" title="新增一列數量">+</button>
+    </div>`;
+
+  const extras = Array.isArray(item.extras) ? item.extras : [];
+  extras.forEach((ex, i) => {
+    h += `<div class="qty-extra-row" data-ei="${i}">
+      <input class="inp num extra-qty" type="text" inputmode="numeric"
+        data-f="extra-qty" data-ei="${i}" data-num="1"
+        value="${ex.qty ?? 0}" placeholder="數量" title="追加數量">
+      <button class="mini" data-act="del-extra" data-ei="${i}" title="刪除此列">✕</button>
+    </div>`;
+  });
+
+  h += `</div>`;
+  return h;
+}
+
+/* ★ 有效日期欄：主日期 + 追加日期 + 最後一列「不過期」按鈕 */
+function expiryCellHTML(item){
+  const noExp = !!item.noExpiry;
+  const extras = Array.isArray(item.extras) ? item.extras : [];
+
+  let h = `<div class="expiry-wrap">`;
+
+  if(noExp){
+    /* 不過期狀態：只顯示綠色標籤 */
+    h += `<div class="expiry-main-row">
+      <div class="no-expiry-label" data-act="toggle-no-expiry" title="點擊恢復有效日期">✓ 不過期</div>
+    </div>`;
+  }else{
+    /* 主日期 */
+    h += `<div class="expiry-main-row">
+      <input class="inp exp-inp" data-f="expiry" value="${esc(item.expiry||'')}"
+        placeholder="YYYYMMDD" maxlength="8" inputmode="numeric">
+    </div>`;
+
+    /* 追加日期列 */
+    extras.forEach((ex, i) => {
+      h += `<div class="expiry-extra-row" data-ei="${i}">
+        <input class="inp extra-exp" type="text" inputmode="numeric" maxlength="8"
+          data-f="extra-expiry" data-ei="${i}"
+          value="${esc(ex.expiry || '')}" placeholder="YYYYMMDD" title="追加有效日期">
+      </div>`;
+    });
+
+    /* ★ 不過期按鈕：放在所有日期列下方，獨立一列 */
+    h += `<button class="no-expiry-btn" data-act="toggle-no-expiry" title="設為不過期">不過期</button>`;
+  }
+
+  h += `</div>`;
+  return h;
+}
+
+function rowHTML(page, area, item){
+  const type = page.type;
+  const w = getWidths(type);
+  const st = itemStatus(page, item);
+  const attrs = `data-pid="${page.id}" data-aid="${area.id}" data-iid="${item.id}"`;
+  let cells = '';
+
+  if(type === 'common' || type === 'special'){
+    cells += cellHTML('code', w.code,
+      `<div style="display:flex;gap:5px;align-items:flex-start">
+        <span class="item-drag-handle" draggable="true" title="拖動排序物品">⋮⋮</span>
+        <div class="code-wrap" style="flex:1;min-width:0">
+          <input class="inp" data-f="code" value="${esc(item.code||'')}" placeholder="物品編號">
+          <div class="cprev" data-cprev="${item.id}"></div>
+        </div>
+      </div>`, type);
+
+    cells += cellHTML('name', w.name,
+      `<textarea class="inp name-area" data-f="name" data-tip="1" data-ctxcontact="1" rows="1"
+        placeholder="物品名稱">${esc(item.name||'')}</textarea>`, type);
+
+    cells += cellHTML('note', w.note, notesHTML(item), type);
+
+    cells += cellHTML('baseQty', w.baseQty,
+      `<input class="inp num" type="text" inputmode="numeric"
+        data-f="baseQty" data-num="1" value="${item.baseQty ?? 0}">`, type);
+
+    cells += cellHTML('curQty', w.curQty, qtyCellHTML(item), type);
+
+    cells += cellHTML('out', w.out,
+      `<button class="out-btn ${item.out?'on':''}" data-act="toggle-out">${item.out?'缺貨':'正常'}</button>`, type);
+
+    cells += cellHTML('expiry', w.expiry, expiryCellHTML(item), type);
+
+    cells += cellHTML('act', w.act,
+      `<button class="icon-btn" data-act="del-item" title="刪除物品">✕</button>`, type);
+  }
+
+  else if(type === 'consign'){
+    cells += cellHTML('code', w.code,
+      `<div style="display:flex;gap:5px;align-items:flex-start">
+        <span class="item-drag-handle" draggable="true" title="拖動排序物品">⋮⋮</span>
+        <div class="code-wrap" style="flex:1;min-width:0">
+          <input class="inp" data-f="code" value="${esc(item.code||'')}" placeholder="物品編號">
+          <div class="cprev" data-cprev="${item.id}"></div>
+        </div>
+      </div>`, type);
+
+    cells += cellHTML('name', w.name,
+      `<textarea class="inp name-area" data-f="name" data-tip="1" rows="1"
+        placeholder="物品名稱">${esc(item.name||'')}</textarea>`, type);
+
+    cells += cellHTML('note', w.note, notesHTML(item), type);
+
+    const contacts = getAllContactsFull();
+    let opts = ['<option value="">— 選擇聯絡人員 —</option>'];
+    contacts.forEach(c => {
+      const tags = (c.tags && c.tags.length) ? ` [${c.tags.join('·')}]` : '';
+      opts.push(`<option value="${esc(c.label)}" ${item.contact===c.label?'selected':''}>${esc(c.label)}${esc(tags)}</option>`);
+    });
+    if(item.contact && !contacts.some(c => c.label === item.contact)){
+      opts.push(`<option value="${esc(item.contact)}" selected>${esc(item.contact)}</option>`);
+    }
+    opts.push(`<option value="__new__">＋ 新增聯絡人員…</option>`);
+    cells += cellHTML('contact', w.contact,
+      `<select class="inp" data-f="contact" style="cursor:pointer">${opts.join('')}</select>`, type);
+
+    cells += cellHTML('act', w.act,
+      `<button class="icon-btn" data-act="del-item" title="刪除物品">✕</button>`, type);
+  }
+
+  else if(type === 'supplier'){
+    const contacts = item.contacts || [];
+
+    cells += cellHTML('name', w.name,
+      `<div style="display:flex;gap:6px;align-items:center">
+        <span class="supplier-drag-handle" draggable="true" title="拖動調整供應商順序">⋮⋮</span>
+        <input class="inp" data-f="s-name" value="${esc(item.name||'')}" placeholder="供應商名稱">
+      </div>`, type);
+
+    let nHtml = `<div class="contacts-list">`;
+    contacts.forEach((c, i) => {
+      nHtml += `<div class="contact-block" data-ci="${i}">
+        <div class="contact-head">
+          <span class="contact-drag-handle" draggable="true" title="拖動調整聯絡人順序">⋮⋮</span>
+          <input class="inp" data-f="c-name" data-ci="${i}" value="${esc(c.name||'')}" placeholder="聯絡人">
+        </div>
+      </div>`;
+    });
+    nHtml += `<div class="add-row"><button class="mini add" data-act="addcontact">＋ 聯絡人</button></div>`;
+    nHtml += `</div>`;
+    cells += cellHTML('cname', w.cname, nHtml, type);
+
+    let pHtml = `<div class="phone-list">`;
+    contacts.forEach((c, i) => {
+      pHtml += `<div class="phone-block" data-ci="${i}">
+        <input class="inp" data-f="c-phone" data-ci="${i}" value="${esc(c.phone||'')}" placeholder="電話">
+        <button class="mini" data-act="delcontact" data-ci="${i}" title="刪除">✕</button>
+      </div>`;
+    });
+    pHtml += `<div class="add-row-placeholder"></div></div>`;
+    cells += cellHTML('cphone', w.cphone, pHtml, type);
+
+    let tHtml = `<div class="ct-tags-list">`;
+    contacts.forEach((c, i) => {
+      const tags = Array.isArray(c.tags) ? c.tags : [];
+      tHtml += `<div class="ct-tags-block" data-ct-ci="${i}">
+        <div class="ct-tag-list">
+          ${tags.map((t, ti) =>
+            `<span class="tag-mini">${esc(t)}<b data-act="delctag" data-ci="${i}" data-ti="${ti}">✕</b></span>`
+          ).join('')}
+          <input class="tag-add" data-f="ctag-input" data-ci="${i}" placeholder="+標籤" maxlength="20">
+        </div>
+      </div>`;
+    });
+    tHtml += `<div class="add-row-placeholder"></div></div>`;
+    cells += cellHTML('tags', w.tags, tHtml, type);
+
+    cells += cellHTML('act', w.act,
+      `<button class="icon-btn" data-act="del-item" title="刪除供應商">✕</button>`, type);
+  }
+
+  return `<div class="row ${st !== 'normal' ? st : ''}" ${attrs}>${cells}</div>`;
+}
+
+function viewPage(page){
+  const cols = COLS[page.type];
+  const w = getWidths(page.type);
+  const isSupplier = page.type === 'supplier';
+  const isConsign  = page.type === 'consign';
+  const addLabel = isSupplier ? '＋ 供應商' : (isConsign ? '＋ 寄沽物品' : '＋ 物品');
+
+  let h = `<div class="page-head">
+    <h2>${esc(page.name)}</h2>
+    <span class="pill">${TYPES[page.type].icon} ${TYPES[page.type].label}</span>
+    <div class="grow"></div>
+    <button class="btn" data-act="expand-all">展開全部</button>
+    <button class="btn" data-act="collapse-all">折疊全部</button>
+    <button class="btn" data-act="add-area">＋ 新增區域</button>
+    <button class="btn" data-act="export-page">⬇ 匯出本頁</button>
+    <button class="btn" data-act="toggle-code">
+      ${state.codeMode === 'qrcode' ? '二維碼 ✓' : '一維碼 ✓'}
+    </button>
+  </div>`;
+
+  if(!page.areas.length){
+    h += `<div class="empty">此頁面尚無區域，點擊「＋ 新增區域」開始建立。</div>`;
+    return h;
+  }
+
+  page.areas.forEach(area => {
+    const collapsedCls = area.collapsed ? ' collapsed' : '';
+    h += `<div class="area${collapsedCls}" data-aid="${area.id}">
+      <div class="area-head" title="點擊空白處折疊 / 展開">
+        <span class="area-drag-handle" draggable="true" title="拖動排序區域">⋮⋮</span>
+        <button class="collapse-toggle" data-act="toggle-area" title="折疊 / 展開">▼</button>
+        <span class="area-dot"></span>
+        <input class="area-name" data-f="area-name" value="${esc(area.name)}">
+        <span class="count">${area.items.length} 項</span>
+        <div class="grow"></div>
+        <button class="btn sm" data-act="add-item">${addLabel}</button>
+        <button class="btn sm danger" data-act="del-area">刪除區域</button>
+      </div>`;
+
+    h += `<div class="hrow">`;
+    cols.forEach(c => {
+      h += `<div class="cell hcell" data-col="${c.k}" data-type="${page.type}"
+              style="width:${w[c.k]}px;min-width:${w[c.k]}px">
+        ${esc(c.t)}<span class="rz" data-col="${c.k}" data-type="${page.type}"></span>
+      </div>`;
+    });
+    h += `</div>`;
+
+    area.items.forEach(it => { h += rowHTML(page, area, it); });
+    h += `</div>`;
+  });
+
+  return h;
+}
+
+/* ============ 搜索 ============ */
+function viewSearch(){
+  const q = searchQuery.toLowerCase();
+  const recs = getAllRecords().filter(r => {
+    const p = r.page, it = r.item;
+    if(p.type === 'supplier'){
+      const hay = [it.name,
+        ...(it.contacts||[]).map(c => [c.name, c.phone, ...(c.tags||[])].join(' ')),
+      ].join(' ').toLowerCase();
+      return hay.includes(q);
+    }
+    if(p.type === 'common' || p.type === 'special'){
+      const hay = [it.code, it.name, (it.contactList||[]).join(' '), ...(it.notes||[])].join(' ').toLowerCase();
+      return hay.includes(q);
+    }
+    const hay = [it.code, it.name, it.contact, ...(it.notes||[])].join(' ').toLowerCase();
+    return hay.includes(q);
+  });
+
+  let h = `<div class="page-head"><h2>搜索結果</h2>
+    <span class="pill">「${esc(searchQuery)}」</span>
+    <span class="count">${recs.length} 項</span></div>`;
+
+  if(!recs.length) return h + `<div class="empty">找不到符合「${esc(searchQuery)}」的資料。</div>`;
+
+  h += `<div class="area">
+    <div class="hrow">
+      <div class="cell hcell" style="width:130px">倉庫</div>
+      <div class="cell hcell" style="width:110px">區域</div>
+      <div class="cell hcell" style="width:150px">編號 / 供應商</div>
+      <div class="cell hcell" style="width:180px">名稱 / 聯絡人</div>
+      <div class="cell hcell" style="width:90px">現存量</div>
+      <div class="cell hcell" style="width:110px">有效日期</div>
+      <div class="cell hcell" style="flex:1">備注 / 標籤</div>
+    </div>`;
+  recs.forEach(r => {
+    const { page, area, item } = r;
+    const st = itemStatus(page, item);
+    const isSup = page.type === 'supplier';
+    const isComSp = (page.type === 'common' || page.type === 'special');
+    const code = isSup ? (item.name || '') : (item.code || '');
+    const name = isSup
+      ? (item.contacts || []).map(c => c.name).filter(Boolean).join('、')
+      : (item.name || '');
+    const extra = isSup
+      ? (item.contacts||[]).flatMap(c => c.tags || []).join('、')
+      : (item.notes || []).filter(Boolean).join('；');
+    const contactInfo = isComSp ? (item.contactList || []).join('、') : '';
+    h += `<div class="row ${st !== 'normal' ? st : ''}">
+      <div class="cell" style="width:130px">${esc(page.name)}</div>
+      <div class="cell" style="width:110px">${esc(area.name)}</div>
+      <div class="cell" style="width:150px">${esc(code)}</div>
+      <div class="cell" style="width:180px;word-break:break-word">${esc(name)}${contactInfo ? `<div style="color:#7a8395;font-size:.72rem">${esc(contactInfo)}</div>` : ''}</div>
+      <div class="cell" style="width:90px">${isSup ? '—' : (item.out ? '<b style="color:#e5484d">缺貨</b>' : (item.curQty ?? '—'))}</div>
+      <div class="cell" style="width:110px">${esc(isSup ? '—' : (item.noExpiry ? '不過期' : (item.expiry || '—')))}</div>
+      <div class="cell" style="flex:1;word-break:break-word">${esc(extra)}</div>
+    </div>`;
+  });
+  return h + `</div>`;
+}
+
+/* ============ 管理 ============ */
+function viewAdmin(){
+  let used = 0;
+  try{ used = (localStorage.getItem(LS_KEY) || '').length; }catch(e){}
+  const kb = (used / 1024).toFixed(1);
+  const totalItems = getAllRecords().length;
+
+  return `<div class="page-head"><h2>管理</h2>
+      <span class="pill">登入工號 ${esc(state.empId)}</span>
+      <div class="grow"></div>
+      <button class="btn danger" data-act="logout">登出</button>
+    </div>
+
+    <div class="card">
+      <div class="sec-title">💾 資料備份</div>
+      <p>建議定期匯出完整備份（JSON 檔），以防誤操作清空資料。</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn primary" data-act="backup-json">⬇ 匯出完整備份（JSON）</button>
+        <button class="btn" data-act="restore-json">⬆ 匯入備份</button>
+        <button class="btn" data-act="export-all-xlsx">⬇ 匯出全部資料（Excel）</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="sec-title">📊 目前資料</div>
+      <p>
+        頁面數：<b>${state.pages.length}</b>　·　
+        區域數：<b>${state.pages.reduce((s,p)=>s+p.areas.length,0)}</b>　·　
+        物品／供應商總數：<b>${totalItems}</b><br>
+        本機儲存用量：<b>${kb} KB</b>
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="sec-title">🔤 字體大小</div>
+      <p>調整整個系統的顯示字體大小（80% ~ 150%）。</p>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <button class="btn" data-act="font-down">A− 縮小</button>
+        <span style="font-size:.84rem;color:#7a8395;min-width:52px;text-align:center">${Math.round(state.fontScale*100)}%</span>
+        <button class="btn" data-act="font-up">A+ 放大</button>
+        <button class="btn" data-act="font-reset">重設 100%</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="sec-title">🎨 顯示設定</div>
+      <p>物品編號下方顯示的條碼類型：</p>
+      <div class="radio-row">
+        <label><input type="radio" name="cm" value="qrcode" ${state.codeMode==='qrcode'?'checked':''}> 二維碼 (QR Code)</label>
+        <label><input type="radio" name="cm" value="barcode" ${state.codeMode==='barcode'?'checked':''}> 一維碼 (Code 128)</label>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:#ffd4d4">
+      <div class="sec-title" style="color:#b42318">⚠ 危險區域</div>
+      <p class="danger-note">清空動作將刪除本機所有倉存資料且無法還原。</p>
+      <div style="margin-top:12px">
+        <button class="btn danger" data-act="wipe">🗑 清空所有資料</button>
+      </div>
+    </div>`;
+}
+
+/* ============ 缺貨 / 現存量 連動 ============ */
+function syncOutBtn(row, item){
+  const btn = row.querySelector('[data-act="toggle-out"]');
+  if(btn){ btn.classList.toggle('on', !!item.out); btn.textContent = item.out ? '缺貨' : '正常'; }
+}
+function syncQtyInput(row, item){
+  const q = row.querySelector('[data-f="curQty"]');
+  if(q && document.activeElement !== q) q.value = item.curQty ?? 0;
+}
+function updateRowStatus(row){
+  const p = getPage(row.dataset.pid);
+  const it = getItem(p, row.dataset.aid, row.dataset.iid);
+  if(!it) return;
+  row.classList.remove('red', 'yellow');
+  const st = itemStatus(p, it);
+  if(st !== 'normal') row.classList.add(st);
+}
+function parseNonNegInt(raw){
+  const s = String(raw ?? '').trim();
+  if(s === '') return null;
+  const cleaned = s.replace(/[^\d]/g, '');
+  if(cleaned === '') return null;
+  const n = parseInt(cleaned, 10);
+  if(isNaN(n) || n < 0) return 0;
+  return n;
+}
+
+function toggleAreaCollapse(areaEl, pageEl){
+  if(!areaEl || !pageEl) return;
+  const p = getPage(pageEl.dataset.pageid);
+  const a = getArea(p, areaEl.dataset.aid);
+  if(!a) return;
+  a.collapsed = !a.collapsed;
+  saveState();
+  areaEl.classList.toggle('collapsed', a.collapsed);
+
+  if(!a.collapsed){
+    requestAnimationFrame(() => {
+      areaEl.querySelectorAll('.name-area').forEach(el => autoResize(el));
+      alignQtyExpiryRows();
+      updateStickyHeights();
+    });
+  }else{
+    setTimeout(updateStickyHeights, 0);
+  }
+}
+
+function addItemToAreaLocal(page, area){
+  const newIt = newItem(page.type);
+  area.items.push(newIt);
+  saveState();
+
+  const pageEl = document.querySelector(`[data-pageid="${page.id}"]`);
+  if(!pageEl){ render(); return; }
+  const areaEl = pageEl.querySelector(`.area[data-aid="${area.id}"]`);
+  if(!areaEl){ render(); return; }
+
+  if(area.collapsed){
+    area.collapsed = false;
+    areaEl.classList.remove('collapsed');
+    saveState();
+  }
+
+  const countEl = areaEl.querySelector('.count');
+  if(countEl) countEl.textContent = `${area.items.length} 項`;
+
+  const newRowHTML = rowHTML(page, area, newIt);
+  const temp = document.createElement('div');
+  temp.innerHTML = newRowHTML;
+  const newRow = temp.firstElementChild;
+
+  const rows = areaEl.querySelectorAll('.row');
+  if(rows.length){
+    rows[rows.length-1].insertAdjacentElement('afterend', newRow);
+  }else{
+    const hrow = areaEl.querySelector('.hrow');
+    if(hrow) hrow.insertAdjacentElement('afterend', newRow);
+    else areaEl.appendChild(newRow);
+  }
+
+  if(newIt.code){
+    const cprev = newRow.querySelector('.cprev');
+    if(cprev) renderCodePreview(cprev, newIt.code);
+  }
+
+  requestAnimationFrame(() => {
+    alignQtyExpiryRows();
+    updateStickyHeights();
+
+    try{
+      const content = $('#content');
+      const rowRect = newRow.getBoundingClientRect();
+      const cRect = content.getBoundingClientRect();
+      const pageHeadEl = content.querySelector('.page-head');
+      const pageHeadH = pageHeadEl ? pageHeadEl.getBoundingClientRect().height : 0;
+      const topBound = cRect.top + pageHeadH + 10;
+      const bottomBound = cRect.bottom - 10;
+
+      if(rowRect.bottom > bottomBound){
+        content.scrollTop += (rowRect.bottom - bottomBound);
+      }else if(rowRect.top < topBound){
+        content.scrollTop -= (topBound - rowRect.top);
+      }
+    }catch(e){}
+
+    const codeInput = newRow.querySelector('input[data-f="code"]');
+    if(codeInput){
+      codeInput.focus();
+      try{ codeInput.select(); }catch(_){}
+    }
+  });
+}
+
+function rebuildQtyCell(row, item){
+  const cell = row.querySelector('[data-col="curQty"]');
+  if(!cell) return;
+  cell.innerHTML = qtyCellHTML(item);
+  setTimeout(() => { alignQtyExpiryRows(); updateStickyHeights(); }, 20);
+}
+
+function rebuildExpiryCell(row, item){
+  const cell = row.querySelector('[data-col="expiry"]');
+  if(!cell) return;
+  cell.innerHTML = expiryCellHTML(item);
+  setTimeout(() => { alignQtyExpiryRows(); updateStickyHeights(); }, 20);
+}
+
+/* ============ 點擊全選 / 雙擊複製 ============ */
+document.addEventListener('mousedown', e => {
+  const el = e.target.closest('input[data-f="code"], input[data-f="area-name"]');
+  if(!el) return;
+  if(document.activeElement !== el){
+    e.preventDefault();
+    el.focus();
+    try{ el.select(); }catch(_){}
+  }
+});
+
+document.addEventListener('dblclick', e => {
+  const el = e.target.closest('input[data-f="code"]');
+  if(!el) return;
+  const val = (el.value || '').trim();
+  if(!val) return;
+  e.preventDefault();
+  copyToClipboard(val).then(() => {
+    toast('已複製編號：' + val);
+  }).catch(() => {
+    toast('複製失敗');
+  });
+});
+
+/* ============ 輸入事件 ============ */
+document.addEventListener('input', e => {
+  const el = e.target;
+  const f  = el.dataset.f;
+  if(!f) return;
+
+  if(f === 'area-name'){
+    const areaEl = el.closest('[data-aid]');
+    const pageEl = el.closest('[data-pageid]');
+    if(!pageEl) return;
+    const p = getPage(pageEl.dataset.pageid);
+    const a = getArea(p, areaEl.dataset.aid);
+    if(a){ a.name = el.value; saveState(); }
+    return;
+  }
+  if(f === 'ctag-input') return;
+
+  const row = el.closest('[data-iid]');
+  if(!row) return;
+  const p = getPage(row.dataset.pid);
+  const it = getItem(p, row.dataset.aid, row.dataset.iid);
+  if(!it) return;
+
+  switch(f){
+    case 'code': {
+      const oldCode = it.code;
+      it.code = el.value;
+      schedulePreview(it.id, el.value);
+      refreshDuplicatesFor(oldCode);
+      refreshDuplicatesFor(el.value);
+      break;
+    }
+    case 'name':
+      it.name = el.value;
+      if(el.classList.contains('name-area')) autoResize(el);
+      break;
+    case 'baseQty': {
+      const filtered = String(el.value).replace(/[^\d]/g, '');
+      if(filtered !== el.value){
+        const pos = el.selectionStart;
+        el.value = filtered;
+        try { el.setSelectionRange(pos, pos); } catch(_){}
+      }
+      const n = parseNonNegInt(filtered);
+      if(n !== null){ it.baseQty = n; saveState(); }
+      break;
+    }
+    case 'curQty': {
+      const filtered = String(el.value).replace(/[^\d]/g, '');
+      if(filtered !== el.value){
+        const pos = el.selectionStart;
+        el.value = filtered;
+        try { el.setSelectionRange(pos, pos); } catch(_){}
+      }
+      const n = parseNonNegInt(filtered);
+      if(n !== null){ it.curQty = n; saveState(); }
+      break;
+    }
+    case 'extra-qty': {
+      const ei = +el.dataset.ei;
+      if(!Array.isArray(it.extras) || !it.extras[ei]) break;
+      const filtered = String(el.value).replace(/[^\d]/g, '');
+      if(filtered !== el.value){
+        const pos = el.selectionStart;
+        el.value = filtered;
+        try { el.setSelectionRange(pos, pos); } catch(_){}
+      }
+      const n = parseNonNegInt(filtered);
+      if(n !== null){ it.extras[ei].qty = n; saveState(); }
+      break;
+    }
+    case 'extra-expiry': {
+      const ei = +el.dataset.ei;
+      if(!Array.isArray(it.extras) || !it.extras[ei]) break;
+      let v = String(el.value).replace(/\D/g, '').slice(0, 8);
+      if(v !== el.value) el.value = v;
+      it.extras[ei].expiry = v;
+      saveState();
+      break;
+    }
+    case 'note': it.notes[+el.dataset.ni] = el.value; break;
+    case 's-name': it.name = el.value; break;
+    case 'c-name': {
+      const ci = +el.dataset.ci;
+      if(it.contacts[ci]) it.contacts[ci].name = el.value;
+      break;
+    }
+    case 'c-phone':
+      if(it.contacts[+el.dataset.ci]) it.contacts[+el.dataset.ci].phone = el.value;
+      break;
+  }
+  saveState();
+});
+
+/* ============ 有效日期 ============ */
+function getExpiryState(input){
+  if(!input._exp){
+    const v = input.value;
+    if(v && /^\d{8}$/.test(v)) input._exp = { y: v.slice(2,4), m: v.slice(4,6), d: v.slice(6,8), stage:'done' };
+    else input._exp = { y:'', m:'', d:'', stage:'y' };
+  }
+  return input._exp;
+}
+function renderExpiry(input, st){
+  let v = '';
+  if(st.y){
+    v += '20' + st.y.padStart(2, '0');
+    if(st.m){ v += st.m; if(st.d) v += st.d; }
+  }
+  input.value = v;
+}
+function syncExpiryToItem(input){
+  const row = input.closest('[data-iid]');
+  if(!row) return;
+  const p = getPage(row.dataset.pid);
+  const it = getItem(p, row.dataset.aid, row.dataset.iid);
+  if(!it) return;
+  const st = input._exp;
+  if(!st || !st.y || st.y.length < 2) it.expiry = '';
+  else if(!st.m) it.expiry = '';
+  else it.expiry = buildDateStr(st.y, st.m, st.d || '0');
+  saveState();
+  updateRowStatus(row);
+}
+
+document.addEventListener('keydown', e => {
+  const el = e.target;
+
+  if(e.key === 'Escape'){
+    const bg = document.querySelector('.modal-bg');
+    if(bg){ closeModal(); return; }
+    if($('#ctxmenu').style.display === 'block'){ closeCtx(); return; }
+  }
+
+  if(e.key === 'Enter'){
+    const bg = document.querySelector('.modal-bg');
+    if(bg){
+      const ok = bg.querySelector('[data-m="ok"]');
+      if(ok && el.tagName !== 'TEXTAREA'){ e.preventDefault(); ok.click(); return; }
+    }
+  }
+
+  if(el.dataset && el.dataset.num === '1'){
+    if(['-','.','e','E','+'].includes(e.key)){ e.preventDefault(); return; }
+  }
+
+  if(el.dataset && (el.dataset.f === 'extra-expiry' || el.dataset.f === 'extra-qty')){
+    if(e.key === 'Enter'){ e.preventDefault(); el.blur(); return; }
+  }
+
+  if(e.key === 'Enter' && !e.shiftKey && el.classList && el.classList.contains('name-area')){
+    e.preventDefault(); el.blur();
+    const row = el.closest('[data-iid]');
+    let next = row.nextElementSibling;
+    while(next && !next.classList.contains('row')) next = next.nextElementSibling;
+    if(next){ const nx = next.querySelector('[data-f="name"]'); if(nx){ nx.focus(); nx.select(); } }
+    return;
+  }
+
+  if(el.dataset && el.dataset.f === 'expiry'){
+    const st = getExpiryState(el);
+    if(e.key === 'Enter'){
+      e.preventDefault(); finalizeExpiry(el, st);
+      const row = el.closest('[data-iid]');
+      let probe = row.nextElementSibling;
+      while(probe && !probe.classList.contains('row')) probe = probe.nextElementSibling;
+      let nx = null;
+      while(probe && !nx){
+        nx = probe.querySelector('input[data-f="expiry"]');
+        if(!nx){
+          probe = probe.nextElementSibling;
+          while(probe && !probe.classList.contains('row')) probe = probe.nextElementSibling;
+        }
+      }
+      if(nx){ nx.focus(); nx.select(); }
+      return;
+    }
+    if(e.key === 'Backspace'){
+      e.preventDefault();
+      if(st.d) st.d = st.d.slice(0, -1);
+      else if(st.m) st.m = st.m.slice(0, -1);
+      else if(st.y) st.y = st.y.slice(0, -1);
+      if(st.d) st.stage = 'd'; else if(st.m) st.stage = 'm'; else st.stage = 'y';
+      renderExpiry(el, st); syncExpiryToItem(el);
+      return;
+    }
+    if(!/^\d$/.test(e.key)) return;
+    e.preventDefault();
+    if(st.stage === 'done'){ st.y = ''; st.m = ''; st.d = ''; st.stage = 'y'; }
+    const k = e.key;
+    if(st.stage === 'y'){
+      st.y += k;
+      if(st.y.length >= 2){ st.y = st.y.slice(0, 2); st.stage = 'm'; }
+    }else if(st.stage === 'm'){
+      if(st.m.length === 0){
+        if(k === '0' || k === '1'){ st.m = k; }
+        else{ st.m = '0' + k; st.stage = 'd'; }
+      }else{
+        st.m += k;
+        let mv = parseInt(st.m, 10);
+        if(isNaN(mv) || mv < 1) mv = 1;
+        if(mv > 12) mv = 12;
+        st.m = String(mv).padStart(2, '0');
+        st.stage = 'd';
+      }
+    }else if(st.stage === 'd'){
+      if(st.d.length === 0){
+        if(k >= '4'){ st.d = k; st.stage = 'done'; }
+        else{ st.d = k; }
+      }else{
+        st.d += k; st.d = st.d.slice(0, 2); st.stage = 'done';
+      }
+    }
+    renderExpiry(el, st); syncExpiryToItem(el);
+    return;
+  }
+
+  if(e.key === 'Enter' && el.dataset && el.dataset.f === 'ctag-input'){
+    e.preventDefault();
+    const row = el.closest('[data-iid]');
+    const ci = +el.dataset.ci;
+    const p = getPage(row.dataset.pid);
+    const it = getItem(p, row.dataset.aid, row.dataset.iid);
+    if(!it || !it.contacts[ci]) return;
+    const v = el.value.trim();
+    if(v){
+      it.contacts[ci].tags = it.contacts[ci].tags || [];
+      if(!it.contacts[ci].tags.includes(v)) it.contacts[ci].tags.push(v);
+      el.value = '';
+      saveState();
+      const tagList = el.closest('.ct-tag-list');
+      const tag = document.createElement('span');
+      tag.className = 'tag-mini';
+      tag.innerHTML = `${esc(v)}<b data-act="delctag" data-ci="${ci}" data-ti="${it.contacts[ci].tags.length-1}">✕</b>`;
+      tagList.insertBefore(tag, el);
+      setTimeout(() => { alignSupplierRows(); updateStickyHeights(); }, 30);
+    }
+    return;
+  }
+
+  if(e.key === 'Enter' && el.dataset && el.dataset.f === 'note'){
+    e.preventDefault();
+    const row = el.closest('[data-iid]');
+    const p = getPage(row.dataset.pid);
+    const it = getItem(p, row.dataset.aid, row.dataset.iid);
+    if(it){
+      it.notes = it.notes || [];
+      it.notes.push('');
+      saveState();
+      const cell = row.querySelector('[data-col="note"]');
+      cell.innerHTML = notesHTML(it);
+      const inputs = cell.querySelectorAll('[data-f="note"]');
+      inputs[inputs.length-1].focus();
+    }
+  }
+});
+
+function finalizeExpiry(input, st){
+  if(!st.y) return;
+  if(st.y.length < 2){ st.y = st.y.padStart(2, '0'); }
+  if(st.m && !st.d){
+    const y = +('20' + st.y);
+    const m = parseInt(st.m, 10) || 1;
+    const last = new Date(y, m, 0).getDate();
+    st.d = String(last);
+    st.stage = 'done';
+  }else if(st.y && !st.m){
+    st.m = '01'; st.d = '01'; st.stage = 'done';
+  }else if(st.d){
+    st.d = st.d.padStart(2, '0');
+    st.stage = 'done';
+  }
+  renderExpiry(input, st);
+  syncExpiryToItem(input);
+}
+
+document.addEventListener('focusout', e => {
+  const el = e.target;
+
+  /* 追加日期：寬鬆正規化 */
+  if(el.dataset && el.dataset.f === 'extra-expiry'){
+    const ei = +el.dataset.ei;
+    const row = el.closest('[data-iid]');
+    if(!row) return;
+    const p = getPage(row.dataset.pid);
+    const it = getItem(p, row.dataset.aid, row.dataset.iid);
+    if(!it || !Array.isArray(it.extras) || !it.extras[ei]) return;
+    const norm = normalizeDate8(el.value);
+    if(norm){
+      it.extras[ei].expiry = norm;
+      el.value = norm;
+    }else{
+      el.value = it.extras[ei].expiry || '';
+    }
+    saveState();
+    return;
+  }
+
+  if(el.dataset && el.dataset.f === 'code'){
+    const row = el.closest('[data-iid]');
+    if(row){
+      const p = getPage(row.dataset.pid);
+      const it = getItem(p, row.dataset.aid, row.dataset.iid);
+      if(it) refreshDuplicatesFor(it.code);
+    }
+  }
+  if(el.dataset && el.dataset.f === 'expiry'){
+    const st = getExpiryState(el);
+    finalizeExpiry(el, st);
+  }
+  if(el.dataset && el.dataset.f === 'baseQty'){
+    const row = el.closest('[data-iid]');
+    if(!row) return;
+    const p = getPage(row.dataset.pid);
+    const it = getItem(p, row.dataset.aid, row.dataset.iid);
+    if(!it) return;
+    let n = parseNonNegInt(el.value);
+    if(n === null || n < 0) n = 0;
+    it.baseQty = n; el.value = n;
+    saveState();
+  }
+
+  /* ★ 現存量：0 時嘗試從批次自動提升 */
+  if(el.dataset && el.dataset.f === 'curQty'){
+    const row = el.closest('[data-iid]');
+    if(!row) return;
+    const p = getPage(row.dataset.pid);
+    const it = getItem(p, row.dataset.aid, row.dataset.iid);
+    if(!it) return;
+
+    let n = parseNonNegInt(el.value);
+    if(n === null || n < 0) n = 0;
+
+    it.curQty = n;
+
+    /* 若主量為 0，嘗試從批次提升 */
+    if(n === 0){
+      const promoted = autoPromoteFromExtras(it);
+      if(promoted){
+        el.value = it.curQty;
+        toast('已自動提升有效日期最近的批次 → ' + it.curQty);
+        rebuildQtyCell(row, it);
+        rebuildExpiryCell(row, it);
+      }else{
+        el.value = n;
+      }
+    }else{
+      el.value = n;
+    }
+
+    /* 更新缺貨狀態 */
+    const shouldBeOut = (it.curQty <= 0);
+    if(shouldBeOut !== it.out){
+      it.out = shouldBeOut;
+      syncOutBtn(row, it);
+    }
+    updateRowStatus(row);
+    saveState();
+  }
+
+  if(el.dataset && el.dataset.f === 'extra-qty'){
+    const ei = +el.dataset.ei;
+    const row = el.closest('[data-iid]');
+    if(!row) return;
+    const p = getPage(row.dataset.pid);
+    const it = getItem(p, row.dataset.aid, row.dataset.iid);
+    if(!it || !Array.isArray(it.extras) || !it.extras[ei]) return;
+    let n = parseNonNegInt(el.value);
+    if(n === null || n < 0) n = 0;
+    it.extras[ei].qty = n;
+    el.value = n;
+    saveState();
+  }
+});
+
+document.addEventListener('focusin', e => {
+  const el = e.target;
+  if(el.dataset && el.dataset.f === 'expiry'){
+    getExpiryState(el);
+    setTimeout(() => { try{ el.select(); }catch(_){} }, 0);
+  }
+  if(el.dataset && (el.dataset.f === 'baseQty' || el.dataset.f === 'curQty' || el.dataset.f === 'extra-qty')){
+    setTimeout(() => { try{ el.select(); }catch(_){} }, 0);
+  }
+});
+
+/* ============ 拖拽 ============ */
+let draggingSupplier = null;
+let draggingContact = null;
+let draggingItem = null;
+let draggingArea = null;
+
+document.addEventListener('dragstart', e => {
+  const supHandle = e.target.closest('.supplier-drag-handle');
+  if(supHandle){
+    const row = supHandle.closest('[data-iid]');
+    if(!row) return;
+    draggingSupplier = { pid: row.dataset.pid, aid: row.dataset.aid, iid: row.dataset.iid };
+    e.dataTransfer.effectAllowed = 'move';
+    try{ e.dataTransfer.setData('text/plain', 'supplier'); }catch(_){}
+    row.classList.add('dragging-row');
+    return;
+  }
+
+  const ctHandle = e.target.closest('.contact-drag-handle');
+  if(ctHandle){
+    const block = ctHandle.closest('.contact-block');
+    const row = block.closest('[data-iid]');
+    if(!row) return;
+    draggingContact = {
+      pid: row.dataset.pid, aid: row.dataset.aid, iid: row.dataset.iid,
+      fromIdx: +block.dataset.ci,
+    };
+    e.dataTransfer.effectAllowed = 'move';
+    try{ e.dataTransfer.setData('text/plain', 'contact'); }catch(_){}
+    block.classList.add('dragging-contact');
+    return;
+  }
+
+  const itemHandle = e.target.closest('.item-drag-handle');
+  if(itemHandle){
+    const row = itemHandle.closest('[data-iid]');
+    if(!row) return;
+    draggingItem = {
+      pid: row.dataset.pid, aid: row.dataset.aid, iid: row.dataset.iid,
+    };
+    e.dataTransfer.effectAllowed = 'move';
+    try{ e.dataTransfer.setData('text/plain', 'item'); }catch(_){}
+    row.classList.add('dragging-row');
+    return;
+  }
+
+  const areaHandle = e.target.closest('.area-drag-handle');
+  if(areaHandle){
+    const areaEl = areaHandle.closest('.area');
+    const pageEl = areaHandle.closest('[data-pageid]');
+    if(!areaEl || !pageEl) return;
+    draggingArea = {
+      pid: pageEl.dataset.pageid,
+      aid: areaEl.dataset.aid,
+    };
+    e.dataTransfer.effectAllowed = 'move';
+    try{ e.dataTransfer.setData('text/plain', 'area'); }catch(_){}
+    areaEl.classList.add('dragging-area');
+    return;
+  }
+});
+
+document.addEventListener('dragend', () => {
+  draggingSupplier = null;
+  draggingContact = null;
+  draggingItem = null;
+  draggingArea = null;
+  $$('.dragging-row,.dragging-contact,.drop-target-row,.drop-target-contact,.dragging-area,.drop-target-area')
+    .forEach(el => el.classList.remove(
+      'dragging-row','dragging-contact','drop-target-row','drop-target-contact',
+      'dragging-area','drop-target-area'
+    ));
+});
+
+document.addEventListener('dragover', e => {
+  if(draggingSupplier){
+    const row = e.target.closest('.row');
+    if(!row) return;
+    if(row.dataset.pid !== draggingSupplier.pid) return;
+    if(row.dataset.iid === draggingSupplier.iid) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    $$('.drop-target-row').forEach(el => el.classList.remove('drop-target-row'));
+    row.classList.add('drop-target-row');
+    return;
+  }
+  if(draggingContact){
+    const block = e.target.closest('.contact-block');
+    if(!block) return;
+    const row = block.closest('[data-iid]');
+    if(!row) return;
+    if(row.dataset.iid !== draggingContact.iid) return;
+    if(+block.dataset.ci === draggingContact.fromIdx) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    $$('.drop-target-contact').forEach(el => el.classList.remove('drop-target-contact'));
+    block.classList.add('drop-target-contact');
+    return;
+  }
+  if(draggingItem){
+    const row = e.target.closest('.row');
+    if(!row) return;
+    if(row.dataset.pid !== draggingItem.pid) return;
+    if(row.dataset.aid !== draggingItem.aid) return;
+    if(row.dataset.iid === draggingItem.iid) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    $$('.drop-target-row').forEach(el => el.classList.remove('drop-target-row'));
+    row.classList.add('drop-target-row');
+    return;
+  }
+  if(draggingArea){
+    const areaEl = e.target.closest('.area');
+    if(!areaEl) return;
+    const pageEl = areaEl.closest('[data-pageid]');
+    if(!pageEl) return;
+    if(pageEl.dataset.pageid !== draggingArea.pid) return;
+    if(areaEl.dataset.aid === draggingArea.aid) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    $$('.drop-target-area').forEach(el => el.classList.remove('drop-target-area'));
+    areaEl.classList.add('drop-target-area');
+    return;
+  }
+});
+
+document.addEventListener('dragleave', e => {
+  const row = e.target.closest('.row');
+  if(row) row.classList.remove('drop-target-row');
+  const block = e.target.closest('.contact-block');
+  if(block) block.classList.remove('drop-target-contact');
+  const areaEl = e.target.closest('.area');
+  if(areaEl) areaEl.classList.remove('drop-target-area');
+});
+
+document.addEventListener('drop', e => {
+  if(draggingSupplier){
+    const row = e.target.closest('.row');
+    if(!row) return;
+    if(row.dataset.pid !== draggingSupplier.pid) return;
+    if(row.dataset.iid === draggingSupplier.iid) return;
+    e.preventDefault();
+    const p = getPage(draggingSupplier.pid);
+    const area = getArea(p, draggingSupplier.aid);
+    if(!area) return;
+    const fromIdx = area.items.findIndex(i => i.id === draggingSupplier.iid);
+    const toIdx   = area.items.findIndex(i => i.id === row.dataset.iid);
+    if(fromIdx < 0 || toIdx < 0 || fromIdx === toIdx) return;
+    const [moved] = area.items.splice(fromIdx, 1);
+    area.items.splice(toIdx, 0, moved);
+    saveState(); render();
+    toast('供應商順序已更新');
+    draggingSupplier = null;
+    return;
+  }
+
+  if(draggingContact){
+    const block = e.target.closest('.contact-block');
+    if(!block) return;
+    const row = block.closest('[data-iid]');
+    if(!row) return;
+    if(row.dataset.iid !== draggingContact.iid) return;
+    const toIdx = +block.dataset.ci;
+    if(toIdx === draggingContact.fromIdx) return;
+    e.preventDefault();
+    const p = getPage(draggingContact.pid);
+    const it = getItem(p, draggingContact.aid, draggingContact.iid);
+    if(!it) return;
+    const contacts = it.contacts || [];
+    const [moved] = contacts.splice(draggingContact.fromIdx, 1);
+    contacts.splice(toIdx, 0, moved);
+    saveState(); render();
+    toast('聯絡人順序已更新');
+    draggingContact = null;
+    return;
+  }
+
+  if(draggingItem){
+    const row = e.target.closest('.row');
+    if(!row) return;
+    if(row.dataset.pid !== draggingItem.pid) return;
+    if(row.dataset.aid !== draggingItem.aid) return;
+    if(row.dataset.iid === draggingItem.iid) return;
+    e.preventDefault();
+    const p = getPage(draggingItem.pid);
+    const area = getArea(p, draggingItem.aid);
+    if(!area) return;
+    const fromIdx = area.items.findIndex(i => i.id === draggingItem.iid);
+    const toIdx   = area.items.findIndex(i => i.id === row.dataset.iid);
+    if(fromIdx < 0 || toIdx < 0 || fromIdx === toIdx) return;
+    const [moved] = area.items.splice(fromIdx, 1);
+    area.items.splice(toIdx, 0, moved);
+    saveState(); render();
+    toast('物品順序已更新');
+    draggingItem = null;
+    return;
+  }
+
+  if(draggingArea){
+    const areaEl = e.target.closest('.area');
+    if(!areaEl) return;
+    const pageEl = areaEl.closest('[data-pageid]');
+    if(!pageEl) return;
+    if(pageEl.dataset.pageid !== draggingArea.pid) return;
+    if(areaEl.dataset.aid === draggingArea.aid) return;
+    e.preventDefault();
+    const p = getPage(draggingArea.pid);
+    if(!p) return;
+    const fromIdx = p.areas.findIndex(a => a.id === draggingArea.aid);
+    const toIdx   = p.areas.findIndex(a => a.id === areaEl.dataset.aid);
+    if(fromIdx < 0 || toIdx < 0 || fromIdx === toIdx) return;
+    const [moved] = p.areas.splice(fromIdx, 1);
+    p.areas.splice(toIdx, 0, moved);
+    saveState(); render();
+    toast('區域順序已更新');
+    draggingArea = null;
+    return;
+  }
+});
+
+/* ============ 下拉變更 ============ */
+document.addEventListener('change', e => {
+  const el = e.target;
+
+  if(el.name === 'cm'){
+    state.codeMode = el.value;
+    saveState(); render();
+    toast('已切換條碼類型');
+    return;
+  }
+
+  if(el.dataset && el.dataset.f === 'contact'){
+    const row = el.closest('[data-iid]');
+    if(!row) return;
+    const p = getPage(row.dataset.pid);
+    const it = getItem(p, row.dataset.aid, row.dataset.iid);
+    if(!it) return;
+
+    if(el.value === '__new__'){
+      const old = it.contact || '';
+      const bg = openModal({
+        title: '新增聯絡人員',
+        body: `<div class="field"><label>聯絡人員名稱</label><input type="text" id="newContactName" placeholder="輸入名稱"></div>
+          <div class="field"><label>聯絡電話（可留空）</label><input type="text" id="newContactPhone" placeholder="電話號碼"></div>
+          <div class="field"><label>所屬公司 / 供應商（可留空）</label><input type="text" id="newContactSupplier" placeholder="供應商名稱"></div>`,
+        okText: '新增',
+        onOk: () => {
+          const name = ($('#newContactName').value || '').trim();
+          const phone = ($('#newContactPhone').value || '').trim();
+          const supplier = ($('#newContactSupplier').value || '').trim();
+          if(!name){ toast('請輸入名稱'); return false; }
+          const label = supplier ? `${name}（${supplier}）` : name;
+          if(!state.customContacts.includes(label)) state.customContacts.push(label);
+          it.contact = label;
+          saveState(); render();
+          toast('已新增並選取：' + label);
+        }
+      });
+      setTimeout(() => {
+        const cancelBtn = bg.querySelector('[data-m="cancel"]');
+        if(cancelBtn) cancelBtn.addEventListener('click', () => { el.value = old; });
+      }, 10);
+      return;
+    }
+    it.contact = el.value;
+    saveState();
+  }
+});
+
+/* ============ 點擊事件 ============ */
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-act]');
+  if(!t){
+    const g = e.target.closest('[data-goto]');
+    if(g){ currentView = g.dataset.goto; render(); return; }
+
+    const head = e.target.closest('.area-head');
+    if(head){
+      if(e.target.closest('.area-drag-handle') ||
+         e.target.closest('.area-name') ||
+         e.target.closest('input') ||
+         e.target.closest('button') ||
+         e.target.closest('select')){
+        return;
+      }
+      const areaEl = head.closest('.area');
+      const pageEl = head.closest('[data-pageid]');
+      toggleAreaCollapse(areaEl, pageEl);
+    }
+    return;
+  }
+  const act = t.dataset.act;
+
+  if(act === 'font-up' || act === 'font-down' || act === 'font-reset'){
+    if(act === 'font-up')    state.fontScale = Math.min(1.5, +(state.fontScale + 0.05).toFixed(2));
+    if(act === 'font-down')  state.fontScale = Math.max(0.8, +(state.fontScale - 0.05).toFixed(2));
+    if(act === 'font-reset') state.fontScale = 1;
+    applyFontScale();
+    saveState();
+    if(currentView === 'admin') renderContent();
+    return;
+  }
+
+  if(act === 'add-page'){ openAddPageModal(); return; }
+  if(act === 'export'){ openExportModal(); return; }
+  if(act === 'admin'){ currentView = 'admin'; render(); return; }
+  if(act === 'logout'){
+    confirmBox('確定要登出嗎？', () => {
+      $('#app').classList.remove('on');
+      $('#login').style.display = 'flex';
+      $('#empInput').value = '';
+      $('#loginErr').textContent = '';
+      $('#empInput').focus();
+    });
+    return;
+  }
+
+  if(act === 'backup-json'){
+    const blob = new Blob([JSON.stringify(state, null, 2)], { type:'application/json' });
+    downloadBlob(blob, `倉存備份_${stamp()}.json`);
+    toast('備份已匯出');
+    return;
+  }
+  if(act === 'restore-json'){ restoreJSON(); return; }
+  if(act === 'export-all-xlsx'){ exportXLSX(state.pages.map(p => p.id), '全部倉庫'); return; }
+  if(act === 'wipe'){
+    confirmBox('⚠ 這將永久刪除本機所有倉存資料，無法復原！確定要清空嗎？', () => {
+      confirmBox('最後確認：真的要清空所有資料嗎？', () => {
+        state.pages = [];
+        state.colWidths = {};
+        state.customContacts = [];
+        saveState();
+        currentView = 'overview';
+        render();
+        toast('所有資料已清空');
+      });
+    });
+    return;
+  }
+
+  const wrap = t.closest('[data-pageid]');
+  let pageId = wrap?.dataset.pageid;
+  if(!pageId && !['overview','admin','search'].includes(currentView)) pageId = currentView;
+  const page = pageId ? getPage(pageId) : null;
+
+  if(act === 'add-area' && page){
+    page.areas.push(newArea(`區域 ${page.areas.length + 1}`));
+    saveState(); render();
+    return;
+  }
+  if(act === 'export-page' && page){ exportXLSX([page.id], page.name); return; }
+  if(act === 'toggle-code'){
+    state.codeMode = state.codeMode === 'qrcode' ? 'barcode' : 'qrcode';
+    saveState(); render();
+    toast(state.codeMode === 'qrcode' ? '已切換為二維碼' : '已切換為一維碼');
+    return;
+  }
+
+  if(act === 'toggle-area'){
+    const areaEl = t.closest('.area');
+    const pageEl = t.closest('[data-pageid]');
+    toggleAreaCollapse(areaEl, pageEl);
+    return;
+  }
+
+  if((act === 'expand-all' || act === 'collapse-all') && page){
+    const collapse = act === 'collapse-all';
+    page.areas.forEach(a => a.collapsed = collapse);
+    saveState(); render();
+    toast(collapse ? '已折疊全部區域' : '已展開全部區域');
+    return;
+  }
+
+  const areaEl = t.closest('[data-aid]');
+  const area = (page && areaEl) ? getArea(page, areaEl.dataset.aid) : null;
+
+  if(act === 'add-item' && page && area){
+    addItemToAreaLocal(page, area);
+    return;
+  }
+
+  if(act === 'del-area' && page && area){
+    confirmBox(`確定刪除區域「${area.name}」及其 ${area.items.length} 項資料？`, () => {
+      page.areas = page.areas.filter(a => a.id !== area.id);
+      saveState(); render();
+      toast('區域已刪除');
+    });
+    return;
+  }
+
+  const row = t.closest('[data-iid]');
+  if(!row) return;
+  const item = (page) ? getItem(page, row.dataset.aid, row.dataset.iid) : null;
+  if(!item) return;
+
+  if(act === 'del-item'){
+    confirmBox('確定刪除此項資料？', () => {
+      const a = getArea(page, row.dataset.aid);
+      a.items = a.items.filter(i => i.id !== item.id);
+      saveState(); render();
+      toast('已刪除');
+    });
+    return;
+  }
+
+  /* ★ 缺貨按鈕：主量歸 0 並嘗試從批次提升；若無批次可提升則標記缺貨 */
+  if(act === 'toggle-out'){
+    if(!item.out){
+      /* 從正常 → 標記缺貨（先歸 0 再嘗試提升） */
+      item.curQty = 0;
+      const promoted = autoPromoteFromExtras(item);
+      if(promoted){
+        item.out = false;
+        toast('已自動提升有效日期最近的批次 → ' + item.curQty);
+      }else{
+        item.out = true;
+      }
+    }else{
+      /* 從缺貨 → 取消缺貨 */
+      item.out = false;
+    }
+    saveState();
+    syncOutBtn(row, item);
+    updateRowStatus(row);
+    rebuildQtyCell(row, item);
+    rebuildExpiryCell(row, item);
+    return;
+  }
+
+  /* 新增追加列 */
+  if(act === 'add-extra'){
+    if(!Array.isArray(item.extras)) item.extras = [];
+    item.extras.push({ qty: 0, expiry: '' });
+    saveState();
+    rebuildQtyCell(row, item);
+    rebuildExpiryCell(row, item);
+    setTimeout(() => {
+      const idx = item.extras.length - 1;
+      const newInput = row.querySelector(`.qty-extra-row[data-ei="${idx}"] [data-f="extra-qty"]`);
+      if(newInput){ newInput.focus(); try{ newInput.select(); }catch(_){} }
+    }, 30);
+    return;
+  }
+
+  /* 刪除追加列 */
+  if(act === 'del-extra'){
+    const ei = +t.dataset.ei;
+    if(Array.isArray(item.extras)){
+      item.extras.splice(ei, 1);
+      saveState();
+      rebuildQtyCell(row, item);
+      rebuildExpiryCell(row, item);
+    }
+    return;
+  }
+
+  /* 切換不過期 */
+  if(act === 'toggle-no-expiry'){
+    item.noExpiry = !item.noExpiry;
+    saveState();
+    rebuildExpiryCell(row, item);
+    rebuildQtyCell(row, item);
+    updateRowStatus(row);
+    toast(item.noExpiry ? '已設為不過期' : '已恢復有效日期');
+    return;
+  }
+
+  if(act === 'addnote'){
+    item.notes = item.notes || [];
+    item.notes.push('');
+    saveState();
+    const cell = row.querySelector('[data-col="note"]');
+    cell.innerHTML = notesHTML(item);
+    const inputs = cell.querySelectorAll('[data-f="note"]');
+    inputs[inputs.length-1].focus();
+    return;
+  }
+  if(act === 'delnote'){
+    const i = +t.dataset.ni;
+    item.notes.splice(i, 1);
+    if(!item.notes.length) item.notes.push('');
+    saveState();
+    const cell = row.querySelector('[data-col="note"]');
+    cell.innerHTML = notesHTML(item);
+    return;
+  }
+
+  if(act === 'addcontact'){
+    item.contacts = item.contacts || [];
+    item.contacts.push({ name:'', phone:'', tags:[] });
+    saveState(); render();
+    setTimeout(() => { alignSupplierRows(); updateStickyHeights(); }, 30);
+    return;
+  }
+  if(act === 'delcontact'){
+    const ci = +t.dataset.ci;
+    item.contacts.splice(ci, 1);
+    if(!item.contacts.length) item.contacts.push({ name:'', phone:'', tags:[] });
+    saveState(); render();
+    setTimeout(() => { alignSupplierRows(); updateStickyHeights(); }, 30);
+    return;
+  }
+  if(act === 'delctag'){
+    const ci = +t.dataset.ci, ti = +t.dataset.ti;
+    if(item.contacts[ci] && item.contacts[ci].tags){
+      item.contacts[ci].tags.splice(ti, 1);
+      saveState(); render();
+      setTimeout(() => { alignSupplierRows(); updateStickyHeights(); }, 30);
+    }
+    return;
+  }
+});
+
+/* ============ 右鍵菜單 ============ */
+const ctx = $('#ctxmenu');
+
+document.addEventListener('contextmenu', e => {
+  const inp = e.target.closest('input[data-ctxcontact], textarea[data-ctxcontact]');
+  if(!inp) return;
+  e.preventDefault();
+
+  const row = inp.closest('[data-iid]');
+  if(!row) return;
+  const p = getPage(row.dataset.pid);
+  const it = getItem(p, row.dataset.aid, row.dataset.iid);
+  if(!it) return;
+
+  if(!Array.isArray(it.contactList)) it.contactList = [];
+
+  const list = getAllContactsFull();
+  const selected = new Set(it.contactList);
+
+  let h = `<div class="ctx-t">選擇聯絡人員（可多選）</div>`;
+  if(!list.length){
+    h += `<div class="ctx-empty">（尚無供應商聯絡人）</div>`;
+  }else{
+    list.forEach(c => {
+      const checked = selected.has(c.label) ? 'checked' : '';
+      const tags = (c.tags && c.tags.length) ? ` [${c.tags.join('·')}]` : '';
+      h += `<label class="ctx-check">
+        <input type="checkbox" data-pick-label="${esc(c.label)}" ${checked}>
+        <span>${esc(c.label)}${esc(tags)}</span>
+      </label>`;
+    });
+  }
+  h += `<div class="ctx-actions">
+    <button class="ctx-btn" data-ctx-cancel>取消</button>
+    <button class="ctx-btn primary" data-ctx-ok>確定</button>
+  </div>`;
+  ctx.innerHTML = h;
+
+  ctx.style.display = 'block';
+  ctx.style.left = '0px';
+  ctx.style.top = '0px';
+  const r = ctx.getBoundingClientRect();
+  let x = e.clientX, y = e.clientY;
+  if(x + r.width > innerWidth - 8) x = innerWidth - r.width - 8;
+  if(y + r.height > innerHeight - 8) y = innerHeight - r.height - 8;
+  if(x < 4) x = 4;
+  if(y < 4) y = 4;
+  ctx.style.left = x + 'px';
+  ctx.style.top = y + 'px';
+
+  ctx.addEventListener('wheel', ev => { ev.stopPropagation(); }, { passive: true });
+
+  ctx.onclick = ev => {
+    if(ev.target.closest('[data-ctx-cancel]')){ closeCtx(); return; }
+    if(ev.target.closest('[data-ctx-ok]')){
+      const checks = ctx.querySelectorAll('input[data-pick-label]:checked');
+      it.contactList = [...checks].map(c => c.dataset.pickLabel);
+      saveState();
+      closeCtx();
+      render();
+      toast(it.contactList.length ? `已選擇 ${it.contactList.length} 位聯絡人` : '已清除聯絡人');
+      return;
+    }
+  };
+});
+
+function closeCtx(){
+  ctx.style.display = 'none';
+  ctx.onclick = null;
+}
+
+document.addEventListener('click', e => {
+  if(!e.target.closest('#ctxmenu')) closeCtx();
+});
+document.addEventListener('scroll', e => {
+  if(ctx.contains(e.target)) return;
+  closeCtx();
+}, true);
+
+/* ============ Hover 資訊 ============ */
+const tipbox = $('#tipbox');
+
+document.addEventListener('mouseover', e => {
+  const el = e.target.closest('[data-tip="1"]');
+  if(!el) return;
+  const row = el.closest('[data-iid]');
+  if(!row) return;
+  const p = getPage(row.dataset.pid);
+  const it = getItem(p, row.dataset.aid, row.dataset.iid);
+  if(!it) return;
+
+  if(p.type === 'common' || p.type === 'special'){
+    const list = it.contactList || [];
+    if(!list.length) return;
+
+    tipbox.innerHTML = `<div class="tt">聯絡資訊（${list.length} 位）</div>` +
+      list.map(lbl => {
+        const info = lookupContact(lbl);
+        const tags = info.tags && info.tags.length
+          ? `<div class="row-t"><b>標籤</b><span>${esc(info.tags.join('、'))}</span></div>`
+          : '';
+        return `<div class="ct-item">
+          <div class="row-t"><b>聯絡人員</b><span>${esc(info.name)}</span></div>
+          <div class="row-t"><b>聯絡電話</b><span>${esc(info.phone)}</span></div>
+          <div class="row-t"><b>供應商</b><span>${esc(info.supplier)}</span></div>
+          ${tags}
+        </div>`;
+      }).join('');
+  }else{
+    if(!it.contact) return;
+
+    const info = lookupContact(it.contact);
+    const tags = info.tags && info.tags.length
+      ? `<div class="row-t"><b>標籤</b><span>${esc(info.tags.join('、'))}</span></div>`
+      : '';
+    tipbox.innerHTML = `<div class="tt">聯絡資訊</div>
+      <div class="row-t"><b>聯絡人員</b><span>${esc(info.name || '—')}</span></div>
+      <div class="row-t"><b>聯絡電話</b><span>${esc(info.phone || '—')}</span></div>
+      <div class="row-t"><b>供應商</b><span>${esc(info.supplier || '—')}</span></div>
+      ${tags}`;
+  }
+  tipbox.classList.add('on');
+});
+
+document.addEventListener('mouseout', e => {
+  const el = e.target.closest('[data-tip="1"]');
+  if(el) tipbox.classList.remove('on');
+});
+
+document.addEventListener('mousemove', e => {
+  if(!tipbox.classList.contains('on')) return;
+  let x = e.clientX + 14, y = e.clientY + 16;
+  const r = tipbox.getBoundingClientRect();
+  if(x + r.width > innerWidth - 8) x = e.clientX - r.width - 14;
+  if(y + r.height > innerHeight - 8) y = e.clientY - r.height - 16;
+  tipbox.style.left = x + 'px';
+  tipbox.style.top  = y + 'px';
+});
+
+/* ============ 欄寬拖拽 ============ */
+let resizing = null;
+
+document.addEventListener('mousedown', e => {
+  const rz = e.target.closest('.rz');
+  if(!rz) return;
+  e.preventDefault();
+  const type = rz.dataset.type;
+  const col  = rz.dataset.col;
+  const w = getWidths(type);
+  resizing = { type, col, startX: e.clientX, startW: w[col] };
+  document.body.classList.add('resizing');
+});
+
+document.addEventListener('mousemove', e => {
+  if(!resizing) return;
+  const nw = Math.max(48, Math.round(resizing.startW + (e.clientX - resizing.startX)));
+  if(!state.colWidths[resizing.type]) state.colWidths[resizing.type] = {};
+  state.colWidths[resizing.type][resizing.col] = nw;
+  document.querySelectorAll(
+    `.cell[data-col="${resizing.col}"][data-type="${resizing.type}"]`
+  ).forEach(el => {
+    el.style.width = nw + 'px';
+    el.style.minWidth = nw + 'px';
+    const ta = el.querySelector('.name-area');
+    if(ta) autoResize(ta);
+  });
+  if(resizing.type === 'supplier') alignSupplierRows();
+  alignQtyExpiryRows();
+  updateStickyHeights();
+});
+
+document.addEventListener('mouseup', () => {
+  if(!resizing) return;
+  resizing = null;
+  document.body.classList.remove('resizing');
+  saveState();
+});
+
+/* ============ 匯出 Excel ============ */
+function stamp(){
+  const d = new Date();
+  return `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}_${String(d.getHours()).padStart(2,'0')}${String(d.getMinutes()).padStart(2,'0')}`;
+}
+function todayStamp(){
+  const d = new Date();
+  return `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}`;
+}
+function downloadBlob(blob, filename){
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1500);
+}
+
+function sanitizeSheetName(name){
+  let s = String(name || 'Sheet').replace(/[\\\/\?\*\[\]:]/g, '_').trim();
+  if(!s) s = 'Sheet';
+  if(s.length > 31) s = s.slice(0, 31);
+  return s;
+}
+
+function exportXLSX(pageIds, label){
+  if(typeof XLSX === 'undefined'){
+    toast('Excel 模組未載入，請檢查網路後重試');
+    return;
+  }
+  const today = todayStamp();
+  const wb = XLSX.utils.book_new();
+  const usedNames = new Set();
+
+  pageIds.forEach(pid => {
+    const p = getPage(pid);
+    if(!p) return;
+
+    const aoa = [];
+    aoa.push(['倉存管理系統 - 匯出報表']);
+    aoa.push(['倉庫', p.name]);
+    aoa.push(['匯出日期', today]);
+    aoa.push(['匯出人員', state.empId]);
+    aoa.push([]);
+
+    if(p.type === 'supplier'){
+      aoa.push(['供應商','聯絡人員','電話','聯絡人標籤']);
+      p.areas.forEach(a => a.items.forEach(it => {
+        const cs = it.contacts || [];
+        if(!cs.length){
+          aoa.push([it.name || '', '', '', '']);
+        }else{
+          cs.forEach((c, idx) => {
+            aoa.push([
+              idx === 0 ? (it.name || '') : '',
+              c.name || '',
+              c.phone || '',
+              (c.tags || []).join('、'),
+            ]);
+          });
+        }
+      }));
+    }else{
+      aoa.push(['物品編號','物品名稱','備注','基數量','現存量','有效日期','追加批次']);
+      p.areas.forEach(a => a.items.forEach(it => {
+        const extrasText = (it.extras || [])
+          .filter(ex => ex.qty > 0 || ex.expiry)
+          .map(ex => it.noExpiry ? `${ex.qty ?? 0}` : `${ex.qty ?? 0} (${ex.expiry || '—'})`)
+          .join('；');
+        aoa.push([
+          it.code || '',
+          it.name || '',
+          (it.notes || []).filter(Boolean).join(' / '),
+          (it.baseQty ?? '') === '' ? '' : Number(it.baseQty ?? 0),
+          (it.curQty  ?? '') === '' ? '' : Number(it.curQty  ?? 0),
+          it.noExpiry ? '不過期' : (it.expiry || ''),
+          extrasText,
+        ]);
+      }));
+    }
+
+    const ws = XLSX.utils.aoa_to_sheet(aoa);
+    ws['!cols'] = [
+      { wch: 18 }, { wch: 24 }, { wch: 22 }, { wch: 12 }, { wch: 12 }, { wch: 14 }, { wch: 28 }
+    ];
+    ws['!merges'] = [{ s:{r:0,c:0}, e:{r:0,c:6} }];
+
+    let sheetName = sanitizeSheetName(p.name);
+    let base = sheetName, n = 1;
+    while(usedNames.has(sheetName)){
+      const suffix = '_' + (++n);
+      sheetName = base.slice(0, 31 - suffix.length) + suffix;
+    }
+    usedNames.add(sheetName);
+
+    XLSX.utils.book_append_sheet(wb, ws, sheetName);
+  });
+
+  const fname = `${label}_${today}.xlsx`;
+  try{
+    XLSX.writeFile(wb, fname);
+    toast('已匯出 Excel：' + fname);
+  }catch(err){
+    console.error(err);
+    toast('匯出失敗：' + err.message);
+  }
+}
+
+function restoreJSON(){
+  const inp = document.createElement('input');
+  inp.type = 'file';
+  inp.accept = '.json,application/json';
+  inp.onchange = () => {
+    const f = inp.files[0];
+    if(!f) return;
+    const r = new FileReader();
+    r.onload = () => {
+      try{
+        const d = JSON.parse(r.result);
+        if(!d || !Array.isArray(d.pages)) throw new Error('格式錯誤');
+        migrateData(d);
+        confirmBox(`將匯入 ${d.pages.length} 個頁面，現有資料會被覆蓋。確定繼續？`, () => {
+          state.pages = d.pages;
+          state.colWidths = d.colWidths || {};
+          state.codeMode = d.codeMode || 'qrcode';
+          state.customContacts = Array.isArray(d.customContacts) ? d.customContacts : [];
+          if(typeof d.fontScale === 'number') state.fontScale = d.fontScale;
+          migrateData(state);
+          saveState();
+          applyFontScale();
+          currentView = 'overview';
+          render();
+          toast('備份已還原');
+        });
+      }catch(err){
+        alert('備份檔格式不正確：' + err.message);
+      }
+    };
+    r.readAsText(f);
+  };
+  inp.click();
+}
+
+/* ============ 彈窗 ============ */
+function closeModal(){ $$('.modal-bg').forEach(m => m.remove()); }
+
+function openModal({ title, body, onOk, okText = '確定', cancelText = '取消' }){
+  closeModal();
+  const bg = document.createElement('div');
+  bg.className = 'modal-bg';
+  bg.innerHTML = `<div class="modal">
+    <h3>${esc(title)}</h3>
+    <div class="modal-body">${body}</div>
+    <div class="modal-foot">
+      <button class="btn" data-m="cancel">${esc(cancelText)}</button>
+      ${onOk ? `<button class="btn primary" data-m="ok">${esc(okText)}</button>` : ''}
+    </div>
+  </div>`;
+  document.body.appendChild(bg);
+
+  bg.addEventListener('click', e => {
+    if(e.target === bg) closeModal();
+    const b = e.target.closest('[data-m]');
+    if(!b) return;
+    if(b.dataset.m === 'cancel') closeModal();
+    if(b.dataset.m === 'ok' && onOk){ if(onOk(bg) !== false) closeModal(); }
+  });
+
+  setTimeout(() => {
+    const first = bg.querySelector('input,select,textarea');
+    if(first) first.focus();
+  }, 40);
+
+  return bg;
+}
+
+function confirmBox(msg, onOk){
+  openModal({
+    title: '確認',
+    body: `<div style="font-size:.84rem;line-height:1.7">${esc(msg)}</div>`,
+    okText: '確定',
+    onOk: () => { onOk(); }
+  });
+}
+
+function openAddPageModal(){
+  openModal({
+    title: '新增頁面',
+    body: `<div class="field">
+        <label>頁面名稱</label>
+        <input type="text" id="npName" placeholder="例如：主倉庫">
+      </div>
+      <div class="field">
+        <label>頁面類型</label>
+        <select id="npType">
+          <option value="common">📦 共用物品</option>
+          <option value="special">🔧 專用物品</option>
+          <option value="consign">🏷️ 寄沽物品</option>
+          <option value="supplier">🏢 供應商資料</option>
+        </select>
+      </div>`,
+    okText: '建立',
+    onOk: () => {
+      const type = $('#npType').value;
+      const name = $('#npName').value.trim() || TYPES[type].label;
+      const p = newPage(type, name);
+      state.pages.push(p);
+      currentView = p.id;
+      saveState();
+      render();
+      toast('頁面已建立');
+    }
+  });
+}
+
+function openExportModal(){
+  if(!state.pages.length){
+    toast('尚無頁面可匯出');
+    return;
+  }
+  let list = '';
+  state.pages.forEach(p => {
+    list += `<label><input type="checkbox" class="exp-p" value="${p.id}" checked>
+      ${TYPES[p.type].icon} ${esc(p.name)}
+      <span style="color:#9aa4b5;font-size:.72rem">（${p.areas.reduce((s,a)=>s+a.items.length,0)} 項）</span>
+    </label>`;
+  });
+
+  const bg = openModal({
+    title: '匯出 Excel',
+    body: `<div class="field">
+        <label>選擇要匯出的倉庫 / 頁面</label>
+        <div class="checklist">
+          <label style="border-bottom:1px solid #eef1f6;margin-bottom:4px">
+            <input type="checkbox" id="expAll" checked> <b>全選 / 共同匯出</b>
+          </label>
+          ${list}
+        </div>
+      </div>
+      <div style="font-size:.75rem;color:#7a8395">
+        匯出格式為 Excel (.xlsx)，每個倉庫一個工作表，可直接用 Excel / Numbers 開啟。
+      </div>`,
+    okText: '匯出 Excel',
+    onOk: () => {
+      const ids = $$('.exp-p').filter(c => c.checked).map(c => c.value);
+      if(!ids.length){ toast('請至少選擇一個頁面'); return false; }
+      const label = ids.length === state.pages.length ? '全部倉庫' : (getPage(ids[0])?.name || '匯出');
+      exportXLSX(ids, label);
+    }
+  });
+
+  bg.querySelector('#expAll').addEventListener('change', e => {
+    bg.querySelectorAll('.exp-p').forEach(c => c.checked = e.target.checked);
+  });
+  bg.addEventListener('change', e => {
+    if(e.target.classList.contains('exp-p')){
+      const all = bg.querySelectorAll('.exp-p');
+      const checked = bg.querySelectorAll('.exp-p:checked');
+      bg.querySelector('#expAll').checked = all.length === checked.length;
+      bg.querySelector('#expAll').indeterminate = checked.length > 0 && checked.length < all.length;
+    }
+  });
+}
+
+/* ============ 搜索 ============ */
+let searchTimer = null;
+$('#search').addEventListener('input', e => {
+  const v = e.target.value.trim();
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => {
+    searchQuery = v;
+    if(v) currentView = 'search';
+    else if(currentView === 'search') currentView = 'overview';
+    render();
+  }, 200);
+});
+
+/* ============ 側邊欄收合 ============ */
+$('#menuBtn').addEventListener('click', () => {
+  $('#sidebar').classList.toggle('collapsed');
+  setTimeout(() => { autoResizeAllNames(); alignSupplierRows(); alignQtyExpiryRows(); updateStickyHeights(); }, 250);
+});
+
+/* ============ 視窗尺寸變化 ============ */
+let _alignTimer = null;
+window.addEventListener('resize', () => {
+  clearTimeout(_alignTimer);
+  _alignTimer = setTimeout(() => {
+    autoResizeAllNames();
+    alignSupplierRows();
+    alignQtyExpiryRows();
+    updateStickyHeights();
+  }, 120);
+});
+
+/* 啟動 */
+loadState();
+initLogin();
+</script>
+</body>
+</html>
