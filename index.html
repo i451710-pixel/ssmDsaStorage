@@ -575,10 +575,11 @@ let state = {
 
 let saveTimer = null;
 let isSavingLocally = false;
-
+let isReadOnly = false;
+  
 function saveState() {
   try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch(e) {}
-
+  if (isReadOnly) return; 
   clearTimeout(saveTimer);
   saveTimer = setTimeout(async () => {
     if (!window.firebaseAPI) return;
@@ -1103,21 +1104,30 @@ function initLogin(){
     render();
     initRealtimeListener();
 
-    if(!canWrite) {
+        if(!canWrite) {
+        isReadOnly = true; // 👈 設定為唯讀模式
         setTimeout(() => {
             document.querySelectorAll('#app input, #app button, #app select, #app textarea').forEach(el => {
                 if (!el.closest('[data-act="logout"]') && 
                     !el.closest('[data-act="export"]') && 
                     !el.closest('.font-ctrl') &&
-                    !el.closest('[data-act="admin"]')) {
+                    !el.closest('[data-act="admin"]') &&
+                    
+                    // 👇 新增以下條件，放行純檢視功能的按鈕
+                    !el.matches('[data-act="toggle-area"]') &&
+                    !el.matches('[data-act="expand-all"]') &&
+                    !el.matches('[data-act="collapse-all"]') &&
+                    !el.matches('[data-act="toggle-code"]')
+                   ) {
                     el.disabled = true;
                     el.style.opacity = '0.6';
                 }
             });
             alert("⚠️ 您目前的工號與設備只有查看權限，無法修改資料。");
         }, 500);
+    } else {
+        isReadOnly = false; // 👈 管理員則設為 false
     }
-  };
   
   newBtn.addEventListener('click', tryLogin);
   inp.addEventListener('keydown', e => { if(e.key === 'Enter') tryLogin(); });
