@@ -1311,7 +1311,7 @@ function render(){
   }
   lastRenderedView = currentView;
 }
-
+let navDragIdx = null;
 function renderSidebar(){
   const list = $('#pageList');
   let h = `<div class="nav-item ${currentView==='overview'?'active':''}" data-nav="overview">
@@ -1354,6 +1354,7 @@ function renderSidebar(){
         currentView = nav.dataset.nav;
         searchQuery = '';
         $('#search').value = '';
+        render();
         if(window.innerWidth <= 768) {
             $('#sidebar').classList.add('collapsed');
             $('#mobile-overlay').classList.remove('on');
@@ -1361,7 +1362,6 @@ function renderSidebar(){
       }, 250);
       return;
     }
-
     clearTimeout(pageNavTimer);
     currentView = nav.dataset.nav;
     searchQuery = '';
@@ -1458,47 +1458,46 @@ function renderSidebar(){
       }
     };
   };
-
   // 拖拽排序邏輯 (僅 Full 權限)
-  let dragIdx = null;
-  list.addEventListener('dragstart', e => {
+  list.ondragstart = e => {
     if (permissionLevel !== 'full') return;
     const it = e.target.closest('[data-idx]');
     if(!it) return;
-    dragIdx = +it.dataset.idx;
+    navDragIdx = +it.dataset.idx;
     it.classList.add('dragging');
     e.dataTransfer.effectAllowed = 'move';
-  });
-  list.addEventListener('dragover', e => {
+  };
+  list.ondragover = e => {
     if (permissionLevel !== 'full') return;
     e.preventDefault();
     const it = e.target.closest('[data-idx]');
     $$('.nav-item.drop-target').forEach(n => n.classList.remove('drop-target'));
     if(it) it.classList.add('drop-target');
-  });
-  list.addEventListener('dragleave', e => {
+  };
+  list.ondragleave = e => {
     if (permissionLevel !== 'full') return;
     const it = e.target.closest('[data-idx]');
     if(it) it.classList.remove('drop-target');
-  });
-  list.addEventListener('drop', e => {
+  };
+  list.ondrop = e => {
     if (permissionLevel !== 'full') return;
     e.preventDefault();
     const it = e.target.closest('[data-idx]');
     $$('.nav-item').forEach(n => n.classList.remove('drop-target','dragging'));
-    if(!it || dragIdx === null) return;
+    if(!it || navDragIdx === null) return;
     const to = +it.dataset.idx;
-    if(to === dragIdx){ dragIdx = null; return; }
-    const [moved] = state.pages.splice(dragIdx, 1);
+    if(to === navDragIdx){ navDragIdx = null; return; }
+    const [moved] = state.pages.splice(navDragIdx, 1);
     state.pages.splice(to, 0, moved);
-    dragIdx = null;
-    saveState(); renderSidebar();
-  });
-  list.addEventListener('dragend', () => {
+    navDragIdx = null;
+    saveState();
+    renderSidebar();
+  };
+  list.ondragend = () => {
     if (permissionLevel !== 'full') return;
-    dragIdx = null;
+    navDragIdx = null;
     $$('.nav-item').forEach(n => n.classList.remove('drop-target','dragging'));
-  });
+  };
 }
 
 function renderContent(){
