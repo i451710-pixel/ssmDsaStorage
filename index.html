@@ -407,6 +407,27 @@ body.resizing *{cursor:col-resize !important}
 .card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:14px}
 .card p{margin:0 0 12px;font-size:.78rem;color:var(--muted);line-height:1.65}
 
+/* 手機端詳情按鈕專用樣式 */
+.mobile-contact-btn {
+  border: none;
+  background: var(--accent); /* 使用主色調（深青色），高亮突顯 */
+  color: #fff; /* 白色文字 */
+  font-size: 13px; /* 稍微放大字體 */
+  font-weight: 700;
+  border-radius: 8px; /* 圓角更大一點 */
+  padding: 8px 12px; /* 增加內邊距，讓按鈕變大，方便手指點擊 */
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(30, 126, 131, 0.3); /* 增加陰影，更有立體感 */
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.mobile-contact-btn:active {
+  transform: scale(0.95); /* 點擊時有按下的回饋感 */
+  box-shadow: 0 1px 3px rgba(30, 126, 131, 0.3);
+}
+  
 /* ================= 手機端適配 (768px 以下) ================= */
 @media(max-width:768px){
   /* 隱藏左下角的設備 UID */
@@ -1835,11 +1856,11 @@ function rowHTML(page, area, item){
         </div>
       </div>`, type);
 
-    const hasContacts = (item.contactList && item.contactList.length > 0);
+     const hasContacts = (item.contactList && item.contactList.length > 0);
     cells += cellHTML('name', w.name,
       `<div style="display:flex; gap:5px; align-items:center; width:100%;">
          <textarea class="inp name-area" data-f="name" ${window.innerWidth>768?'data-tip="1"':''} ${permissionLevel==='full'?'data-ctxcontact="1"':''} rows="1" placeholder="物品名稱" style="flex:1;">${esc(item.name||'')}</textarea>
-         ${window.innerWidth<=768 && hasContacts ? `<button class="mobile-contact-btn" data-mclick="1" style="border:none; background:#eef2ff; color:#4338ca; font-size:12px; border-radius:4px; padding:4px 6px; white-space:nowrap;">👤詳情</button>` : ''}
+         ${window.innerWidth<=768 && hasContacts ? `<button class="mobile-contact-btn" data-mclick="1">👤 聯絡人</button>` : ''}
       </div>`, type);
 
     cells += cellHTML('note', w.note, notesHTML(item), type);
@@ -1869,11 +1890,11 @@ function rowHTML(page, area, item){
         </div>
       </div>`, type);
 
-    const hasContactsC = item.contact !== undefined && item.contact !== '';
+        const hasContactsC = item.contact !== undefined && item.contact !== '';
     cells += cellHTML('name', w.name,
       `<div style="display:flex; gap:5px; align-items:center; width:100%;">
          <textarea class="inp name-area" data-f="name" ${window.innerWidth>768?'data-tip="1"':''} rows="1" placeholder="物品名稱" style="flex:1;">${esc(item.name||'')}</textarea>
-         ${window.innerWidth<=768 && hasContactsC ? `<button class="mobile-contact-btn" data-mclick="1" style="border:none; background:#eef2ff; color:#4338ca; font-size:12px; border-radius:4px; padding:4px 6px; white-space:nowrap;">👤詳情</button>` : ''}
+         ${window.innerWidth<=768 && hasContactsC ? `<button class="mobile-contact-btn" data-mclick="1">👤 聯絡人</button>` : ''}
       </div>`, type);
 
     cells += cellHTML('note', w.note, notesHTML(item), type);
