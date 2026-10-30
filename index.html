@@ -1297,7 +1297,7 @@ function renderSidebar(){
 
   list.innerHTML = h;
 
-  l  list.onclick = e => {
+  list.onclick = e => {
     const delBtn = e.target.closest('[data-delpage]');
     if(delBtn){
       if (permissionLevel !== 'full') return;
@@ -1835,7 +1835,7 @@ function rowHTML(page, area, item){
         </div>
       </div>`, type);
 
-            const hasContacts = (item.contactList && item.contactList.length > 0);
+    const hasContacts = (item.contactList && item.contactList.length > 0);
     cells += cellHTML('name', w.name,
       `<div style="display:flex; gap:5px; align-items:center; width:100%;">
          <textarea class="inp name-area" data-f="name" ${window.innerWidth>768?'data-tip="1"':''} ${permissionLevel==='full'?'data-ctxcontact="1"':''} rows="1" placeholder="物品名稱" style="flex:1;">${esc(item.name||'')}</textarea>
@@ -1869,9 +1869,12 @@ function rowHTML(page, area, item){
         </div>
       </div>`, type);
 
+    const hasContactsC = item.contact !== undefined && item.contact !== '';
     cells += cellHTML('name', w.name,
-      `<textarea class="inp name-area" data-f="name" ${window.innerWidth<=768?'data-mclick="1"':'data-tip="1"'} rows="1"
-        placeholder="物品名稱">${esc(item.name||'')}</textarea>`, type);
+      `<div style="display:flex; gap:5px; align-items:center; width:100%;">
+         <textarea class="inp name-area" data-f="name" ${window.innerWidth>768?'data-tip="1"':''} rows="1" placeholder="物品名稱" style="flex:1;">${esc(item.name||'')}</textarea>
+         ${window.innerWidth<=768 && hasContactsC ? `<button class="mobile-contact-btn" data-mclick="1" style="border:none; background:#eef2ff; color:#4338ca; font-size:12px; border-radius:4px; padding:4px 6px; white-space:nowrap;">👤詳情</button>` : ''}
+      </div>`, type);
 
     cells += cellHTML('note', w.note, notesHTML(item), type);
 
