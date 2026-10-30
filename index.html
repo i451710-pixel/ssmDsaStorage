@@ -10,39 +10,33 @@
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <style>
 :root{
-  --bg:#f4f7fc;           /* 急救車系統的淺藍背景 */
+  --bg:#f4f7fc;
   --panel:#fff;
-  --border:#cfe0ea;       /* 急救車系統的邊框色 */
-  --text:#1e2b3c;         /* 急救車系統的深藍文字 */
-  --muted:#6b8a9c;        /* 輔助文字顏色 */
+  --border:#cfe0ea;
+  --text:#1e2b3c;
+  --muted:#6b8a9c;
   
-  --accent:#1e7e83;       /* 急救車主色 (青綠) */
-  --accent-d:#146c70;     /* 懸停時的深青綠 */
+  --accent:#1e7e83;
+  --accent-d:#146c70;
   
-  --yellow:#fff8d6;       /* 警告黃底 */
-  --yellow-b:#e6c300;     /* 警告黃邊框 */
-  --red:#ffe1e1;          /* 危險紅底 */
-  --red-b:#b33a3a;        /* 危險紅字體/邊框 */
+  --yellow:#fff8d6;
+  --yellow-b:#e6c300;
+  --red:#ffe1e1;
+  --red-b:#b33a3a;
   
-  --green:#e3f5e8;        /* 綠色標籤底色 */
-  --green-b:#1e7e3c;      /* 綠色主色 */
-  --green-d:#15803d;      
+  --green:#e3f5e8;
+  --green-b:#1e7e3c;
+  --green-d:#15803d;
   --green-l:#7dcf95;
   
-  --side:#0b3b5c;         /* 側邊欄改為急救車的深藍色 (原本是黑色) */
-  --side-hover:#145270;   /* 側邊欄懸停色 */
+  --side:#0b3b5c;
+  --side-hover:#145270;
   
   --page-h:64px;
   --area-h:40px;
 }
-  .btn.admin-btn {
-  background: #6b4fa8;
-  border-color: #6b4fa8;
-  color: #fff;
-}
-.btn.admin-btn:hover {
-  background: #573e8c;
-}
+.btn.admin-btn { background: #6b4fa8; border-color: #6b4fa8; color: #fff; }
+.btn.admin-btn:hover { background: #573e8c; }
 *{box-sizing:border-box}
 html{font-size:16px}
 html,body{height:100%}
@@ -100,10 +94,12 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
 .nav-item.drop-target{outline:2px dashed var(--accent);outline-offset:-2px}
 .nav-item input.ren{width:100%;background:#fff;color:#111;border:0;border-radius:4px;padding:2px 4px;
   font-size:.81rem;outline:none}
-.side-foot{padding:8px;border-top:1px solid #145270}
-.side-foot button{width:100%;padding:9px;border:1px dashed #475569;background:transparent;color:#94a3b8;
-  border-radius:8px;font-size:.78rem;transition:.15s}
-.side-foot button:hover{border-color:var(--accent);color:#fff;background:rgba(30,126,131,.2);} 
+
+/* 優化左下角按鈕顏色 */
+.side-foot{padding:12px 10px;border-top:1px solid #145270;background:var(--side);}
+.side-foot button{width:100%;padding:10px;border:1px solid rgba(255, 255, 255, 0.4);background:#145270;color:#fff;
+  border-radius:8px;font-size:.81rem;font-weight:700;transition:.15s;box-shadow: 0 2px 4px rgba(0,0,0,0.2);}
+.side-foot button:hover{border-color:var(--accent);background:var(--accent);color:#fff;}
 
 #main{flex:1;display:flex;flex-direction:column;min-width:0}
 #topbar{min-height:56px;flex:none;background:#fff;border-bottom:1px solid var(--border);box-shadow: 0 2px 10px rgba(0,20,30,0.05);
@@ -114,21 +110,10 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
   outline:none;font-size:.81rem;background:#f8fafc;transition:.15s}
 #search:focus{background:#fff;border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
 .btn {
-  padding: 7px 16px;
-  border: 1px solid var(--border);
-  background: #fff; /* 強制白底 */
-  border-radius: 40px; 
-  font-size: .78rem;
-  color: var(--text);
-  transition: .13s;
-  white-space: nowrap;
-  font-weight: 600;
+  padding: 7px 16px;border: 1px solid var(--border);background: #fff;border-radius: 40px; 
+  font-size: .78rem;color: var(--text);transition: .13s;white-space: nowrap;font-weight: 600;
 }
-.btn:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: #f5f9ff;
-}
+.btn:hover { border-color: var(--accent); color: var(--accent); background: #f5f9ff; }
 .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
 .btn.primary:hover{background:var(--accent-d);color:#fff}
 .btn.danger:hover{border-color:var(--red-b);color:var(--red-b);background:#fff5f5}
@@ -146,9 +131,7 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
 .page-head{
   display:flex;align-items:center;gap:10px;flex-wrap:wrap;
   position:sticky;top:0;z-index:100;
-  background:var(--bg);
-  padding:16px 0 14px;
-  margin:0;
+  background:var(--bg);padding:16px 0 14px;margin:0;
 }
 .page-head h2{margin:0;font-size:1.06rem}
 .pill{background:#eef2ff;color:#4338ca;border-radius:20px;padding:3px 10px;font-size:.72rem;font-weight:600}
@@ -156,38 +139,24 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
   color:var(--muted);font-size:.81rem}
 
 .area{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:12px;
-  margin-bottom:16px;
-  position:relative;
-  box-shadow: 0 4px 12px rgba(0,20,30,0.05);
+  background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:16px;
+  position:relative;box-shadow: 0 4px 12px rgba(0,20,30,0.05);
 }
 .area.dragging-area{opacity:.4}
 .area.drop-target-area{outline:2px dashed var(--accent);outline-offset:-2px}
 
 .area-head{
   display:flex;align-items:center;gap:6px;padding:9px 12px;
-  background:#fafbfd;
-  border-bottom:1px solid var(--border);
-  flex-wrap:wrap;
-  position:sticky;
-  top:var(--page-h);
-  z-index:90;
-  border-radius:11px 11px 0 0;
-  cursor:pointer;
-  user-select:none;
-  transition:background .12s;
+  background:#fafbfd;border-bottom:1px solid var(--border);flex-wrap:wrap;
+  position:sticky;top:var(--page-h);z-index:90;border-radius:11px 11px 0 0;
+  cursor:pointer;user-select:none;transition:background .12s;
 }
 .area-head:hover{background:#f4f7fc;}
 .area.collapsed .area-head{border-bottom:none;border-radius:11px}
-.area.collapsed .hrow,
-.area.collapsed .row{display:none}
+.area.collapsed .hrow, .area.collapsed .row{display:none}
 
 .area-head .area-name{cursor:text;user-select:text;}
-.area-head input,
-.area-head button,
-.area-head .area-drag-handle{cursor:auto;}
+.area-head input, .area-head button, .area-head .area-drag-handle{cursor:auto;}
 .area-head .area-drag-handle{cursor:grab;}
 
 .area-drag-handle{
@@ -213,10 +182,7 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
 
 .hrow,.row{display:flex;align-items:stretch;border-bottom:1px solid #eef1f6}
 .hrow{
-  background:#eef6fa;
-  position:sticky;
-  top:calc(var(--page-h) + var(--area-h));
-  z-index:80;
+  background:#eef6fa;position:sticky;top:calc(var(--page-h) + var(--area-h));z-index:80;
 }
 .row:last-child{border-bottom:0;border-radius:0 0 11px 11px}
 .hrow:last-child{border-radius:0 0 11px 11px}
@@ -332,6 +298,8 @@ body.resizing *{cursor:col-resize !important}
 .inp:hover{border-color:#dbe1ea;background:#fff}
 .inp:focus{border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
 .inp.num{text-align:center}
+.inp[readonly]{ background-color: #f1f5f9; cursor: default; border-color: transparent; color: #475569; }
+.inp[readonly]:hover{ border-color: transparent; background-color: #f1f5f9; }
 
 .inp.dup{border-color:var(--red-b)!important;background:#fff5f5!important;box-shadow:0 0 0 3px rgba(229,72,77,.15)!important;}
 .code-wrap{display:flex;flex-direction:column;gap:2px;min-width:0;}
@@ -438,9 +406,117 @@ body.resizing *{cursor:col-resize !important}
 .sec-title{font-size:.875rem;font-weight:700;margin:0 0 10px}
 .card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:14px}
 .card p{margin:0 0 12px;font-size:.78rem;color:var(--muted);line-height:1.65}
-@media(max-width:760px){
-  #sidebar{position:fixed;left:0;top:0;bottom:0;z-index:900}
-  #sidebar:not(.collapsed){box-shadow:0 0 40px rgba(0,0,0,.4)}
+
+/* ================= 手機端適配 (768px 以下) ================= */
+@media(max-width:768px){
+  /* 側邊欄覆蓋 */
+  #sidebar{
+    position:fixed;left:0;top:0;bottom:0;z-index:900;
+    box-shadow: 10px 0 30px rgba(0,0,0,0.3);
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+  }
+  #sidebar:not(.collapsed){
+    transform: translateX(0);
+  }
+  #sidebar.collapsed{ width: 250px; transform: translateX(-100%); }
+  
+  /* 主畫面寬度填滿 */
+  #main{ width: 100vw; }
+  
+  /* 頂部工具列 */
+  #topbar{ padding: 8px 10px; gap: 6px; }
+  #search { order: 3; width: 100%; max-width: none; flex: none; margin-top: 4px; }
+  .font-ctrl { display: none; } /* 手機上隱藏字體縮放，省空間 */
+  .btn { padding: 6px 10px; font-size: 0.75rem; }
+  
+  /* 取消欄寬限制，改為自動寬度 */
+  .cell { width: auto !important; min-width: 0 !important; }
+  .hrow { display: none; } /* 隱藏表頭 */
+  
+  /* 將 Row 改為卡片佈局 */
+  .row {
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border);
+    background: #fff;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .row:hover { background: #fff; }
+  
+  /* 卡片內部樣式調整 */
+  .cell {
+    border-right: none;
+    border-bottom: 1px dashed #eef1f6;
+    padding: 8px 4px;
+    flex-direction: row;
+    align-items: center;
+  }
+  .cell:last-child { border-bottom: none; }
+  
+  /* 為每個欄位加上前置標籤 */
+  .cell::before {
+    content: attr(data-m-label);
+    font-size: 0.75rem;
+    color: #6b8a9c;
+    font-weight: 700;
+    width: 70px;
+    flex: none;
+    text-align: left;
+  }
+  /* 特殊欄位隱藏標籤 */
+  .cell[data-col="code"]::before { display: none; }
+  .cell[data-col="name"]::before { display: none; }
+  .cell[data-col="act"] { border-bottom: none; padding-top: 0; justify-content: flex-end; }
+  .cell[data-col="act"]::before { display: none; }
+  
+  /* 編號與名稱放大 */
+  .cell[data-col="code"] { padding-bottom: 2px; }
+  .cell[data-col="code"] .inp { font-size: 1rem; font-weight: 700; color: var(--accent); }
+  .cell[data-col="name"] { padding-top: 0; padding-bottom: 8px; }
+  .cell[data-col="name"] .name-area { font-size: 0.95rem; font-weight: 700; color: #1e2b3c; }
+  
+  /* 數量與日期的寬度調整 */
+  .qty-wrap, .expiry-wrap { flex: 1; }
+  .qty-main-row, .expiry-main-row { justify-content: flex-end; }
+  .qty-main-row .inp, .expiry-main-row .inp { text-align: right; }
+  
+  /* 隱藏拖拽手柄 */
+  .item-drag-handle, .area-drag-handle, .contact-drag-handle, .supplier-drag-handle {
+    display: none !important;
+  }
+  
+  /* 隱藏欄寬拖拽條 */
+  .rz { display: none !important; }
+  
+  /* 右上角刪除按鈕絕對定位 */
+  .cell[data-col="act"] .icon-btn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* 區域標題調整 */
+  .area-head {
+    flex-wrap: wrap;
+    top: 0;
+  }
+  .area-head .grow { display: none; }
+  .area-head .btn { flex: 1; text-align: center; margin: 2px; }
+  
+  /* 只顯示按鈕 */
+  .out-btn { width: 100%; text-align: center; justify-content: center; }
 }
 </style>
 </head>
@@ -449,7 +525,7 @@ body.resizing *{cursor:col-resize !important}
 <div id="login">
   <div class="login-box">
     <h1>📦 倉存管理系統</h1>
-    <input id="empInput" inputmode="numeric" autocomplete="off">
+    <input id="empInput" inputmode="numeric" autocomplete="off" placeholder="請輸入 7 位工號">
     <div class="err" id="loginErr"></div>
     <button id="loginBtn">登 入</button>
   </div>
@@ -466,7 +542,7 @@ body.resizing *{cursor:col-resize !important}
   <div id="main">
     <header id="topbar">
       <button id="menuBtn">☰</button>
-      <input id="search" placeholder="全體搜索：編號 / 名稱 / 備注 / 聯絡人 / 標籤 / 供應商…">
+      <input id="search" placeholder="全體搜索：編號 / 名稱 / 備注 / 聯絡人…">
       <div class="font-ctrl">
         <button data-act="font-down" title="縮小字體">A−</button>
         <span id="fontPct">100%</span>
@@ -511,7 +587,7 @@ body.resizing *{cursor:col-resize !important}
         if (!uidDiv) {
           uidDiv = document.createElement('div');
           uidDiv.id = 'uidDisplay';
-          uidDiv.style.cssText = 'position:fixed; bottom:70px; left:10px; font-size:12px; color:#888; background:rgba(255,255,255,0.8); padding:4px 8px; border-radius:6px; z-index:9999; border:1px solid #ddd;';
+          uidDiv.style.cssText = 'position:fixed; bottom:70px; left:10px; font-size:12px; color:#888; background:rgba(255,255,255,0.8); padding:4px 8px; border-radius:6px; z-index:9999; border:1px solid #ddd; pointer-events:none;';
           document.body.appendChild(uidDiv);
         }
         uidDiv.textContent = '設備 UID: ' + deviceUID;
@@ -560,9 +636,9 @@ function copyToClipboard(text){
   });
 }
 
-/* ============ 資料模型 ============ */
+/* ============ 權限與狀態 ============ */
 const LS_KEY = 'wms_state_v25';
-const DEVICE_SECRET = "radiuser@ssm#FirstAidCar"; // 你的暗號
+const DEVICE_SECRET = "radiuser@ssm#FirstAidCar";
 
 let state = {
   pages: [],
@@ -573,13 +649,15 @@ let state = {
   customContacts: [],
 };
 
+let permissionLevel = 'readonly'; // 'full' | 'partial' | 'readonly'
 let saveTimer = null;
 let isSavingLocally = false;
-let isReadOnly = false;
-  
+
 function saveState() {
+  if (permissionLevel === 'readonly') return; // 唯讀不保存任何資料
+  
   try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch(e) {}
-  if (isReadOnly) return; 
+  
   clearTimeout(saveTimer);
   saveTimer = setTimeout(async () => {
     if (!window.firebaseAPI) return;
@@ -600,6 +678,93 @@ function saveState() {
       console.error("❌ 倉存資料同步失敗:", error);
     }
   }, 1000);
+}
+
+async function checkPermission() {
+    if (!window.firebaseAPI) return 'readonly';
+    const { doc, getDoc, db, authReady, getDeviceUID } = window.firebaseAPI;
+    await authReady;
+    const deviceUID = getDeviceUID();
+    const empId = state.empId;
+
+    let isMasterDevice = false;
+    let isAuthorizedUser = false;
+
+    if (deviceUID) {
+        try {
+            const deviceDoc = await getDoc(doc(db, "master_devices", deviceUID));
+            if (deviceDoc.exists()) isMasterDevice = true;
+        } catch (e) { console.warn("檢查設備失敗:", e); }
+    }
+    
+    try {
+        const userDoc = await getDoc(doc(db, "authorized_users", empId));
+        if (userDoc.exists()) isAuthorizedUser = true;
+    } catch (e) { console.warn("檢查工號失敗:", e); }
+
+    if (isMasterDevice && isAuthorizedUser) return 'full';
+    if (isMasterDevice || isAuthorizedUser) return 'partial';
+    return 'readonly';
+}
+
+function applyPermissions(container = document) {
+    if (permissionLevel === 'full') return;
+
+    // 隐藏管理按钮
+    const adminBtn = document.querySelector('[data-act="admin"]');
+    if (adminBtn) adminBtn.style.display = 'none';
+
+    // 禁用新增/删除等按钮
+    if (permissionLevel !== 'full') {
+        const forbiddenActions = [
+            'add-page', 'add-area', 'add-item', 'del-area', 'del-item',
+            'delnote', 'addnote', 'delcontact', 'addcontact', 'delctag', 'add-extra', 'del-extra',
+            'backup-json', 'restore-json', 'wipe', 'export-all-xlsx'
+        ];
+        container.querySelectorAll('[data-act]').forEach(el => {
+            if (forbiddenActions.includes(el.dataset.act)) {
+                el.style.display = 'none';
+            }
+        });
+    }
+
+    // 處理唯讀和部分權限的輸入框
+    container.querySelectorAll('input, textarea, select').forEach(el => {
+        if (el.closest('.font-ctrl') || el.closest('#search') || el.closest('#login')) return;
+        if (el.closest('[data-act="add-extra"]')) return;
+
+        if (permissionLevel === 'readonly') {
+            if (!el.readOnly && el.tagName !== 'SELECT') {
+                el.readOnly = true;
+            } else if (el.tagName === 'SELECT') {
+                el.style.pointerEvents = 'none';
+            }
+            if (el.classList.contains('inp')) el.style.backgroundColor = '#f1f5f9';
+        } else if (permissionLevel === 'partial') {
+            const isQty = ['curQty', 'extra-qty'].includes(el.dataset.f);
+            const isExp = ['expiry', 'extra-expiry'].includes(el.dataset.f);
+            
+            if (!isQty && !isExp) {
+                if (!el.readOnly && el.tagName !== 'SELECT') el.readOnly = true;
+                else if (el.tagName === 'SELECT') el.style.pointerEvents = 'none';
+                if (el.classList.contains('inp')) el.style.backgroundColor = '#f1f5f9';
+            }
+        }
+    });
+
+    // 隱藏拖拽手柄和欄寬調節
+    if (permissionLevel !== 'full') {
+        container.querySelectorAll('.item-drag-handle, .area-drag-handle, .contact-drag-handle, .supplier-drag-handle, .rz').forEach(el => {
+            el.style.display = 'none';
+        });
+        container.querySelectorAll('[draggable="true"]').forEach(el => el.draggable = false);
+    }
+
+    if (permissionLevel === 'readonly') {
+        container.querySelectorAll('[data-act="toggle-out"], [data-act="toggle-no-expiry"], [data-act="add-extra"]').forEach(el => {
+            el.style.display = 'none';
+        });
+    }
 }
 
 function migrateData(data){
@@ -641,16 +806,12 @@ function migrateData(data){
 }
 
 async function loadStateFromCloud() {
-  // 等待 Firebase 載入完成
   let retries = 0;
   while (!window.firebaseAPI && retries < 10) {
     await new Promise(r => setTimeout(r, 500));
     retries++;
   }
-  if (!window.firebaseAPI) {
-    console.error("❌ Firebase 模組載入失敗");
-    return;
-  }
+  if (!window.firebaseAPI) return;
 
   try {
     const { doc, getDoc, db, authReady } = window.firebaseAPI;
@@ -665,14 +826,14 @@ async function loadStateFromCloud() {
       state.pages     = Array.isArray(d.pages) ? d.pages : [];
       state.colWidths = d.colWidths || {};
       state.codeMode  = d.codeMode === 'barcode' ? 'barcode' : 'qrcode';
-      state.empId     = d.empId || '';
+      state.empId     = d.empId || state.empId; // 保留已登入的工號
       state.fontScale = typeof d.fontScale === 'number' ? d.fontScale : 1;
       state.customContacts = Array.isArray(d.customContacts) ? d.customContacts : [];
       migrateData(state);
       console.log("✅ 已從雲端載入倉存資料");
     }
   } catch (e) {
-    console.error("雲端讀取失敗，使用本地快取", e);
+    console.error("雲端讀取失敗", e);
   }
 }
 
@@ -689,45 +850,37 @@ function initRealtimeListener() {
         if (!cloudState) return;
         
         if (JSON.stringify(state.pages) !== JSON.stringify(cloudState.pages)) {
-            console.log("🔄 偵測到其他設備更新，正在同步畫面...");
-            
+            console.log("🔄 偵測到其他設備更新");
             const active = document.activeElement;
             const isTyping = active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.tagName === 'SELECT');
-            const scrollPos = $('#content').scrollTop;
-
+            
+            // 更新記憶體資料但不重繪
             state.pages = cloudState.pages;
             state.customContacts = cloudState.customContacts || [];
             
             if (!isTyping) {
+                const scrollPos = $('#content').scrollTop;
                 render();
                 $('#content').scrollTop = scrollPos;
                 toast("🔄 已同步其他設備的資料");
             } else {
-                console.log("⚠️ 其他設備剛更新了資料，但您正在輸入，已暫停重整。");
+                toast("⚠️ 其他設備更新了資料，離開輸入框後同步");
+                if (!window._pendingSync) {
+                    window._pendingSync = true;
+                    active.addEventListener('blur', function handler() {
+                        active.removeEventListener('blur', handler);
+                        window._pendingSync = false;
+                        setTimeout(() => { 
+                            const scrollPos = $('#content').scrollTop;
+                            render(); 
+                            $('#content').scrollTop = scrollPos;
+                            toast("🔄 已同步最新資料");
+                        }, 300);
+                    }, { once: true });
+                }
             }
         }
     });
-}
-
-async function checkWritePermission() {
-    if (!window.firebaseAPI) return false;
-    const { doc, getDoc, db, authReady, getDeviceUID } = window.firebaseAPI;
-    await authReady;
-    const deviceUID = getDeviceUID();
-    const empId = state.empId;
-    
-    try {
-        const userDoc = await getDoc(doc(db, "authorized_users", empId));
-        if (userDoc.exists()) return true;
-    } catch (e) { console.warn("檢查工號失敗:", e); }
-    
-    if (deviceUID) {
-        try {
-            const deviceDoc = await getDoc(doc(db, "master_devices", deviceUID));
-            if (deviceDoc.exists()) return true;
-        } catch (e) { console.warn("檢查設備失敗:", e); }
-    }
-    return false;
 }
 
 const TYPES = {
@@ -803,7 +956,6 @@ const getPage  = id => state.pages.find(p => p.id === id);
 const getArea  = (p, id) => p?.areas.find(a => a.id === id);
 const getItem  = (p, aid, iid) => getArea(p, aid)?.items.find(i => i.id === iid);
 
-/* ============ seedDemo 修正 ============ */
 function seedDemo(){
   const p1 = newPage('common', '共用物品倉');
   p1.areas = [ newArea('A 區') ];
@@ -818,13 +970,8 @@ function seedDemo(){
   const p2 = newPage('supplier', '供應商資料');
   p2.areas = [ newArea('主要供應商') ];
   p2.areas[0].items = [
-    { id:uid(), name:'永達五金',
-      contacts:[
-        { name:'陳先生', phone:'9123 4567', tags:['五金','螺絲'] },
-        { name:'李小姐', phone:'2345 6789', tags:['發票'] },
-      ] },
-    { id:uid(), name:'大昌行',
-      contacts:[{ name:'陳先生', phone:'9988 7766', tags:['工具'] }] },
+    { id:uid(), name:'永達五金', contacts:[ { name:'陳先生', phone:'9123 4567', tags:['五金','螺絲'] }, { name:'李小姐', phone:'2345 6789', tags:['發票'] } ] },
+    { id:uid(), name:'大昌行', contacts:[{ name:'陳先生', phone:'9988 7766', tags:['工具'] }] },
   ];
   state.pages = [p1, p2];
   saveState();
@@ -833,7 +980,6 @@ function isoDate(offsetDays){
   const d = new Date(Date.now() + offsetDays * 86400000);
   return `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}`;
 }
-
 
 /* ============ 日期 / 狀態 ============ */
 function daysLeft(expiry){
@@ -871,7 +1017,7 @@ function normalizeDate8(raw){
   let s = String(raw ?? '').replace(/\D/g, '');
   if(!s) return '';
   if(s.length < 6) return '';
-  if(s.length === 8){ /* ok */ }
+  if(s.length === 8) { /* ok */ }
   else if(s.length === 6){ s = '20' + s; }
   else { s = s.slice(0, 8).padEnd(8, '0'); }
   let y = +s.slice(0,4);
@@ -894,11 +1040,7 @@ function autoPromoteFromExtras(item){
   const candidates = [];
   item.extras.forEach((ex, i) => {
     if((ex.qty || 0) > 0){
-      candidates.push({
-        idx: i,
-        qty: ex.qty,
-        expiry: ex.expiry || ''
-      });
+      candidates.push({ idx: i, qty: ex.qty, expiry: ex.expiry || '' });
     }
   });
   if(!candidates.length) return false;
@@ -910,12 +1052,10 @@ function autoPromoteFromExtras(item){
   });
 
   const pick = candidates[0];
-
   item.curQty = pick.qty;
   item.expiry = pick.expiry;
   item.noExpiry = false;  
   item.out = false;
-
   item.extras.splice(pick.idx, 1);
 
   return true;
@@ -1019,12 +1159,7 @@ function getAllContactsFull(){
     p.areas.forEach(a => a.items.forEach(it =>
       (it.contacts || []).forEach(c => {
         if(c.name && c.name.trim()){
-          list.push({
-            name: c.name.trim(),
-            phone: c.phone || '',
-            supplier: it.name || '',
-            tags: Array.isArray(c.tags) ? c.tags : [],
-          });
+          list.push({ name: c.name.trim(), phone: c.phone || '', supplier: it.name || '', tags: Array.isArray(c.tags) ? c.tags : [] });
         }
       })
     ))
@@ -1042,9 +1177,7 @@ function getAllContactsFull(){
     c.label = c.supplier ? `${c.name}（${c.supplier}）` : c.name;
     out.push(c);
   });
-  return out.sort((a,b) =>
-    a.name.localeCompare(b.name, 'zh-Hant') || a.supplier.localeCompare(b.supplier, 'zh-Hant')
-  );
+  return out.sort((a,b) => a.name.localeCompare(b.name, 'zh-Hant') || a.supplier.localeCompare(b.supplier, 'zh-Hant'));
 }
 function parseContactLabel(label){
   if(!label) return { name:'', supplier:'' };
@@ -1057,23 +1190,16 @@ function lookupContact(label){
   const parsed = parseContactLabel(label);
   const all = getAllContactsFull();
   let found = all.find(c => c.label === label);
-  if(found){
-    return { name: parsed.name || '—', phone: found.phone || '—',
-             supplier: found.supplier || '—', tags: found.tags || [] };
-  }
+  if(found) return { name: parsed.name || '—', phone: found.phone || '—', supplier: found.supplier || '—', tags: found.tags || [] };
   if(parsed.name && parsed.supplier){
     found = all.find(c => c.name === parsed.name && c.supplier === parsed.supplier);
-    if(found){
-      return { name: parsed.name, phone: found.phone || '—',
-               supplier: parsed.supplier || '—', tags: found.tags || [] };
-    }
+    if(found) return { name: parsed.name, phone: found.phone || '—', supplier: parsed.supplier || '—', tags: found.tags || [] };
   }
   if(parsed.name){
     const candidates = all.filter(c => c.name === parsed.name);
     if(candidates.length){
       const withTags = candidates.find(c => (c.tags||[]).length) || candidates[0];
-      return { name: parsed.name, phone: withTags.phone || '—',
-               supplier: withTags.supplier || '—', tags: withTags.tags || [] };
+      return { name: parsed.name, phone: withTags.phone || '—', supplier: withTags.supplier || '—', tags: withTags.tags || [] };
     }
   }
   return { name: parsed.name || '—', phone: '—', supplier: parsed.supplier || '—', tags: [] };
@@ -1090,49 +1216,37 @@ function initLogin(){
     const v = inp.value.trim();
     if(!/^0\d{6}$/.test(v)){ err.textContent = '工號格式不正確，請重新輸入。'; inp.focus(); return; }
     err.textContent = '驗證權限中...';
+    
     state.empId = v;
-    saveState();
     
-    const canWrite = await checkWritePermission();
+    permissionLevel = await checkPermission();
     
+    if (permissionLevel !== 'readonly') {
+        saveState(); 
+    }
+
     err.textContent = '';
     $('#login').style.display = 'none';
     $('#app').classList.add('on');
     
     if(!state.pages.length) seedDemo();
     applyFontScale();
+    
+    // 渲染並套用權限
     render();
+    applyPermissions();
     initRealtimeListener();
 
-        if(!canWrite) {
-        isReadOnly = true; // 👈 設定為唯讀模式
-        setTimeout(() => {
-            document.querySelectorAll('#app input, #app button, #app select, #app textarea').forEach(el => {
-                if (!el.closest('[data-act="logout"]') && 
-                    !el.closest('[data-act="export"]') && 
-                    !el.closest('.font-ctrl') &&
-                    !el.closest('[data-act="admin"]') &&
-                    
-                    // 👇 新增以下條件，放行純檢視功能的按鈕
-                    !el.matches('[data-act="toggle-area"]') &&
-                    !el.matches('[data-act="expand-all"]') &&
-                    !el.matches('[data-act="collapse-all"]') &&
-                    !el.matches('[data-act="toggle-code"]')
-                   ) {
-                    el.disabled = true;
-                    el.style.opacity = '0.6';
-                }
-            });
-            alert("⚠️ 您目前的工號與設備只有查看權限，無法修改資料。");
-        }, 500);
-    } else {
-        isReadOnly = false; // 👈 管理員則設為 false
+    if(permissionLevel === 'readonly') {
+        toast("⚠️ 您目前的權限為唯讀模式");
+    } else if(permissionLevel === 'partial') {
+        toast("ℹ️ 您目前的權限為部分存取（僅限數量與日期）");
     }
   }; 
   
   newBtn.addEventListener('click', tryLogin);
   inp.addEventListener('keydown', e => { if(e.key === 'Enter') tryLogin(); });
-   setTimeout(() => inp.focus(), 200);
+  setTimeout(() => inp.focus(), 200);
 }
 
 /* ============ 應用 ============ */
@@ -1158,10 +1272,6 @@ function render(){
   lastRenderedView = currentView;
 }
 
-/* ---- 側邊欄 ---- */
-let dragIdx = null;
-let pageNavTimer = null;
-
 function renderSidebar(){
   const list = $('#pageList');
   let h = `<div class="nav-item ${currentView==='overview'?'active':''}" data-nav="overview">
@@ -1169,11 +1279,11 @@ function renderSidebar(){
 
   state.pages.forEach((p, i) => {
     h += `<div class="nav-item ${currentView===p.id?'active':''}" data-nav="${p.id}"
-            draggable="true" data-idx="${i}">
+            draggable="${permissionLevel === 'full'}" data-idx="${i}">
       <span class="ic">${TYPES[p.type]?.icon || '📄'}</span>
       <span class="nm" data-rename="${p.id}" title="雙擊重新命名">${esc(p.name)}</span>
-      <span class="dh">⋮⋮</span>
-      <span class="del" data-delpage="${p.id}" title="刪除頁面">✕</span>
+      ${permissionLevel === 'full' ? `<span class="dh">⋮⋮</span>` : ''}
+      ${permissionLevel === 'full' ? `<span class="del" data-delpage="${p.id}" title="刪除頁面">✕</span>` : ''}
     </div>`;
   });
 
@@ -1182,6 +1292,7 @@ function renderSidebar(){
   list.onclick = e => {
     const delBtn = e.target.closest('[data-delpage]');
     if(delBtn){
+      if (permissionLevel !== 'full') return;
       e.stopPropagation();
       const pid = delBtn.dataset.delpage;
       const p = getPage(pid);
@@ -1197,13 +1308,14 @@ function renderSidebar(){
     if(!nav) return;
 
     const nm = e.target.closest('[data-rename]');
-    if(nm){
+    if(nm && permissionLevel === 'full'){
       clearTimeout(pageNavTimer);
       pageNavTimer = setTimeout(() => {
         currentView = nav.dataset.nav;
         searchQuery = '';
         $('#search').value = '';
         render();
+        if(window.innerWidth <= 768) $('#sidebar').classList.add('collapsed');
       }, 250);
       return;
     }
@@ -1213,9 +1325,11 @@ function renderSidebar(){
     searchQuery = '';
     $('#search').value = '';
     render();
+    if(window.innerWidth <= 768) $('#sidebar').classList.add('collapsed');
   };
 
   list.ondblclick = e => {
+    if (permissionLevel !== 'full') return;
     const nm = e.target.closest('[data-rename]');
     if(!nm) return;
     clearTimeout(pageNavTimer);
@@ -1249,7 +1363,9 @@ function renderSidebar(){
     });
   };
 
-  list.addEventListener('contextmenu', e => {
+  // Context Menu 邏輯 (僅 Full 權限)
+  list.oncontextmenu = e => {
+    if (permissionLevel !== 'full') return;
     const nm = e.target.closest('[data-rename]');
     if(!nm) return;
     e.preventDefault();
@@ -1269,8 +1385,7 @@ function renderSidebar(){
         const nmEl = document.querySelector(`[data-rename="${pid}"]`);
         if(!nmEl) return;
         const input = document.createElement('input');
-        input.className = 'ren';
-        input.value = p.name;
+        input.className = 'ren'; input.value = p.name;
         nmEl.replaceWith(input);
         input.focus(); input.select();
         let committed = false;
@@ -1297,9 +1412,12 @@ function renderSidebar(){
         });
       }
     };
-  });
+  };
 
+  // 拖拽排序邏輯 (僅 Full 權限)
+  let dragIdx = null;
   list.addEventListener('dragstart', e => {
+    if (permissionLevel !== 'full') return;
     const it = e.target.closest('[data-idx]');
     if(!it) return;
     dragIdx = +it.dataset.idx;
@@ -1307,16 +1425,19 @@ function renderSidebar(){
     e.dataTransfer.effectAllowed = 'move';
   });
   list.addEventListener('dragover', e => {
+    if (permissionLevel !== 'full') return;
     e.preventDefault();
     const it = e.target.closest('[data-idx]');
     $$('.nav-item.drop-target').forEach(n => n.classList.remove('drop-target'));
     if(it) it.classList.add('drop-target');
   });
   list.addEventListener('dragleave', e => {
+    if (permissionLevel !== 'full') return;
     const it = e.target.closest('[data-idx]');
     if(it) it.classList.remove('drop-target');
   });
   list.addEventListener('drop', e => {
+    if (permissionLevel !== 'full') return;
     e.preventDefault();
     const it = e.target.closest('[data-idx]');
     $$('.nav-item').forEach(n => n.classList.remove('drop-target','dragging'));
@@ -1329,12 +1450,12 @@ function renderSidebar(){
     saveState(); renderSidebar();
   });
   list.addEventListener('dragend', () => {
+    if (permissionLevel !== 'full') return;
     dragIdx = null;
     $$('.nav-item').forEach(n => n.classList.remove('drop-target','dragging'));
   });
 }
 
-/* ---- 內容 ---- */
 function renderContent(){
   const c = $('#content');
   if(currentView === 'overview')      c.innerHTML = viewOverview();
@@ -1370,6 +1491,8 @@ function afterRender(){
   alignQtyExpiryRows();
   setupSupplierObserver();
   scanAllDuplicates();
+  
+  applyPermissions();
 }
 
 function autoResize(el){
@@ -1395,11 +1518,7 @@ function findDuplicateCodes(code, excludePid, excludeAid, excludeIid){
     p.areas.forEach(a => a.items.forEach(it => {
       if(p.id === excludePid && a.id === excludeAid && it.id === excludeIid) return;
       if(normCode(it.code) === norm){
-        out.push({
-          pid: p.id, pageName: p.name,
-          aid: a.id, areaName: a.name,
-          iid: it.id, itemName: it.name || '(未命名)',
-        });
+        out.push({ pid: p.id, pageName: p.name, aid: a.id, areaName: a.name, iid: it.id, itemName: it.name || '(未命名)' });
       }
     }));
   });
@@ -1466,6 +1585,7 @@ function scanAllDuplicates(){
 
 /* ============ 現存量欄 & 有效日期欄 逐列對齊 ============ */
 function alignQtyExpiryRows(){
+  if(window.innerWidth <= 768) return; // 手機端不需要對齊
   $$('.row[data-iid]').forEach(row => {
     const qtyCell = row.querySelector('[data-col="curQty"]');
     const expCell = row.querySelector('[data-col="expiry"]');
@@ -1489,6 +1609,7 @@ function alignQtyExpiryRows(){
 
 /* ============ 供應商三欄列高對齊 ============ */
 function alignSupplierRows(){
+  if(window.innerWidth <= 768) return;
   $$('.row[data-iid]').forEach(row => {
     const nameCell  = row.querySelector('[data-col="cname"]');
     const phoneCell = row.querySelector('[data-col="cphone"]');
@@ -1512,7 +1633,7 @@ function alignSupplierRows(){
 let _ro = null, _roTimer = null;
 function setupSupplierObserver(){
   if(_ro) _ro.disconnect();
-  if(typeof ResizeObserver === 'undefined') return;
+  if(typeof ResizeObserver === 'undefined' || window.innerWidth <= 768) return;
   _ro = new ResizeObserver(() => {
     clearTimeout(_roTimer);
     _roTimer = setTimeout(alignSupplierRows, 30);
@@ -1580,13 +1701,13 @@ function viewOverview(){
       const st = itemStatus(r.page, r.item);
       const d = daysLeft(r.item.expiry);
       h += `<div class="row ${st}">
-        <div class="cell" style="width:130px">${esc(r.page.name)}</div>
-        <div class="cell" style="width:110px">${esc(r.area.name)}</div>
-        <div class="cell" style="width:150px">${esc(r.item.code||'—')}</div>
-        <div class="cell" style="width:180px;word-break:break-word">${esc(r.item.name||'—')}</div>
-        <div class="cell" style="width:80px">${r.item.out ? '<b style="color:#e5484d">缺貨</b>' : (r.item.curQty ?? '—')}</div>
-        <div class="cell" style="width:110px">${esc(r.item.noExpiry ? '不過期' : (r.item.expiry || '—'))}</div>
-        <div class="cell" style="width:90px">${r.item.noExpiry ? '—' : (d === null ? '—' : (d < 0 ? '已過期' : d + ' 天'))}</div>
+        <div class="cell" style="width:130px" data-m-label="倉庫">${esc(r.page.name)}</div>
+        <div class="cell" style="width:110px" data-m-label="區域">${esc(r.area.name)}</div>
+        <div class="cell" style="width:150px" data-m-label="編號">${esc(r.item.code||'—')}</div>
+        <div class="cell" style="width:180px;word-break:break-word" data-m-label="名稱">${esc(r.item.name||'—')}</div>
+        <div class="cell" style="width:80px" data-m-label="現存量">${r.item.out ? '<b style="color:#e5484d">缺貨</b>' : (r.item.curQty ?? '—')}</div>
+        <div class="cell" style="width:110px" data-m-label="日期">${esc(r.item.noExpiry ? '不過期' : (r.item.expiry || '—'))}</div>
+        <div class="cell" style="width:90px" data-m-label="剩餘">${r.item.noExpiry ? '—' : (d === null ? '—' : (d < 0 ? '已過期' : d + ' 天'))}</div>
       </div>`;
     });
     h += `</div>`;
@@ -1618,10 +1739,13 @@ function notesHTML(item){
   notes.forEach((n, i) => {
     h += `<div class="note-line">
       <input class="inp" data-f="note" data-ni="${i}" value="${esc(n)}" placeholder="備注">
-      <button class="mini" data-act="delnote" data-ni="${i}" title="刪除此備注">✕</button>
+      ${permissionLevel === 'full' ? `<button class="mini" data-act="delnote" data-ni="${i}" title="刪除此備注">✕</button>` : ''}
     </div>`;
   });
-  h += `<div class="note-line"><button class="mini add" data-act="addnote">＋ 備注</button></div></div>`;
+  if (permissionLevel === 'full') {
+    h += `<div class="note-line"><button class="mini add" data-act="addnote">＋ 備注</button></div>`;
+  }
+  h += `</div>`;
   return h;
 }
 
@@ -1630,7 +1754,7 @@ function qtyCellHTML(item){
     <div class="qty-main-row">
       <input class="inp num" type="text" inputmode="numeric"
         data-f="curQty" data-num="1" value="${item.curQty ?? 0}">
-      <button class="add-extra-btn" data-act="add-extra" title="新增一列數量">+</button>
+      ${permissionLevel !== 'readonly' ? `<button class="add-extra-btn" data-act="add-extra" title="新增一列數量">+</button>` : ''}
     </div>`;
 
   const extras = Array.isArray(item.extras) ? item.extras : [];
@@ -1639,7 +1763,7 @@ function qtyCellHTML(item){
       <input class="inp num extra-qty" type="text" inputmode="numeric"
         data-f="extra-qty" data-ei="${i}" data-num="1"
         value="${ex.qty ?? 0}" placeholder="數量" title="追加數量">
-      <button class="mini" data-act="del-extra" data-ei="${i}" title="刪除此列">✕</button>
+      ${permissionLevel !== 'readonly' ? `<button class="mini" data-act="del-extra" data-ei="${i}" title="刪除此列">✕</button>` : ''}
     </div>`;
   });
 
@@ -1655,7 +1779,7 @@ function expiryCellHTML(item){
 
   if(noExp){
     h += `<div class="expiry-main-row">
-      <div class="no-expiry-label" data-act="toggle-no-expiry" title="點擊恢復有效日期">✓ 不過期</div>
+      <div class="no-expiry-label" ${permissionLevel !== 'readonly' ? 'data-act="toggle-no-expiry"' : ''} title="${permissionLevel !== 'readonly' ? '點擊恢復有效日期' : ''}">✓ 不過期</div>
     </div>`;
   }else{
     h += `<div class="expiry-main-row">
@@ -1671,7 +1795,9 @@ function expiryCellHTML(item){
       </div>`;
     });
 
-    h += `<button class="no-expiry-btn" data-act="toggle-no-expiry" title="設為不過期">不過期</button>`;
+    if (permissionLevel !== 'readonly') {
+      h += `<button class="no-expiry-btn" data-act="toggle-no-expiry" title="設為不過期">不過期</button>`;
+    }
   }
 
   h += `</div>`;
@@ -1688,7 +1814,7 @@ function rowHTML(page, area, item){
   if(type === 'common' || type === 'special'){
     cells += cellHTML('code', w.code,
       `<div style="display:flex;gap:5px;align-items:flex-start">
-        <span class="item-drag-handle" draggable="true" title="拖動排序物品">⋮⋮</span>
+        ${permissionLevel === 'full' ? `<span class="item-drag-handle" draggable="true" title="拖動排序物品">⋮⋮</span>` : ''}
         <div class="code-wrap" style="flex:1;min-width:0">
           <input class="inp" data-f="code" value="${esc(item.code||'')}" placeholder="物品編號">
           <div class="cprev" data-cprev="${item.id}"></div>
@@ -1696,7 +1822,7 @@ function rowHTML(page, area, item){
       </div>`, type);
 
     cells += cellHTML('name', w.name,
-      `<textarea class="inp name-area" data-f="name" data-tip="1" data-ctxcontact="1" rows="1"
+      `<textarea class="inp name-area" data-f="name" ${window.innerWidth<=768?'data-mclick="1"':'data-tip="1"'} ${permissionLevel==='full'?'data-ctxcontact="1"':''} rows="1"
         placeholder="物品名稱">${esc(item.name||'')}</textarea>`, type);
 
     cells += cellHTML('note', w.note, notesHTML(item), type);
@@ -1719,7 +1845,7 @@ function rowHTML(page, area, item){
   else if(type === 'consign'){
     cells += cellHTML('code', w.code,
       `<div style="display:flex;gap:5px;align-items:flex-start">
-        <span class="item-drag-handle" draggable="true" title="拖動排序物品">⋮⋮</span>
+        ${permissionLevel === 'full' ? `<span class="item-drag-handle" draggable="true" title="拖動排序物品">⋮⋮</span>` : ''}
         <div class="code-wrap" style="flex:1;min-width:0">
           <input class="inp" data-f="code" value="${esc(item.code||'')}" placeholder="物品編號">
           <div class="cprev" data-cprev="${item.id}"></div>
@@ -1727,7 +1853,7 @@ function rowHTML(page, area, item){
       </div>`, type);
 
     cells += cellHTML('name', w.name,
-      `<textarea class="inp name-area" data-f="name" data-tip="1" rows="1"
+      `<textarea class="inp name-area" data-f="name" ${window.innerWidth<=768?'data-mclick="1"':'data-tip="1"'} rows="1"
         placeholder="物品名稱">${esc(item.name||'')}</textarea>`, type);
 
     cells += cellHTML('note', w.note, notesHTML(item), type);
@@ -1741,7 +1867,9 @@ function rowHTML(page, area, item){
     if(item.contact && !contacts.some(c => c.label === item.contact)){
       opts.push(`<option value="${esc(item.contact)}" selected>${esc(item.contact)}</option>`);
     }
-    opts.push(`<option value="__new__">＋ 新增聯絡人員…</option>`);
+    if (permissionLevel === 'full') {
+      opts.push(`<option value="__new__">＋ 新增聯絡人員…</option>`);
+    }
     cells += cellHTML('contact', w.contact,
       `<select class="inp" data-f="contact" style="cursor:pointer">${opts.join('')}</select>`, type);
 
@@ -1754,7 +1882,7 @@ function rowHTML(page, area, item){
 
     cells += cellHTML('name', w.name,
       `<div style="display:flex;gap:6px;align-items:center">
-        <span class="supplier-drag-handle" draggable="true" title="拖動調整供應商順序">⋮⋮</span>
+        ${permissionLevel === 'full' ? `<span class="supplier-drag-handle" draggable="true" title="拖動調整供應商順序">⋮⋮</span>` : ''}
         <input class="inp" data-f="s-name" value="${esc(item.name||'')}" placeholder="供應商名稱">
       </div>`, type);
 
@@ -1762,12 +1890,12 @@ function rowHTML(page, area, item){
     contacts.forEach((c, i) => {
       nHtml += `<div class="contact-block" data-ci="${i}">
         <div class="contact-head">
-          <span class="contact-drag-handle" draggable="true" title="拖動調整聯絡人順序">⋮⋮</span>
+          ${permissionLevel === 'full' ? `<span class="contact-drag-handle" draggable="true" title="拖動調整聯絡人順序">⋮⋮</span>` : ''}
           <input class="inp" data-f="c-name" data-ci="${i}" value="${esc(c.name||'')}" placeholder="聯絡人">
         </div>
       </div>`;
     });
-    nHtml += `<div class="add-row"><button class="mini add" data-act="addcontact">＋ 聯絡人</button></div>`;
+    if (permissionLevel === 'full') nHtml += `<div class="add-row"><button class="mini add" data-act="addcontact">＋ 聯絡人</button></div>`;
     nHtml += `</div>`;
     cells += cellHTML('cname', w.cname, nHtml, type);
 
@@ -1775,7 +1903,7 @@ function rowHTML(page, area, item){
     contacts.forEach((c, i) => {
       pHtml += `<div class="phone-block" data-ci="${i}">
         <input class="inp" data-f="c-phone" data-ci="${i}" value="${esc(c.phone||'')}" placeholder="電話">
-        <button class="mini" data-act="delcontact" data-ci="${i}" title="刪除">✕</button>
+        ${permissionLevel === 'full' ? `<button class="mini" data-act="delcontact" data-ci="${i}" title="刪除">✕</button>` : ''}
       </div>`;
     });
     pHtml += `<div class="add-row-placeholder"></div></div>`;
@@ -1787,9 +1915,9 @@ function rowHTML(page, area, item){
       tHtml += `<div class="ct-tags-block" data-ct-ci="${i}">
         <div class="ct-tag-list">
           ${tags.map((t, ti) =>
-            `<span class="tag-mini">${esc(t)}<b data-act="delctag" data-ci="${i}" data-ti="${ti}">✕</b></span>`
+            `<span class="tag-mini">${esc(t)}${permissionLevel === 'full' ? `<b data-act="delctag" data-ci="${i}" data-ti="${ti}">✕</b>` : ''}</span>`
           ).join('')}
-          <input class="tag-add" data-f="ctag-input" data-ci="${i}" placeholder="+標籤" maxlength="20">
+          ${permissionLevel === 'full' ? `<input class="tag-add" data-f="ctag-input" data-ci="${i}" placeholder="+標籤" maxlength="20">` : ''}
         </div>
       </div>`;
     });
@@ -1816,7 +1944,7 @@ function viewPage(page){
     <div class="grow"></div>
     <button class="btn" data-act="expand-all">展開全部</button>
     <button class="btn" data-act="collapse-all">折疊全部</button>
-    <button class="btn" data-act="add-area">＋ 新增區域</button>
+    ${permissionLevel === 'full' ? `<button class="btn" data-act="add-area">＋ 新增區域</button>` : ''}
     <button class="btn" data-act="export-page">⬇ 匯出本頁</button>
     <button class="btn" data-act="toggle-code">
       ${state.codeMode === 'qrcode' ? '二維碼 ✓' : '一維碼 ✓'}
@@ -1832,21 +1960,21 @@ function viewPage(page){
     const collapsedCls = area.collapsed ? ' collapsed' : '';
     h += `<div class="area${collapsedCls}" data-aid="${area.id}">
       <div class="area-head" title="點擊空白處折疊 / 展開">
-        <span class="area-drag-handle" draggable="true" title="拖動排序區域">⋮⋮</span>
+        ${permissionLevel === 'full' ? `<span class="area-drag-handle" draggable="true" title="拖動排序區域">⋮⋮</span>` : ''}
         <button class="collapse-toggle" data-act="toggle-area" title="折疊 / 展開">▼</button>
         <span class="area-dot"></span>
         <input class="area-name" data-f="area-name" value="${esc(area.name)}">
         <span class="count">${area.items.length} 項</span>
         <div class="grow"></div>
-        <button class="btn sm" data-act="add-item">${addLabel}</button>
-        <button class="btn sm danger" data-act="del-area">刪除區域</button>
+        ${permissionLevel === 'full' ? `<button class="btn sm" data-act="add-item">${addLabel}</button>` : ''}
+        ${permissionLevel === 'full' ? `<button class="btn sm danger" data-act="del-area">刪除區域</button>` : ''}
       </div>`;
 
     h += `<div class="hrow">`;
     cols.forEach(c => {
       h += `<div class="cell hcell" data-col="${c.k}" data-type="${page.type}"
               style="width:${w[c.k]}px;min-width:${w[c.k]}px">
-        ${esc(c.t)}<span class="rz" data-col="${c.k}" data-type="${page.type}"></span>
+        ${esc(c.t)}${permissionLevel === 'full' ? `<span class="rz" data-col="${c.k}" data-type="${page.type}"></span>` : ''}
       </div>`;
     });
     h += `</div>`;
@@ -1864,9 +1992,7 @@ function viewSearch(){
   const recs = getAllRecords().filter(r => {
     const p = r.page, it = r.item;
     if(p.type === 'supplier'){
-      const hay = [it.name,
-        ...(it.contacts||[]).map(c => [c.name, c.phone, ...(c.tags||[])].join(' ')),
-      ].join(' ').toLowerCase();
+      const hay = [it.name, ...(it.contacts||[]).map(c => [c.name, c.phone, ...(c.tags||[])].join(' '))].join(' ').toLowerCase();
       return hay.includes(q);
     }
     if(p.type === 'common' || p.type === 'special'){
@@ -1899,21 +2025,18 @@ function viewSearch(){
     const isSup = page.type === 'supplier';
     const isComSp = (page.type === 'common' || page.type === 'special');
     const code = isSup ? (item.name || '') : (item.code || '');
-    const name = isSup
-      ? (item.contacts || []).map(c => c.name).filter(Boolean).join('、')
-      : (item.name || '');
-    const extra = isSup
-      ? (item.contacts||[]).flatMap(c => c.tags || []).join('、')
-      : (item.notes || []).filter(Boolean).join('；');
+    const name = isSup ? (item.contacts || []).map(c => c.name).filter(Boolean).join('、') : (item.name || '');
+    const extra = isSup ? (item.contacts||[]).flatMap(c => c.tags || []).join('、') : (item.notes || []).filter(Boolean).join('；');
     const contactInfo = isComSp ? (item.contactList || []).join('、') : '';
+    
     h += `<div class="row ${st !== 'normal' ? st : ''}">
-      <div class="cell" style="width:130px">${esc(page.name)}</div>
-      <div class="cell" style="width:110px">${esc(area.name)}</div>
-      <div class="cell" style="width:150px">${esc(code)}</div>
-      <div class="cell" style="width:180px;word-break:break-word">${esc(name)}${contactInfo ? `<div style="color:#7a8395;font-size:.72rem">${esc(contactInfo)}</div>` : ''}</div>
-      <div class="cell" style="width:90px">${isSup ? '—' : (item.out ? '<b style="color:#e5484d">缺貨</b>' : (item.curQty ?? '—'))}</div>
-      <div class="cell" style="width:110px">${esc(isSup ? '—' : (item.noExpiry ? '不過期' : (item.expiry || '—')))}</div>
-      <div class="cell" style="flex:1;word-break:break-word">${esc(extra)}</div>
+      <div class="cell" style="width:130px" data-m-label="倉庫">${esc(page.name)}</div>
+      <div class="cell" style="width:110px" data-m-label="區域">${esc(area.name)}</div>
+      <div class="cell" style="width:150px" data-m-label="編號">${esc(code)}</div>
+      <div class="cell" style="width:180px;word-break:break-word" data-m-label="名稱">${esc(name)}${contactInfo ? `<div style="color:#7a8395;font-size:.72rem">${esc(contactInfo)}</div>` : ''}</div>
+      <div class="cell" style="width:90px" data-m-label="現存量">${isSup ? '—' : (item.out ? '<b style="color:#e5484d">缺貨</b>' : (item.curQty ?? '—'))}</div>
+      <div class="cell" style="width:110px" data-m-label="日期">${esc(isSup ? '—' : (item.noExpiry ? '不過期' : (item.expiry || '—')))}</div>
+      <div class="cell" style="flex:1;word-break:break-word" data-m-label="備注">${esc(extra)}</div>
     </div>`;
   });
   return h + `</div>`;
@@ -1928,6 +2051,7 @@ function viewAdmin(){
 
   return `<div class="page-head"><h2>管理</h2>
       <span class="pill">登入工號 ${esc(state.empId)}</span>
+      <span class="pill" style="background:#e0f2fe;color:#0369a1">${permissionLevel === 'full' ? '完全存取' : '部分存取'}</span>
       <div class="grow"></div>
       <button class="btn danger" data-act="logout">登出</button>
     </div>
@@ -1937,7 +2061,7 @@ function viewAdmin(){
       <p>建議定期匯出完整備份（JSON 檔），以防誤操作清空資料。</p>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         <button class="btn primary" data-act="backup-json">⬇ 匯出完整備份（JSON）</button>
-        <button class="btn" data-act="restore-json">⬆ 匯入備份</button>
+        ${permissionLevel === 'full' ? `<button class="btn" data-act="restore-json">⬆ 匯入備份</button>` : ''}
         <button class="btn" data-act="export-all-xlsx">⬇ 匯出全部資料（Excel）</button>
       </div>
     </div>
@@ -1972,13 +2096,14 @@ function viewAdmin(){
       </div>
     </div>
 
+    ${permissionLevel === 'full' ? `
     <div class="card" style="border-color:#ffd4d4">
       <div class="sec-title" style="color:#b42318">⚠ 危險區域</div>
       <p class="danger-note">清空動作將刪除本機所有倉存資料且無法還原。</p>
       <div style="margin-top:12px">
         <button class="btn danger" data-act="wipe">🗑 清空所有資料</button>
       </div>
-    </div>`;
+    </div>` : ''}`;
 }
 
 /* ============ 缺貨 / 現存量 連動 ============ */
@@ -2066,6 +2191,8 @@ function addItemToAreaLocal(page, area){
     if(cprev) renderCodePreview(cprev, newIt.code);
   }
 
+  applyPermissions(newRow);
+
   requestAnimationFrame(() => {
     alignQtyExpiryRows();
     updateStickyHeights();
@@ -2098,6 +2225,7 @@ function rebuildQtyCell(row, item){
   const cell = row.querySelector('[data-col="curQty"]');
   if(!cell) return;
   cell.innerHTML = qtyCellHTML(item);
+  applyPermissions(cell);
   setTimeout(() => { alignQtyExpiryRows(); updateStickyHeights(); }, 20);
 }
 
@@ -2105,6 +2233,7 @@ function rebuildExpiryCell(row, item){
   const cell = row.querySelector('[data-col="expiry"]');
   if(!cell) return;
   cell.innerHTML = expiryCellHTML(item);
+  applyPermissions(cell);
   setTimeout(() => { alignQtyExpiryRows(); updateStickyHeights(); }, 20);
 }
 
@@ -2137,6 +2266,13 @@ document.addEventListener('input', e => {
   const el = e.target;
   const f  = el.dataset.f;
   if(!f) return;
+
+  // 權限攔截
+  if (permissionLevel === 'readonly') return;
+  if (permissionLevel === 'partial') {
+      const allowed = ['curQty', 'extra-qty', 'expiry', 'extra-expiry'];
+      if (!allowed.includes(f)) return;
+  }
 
   if(f === 'area-name'){
     const areaEl = el.closest('[data-aid]');
@@ -2292,6 +2428,7 @@ document.addEventListener('keydown', e => {
   }
 
   if(el.dataset && el.dataset.f === 'expiry'){
+    if (permissionLevel === 'readonly') return;
     const st = getExpiryState(el);
     if(e.key === 'Enter'){
       e.preventDefault(); finalizeExpiry(el, st);
@@ -2350,6 +2487,7 @@ document.addEventListener('keydown', e => {
   }
 
   if(e.key === 'Enter' && el.dataset && el.dataset.f === 'ctag-input'){
+    if (permissionLevel !== 'full') return;
     e.preventDefault();
     const row = el.closest('[data-iid]');
     const ci = +el.dataset.ci;
@@ -2373,6 +2511,7 @@ document.addEventListener('keydown', e => {
   }
 
   if(e.key === 'Enter' && el.dataset && el.dataset.f === 'note'){
+    if (permissionLevel !== 'full') return;
     e.preventDefault();
     const row = el.closest('[data-iid]');
     const p = getPage(row.dataset.pid);
@@ -2383,6 +2522,7 @@ document.addEventListener('keydown', e => {
       saveState();
       const cell = row.querySelector('[data-col="note"]');
       cell.innerHTML = notesHTML(it);
+      applyPermissions(cell);
       const inputs = cell.querySelectorAll('[data-f="note"]');
       inputs[inputs.length-1].focus();
     }
@@ -2390,6 +2530,7 @@ document.addEventListener('keydown', e => {
 });
 
 function finalizeExpiry(input, st){
+  if (permissionLevel === 'readonly') return;
   if(!st.y) return;
   if(st.y.length < 2){ st.y = st.y.padStart(2, '0'); }
   if(st.m && !st.d){
@@ -2412,6 +2553,7 @@ document.addEventListener('focusout', e => {
   const el = e.target;
 
   if(el.dataset && el.dataset.f === 'extra-expiry'){
+    if (permissionLevel === 'readonly') return;
     const ei = +el.dataset.ei;
     const row = el.closest('[data-iid]');
     if(!row) return;
@@ -2442,6 +2584,7 @@ document.addEventListener('focusout', e => {
     finalizeExpiry(el, st);
   }
   if(el.dataset && el.dataset.f === 'baseQty'){
+    if (permissionLevel === 'readonly') return;
     const row = el.closest('[data-iid]');
     if(!row) return;
     const p = getPage(row.dataset.pid);
@@ -2454,6 +2597,7 @@ document.addEventListener('focusout', e => {
   }
 
   if(el.dataset && el.dataset.f === 'curQty'){
+    if (permissionLevel === 'readonly') return;
     const row = el.closest('[data-iid]');
     if(!row) return;
     const p = getPage(row.dataset.pid);
@@ -2489,6 +2633,7 @@ document.addEventListener('focusout', e => {
   }
 
   if(el.dataset && el.dataset.f === 'extra-qty'){
+    if (permissionLevel === 'readonly') return;
     const ei = +el.dataset.ei;
     const row = el.closest('[data-iid]');
     if(!row) return;
@@ -2506,10 +2651,12 @@ document.addEventListener('focusout', e => {
 document.addEventListener('focusin', e => {
   const el = e.target;
   if(el.dataset && el.dataset.f === 'expiry'){
+    if (permissionLevel === 'readonly') return;
     getExpiryState(el);
     setTimeout(() => { try{ el.select(); }catch(_){} }, 0);
   }
   if(el.dataset && (el.dataset.f === 'baseQty' || el.dataset.f === 'curQty' || el.dataset.f === 'extra-qty')){
+    if (permissionLevel === 'readonly') return;
     setTimeout(() => { try{ el.select(); }catch(_){} }, 0);
   }
 });
@@ -2521,6 +2668,7 @@ let draggingItem = null;
 let draggingArea = null;
 
 document.addEventListener('dragstart', e => {
+  if (permissionLevel !== 'full') return;
   const supHandle = e.target.closest('.supplier-drag-handle');
   if(supHandle){
     const row = supHandle.closest('[data-iid]');
@@ -2537,10 +2685,7 @@ document.addEventListener('dragstart', e => {
     const block = ctHandle.closest('.contact-block');
     const row = block.closest('[data-iid]');
     if(!row) return;
-    draggingContact = {
-      pid: row.dataset.pid, aid: row.dataset.aid, iid: row.dataset.iid,
-      fromIdx: +block.dataset.ci,
-    };
+    draggingContact = { pid: row.dataset.pid, aid: row.dataset.aid, iid: row.dataset.iid, fromIdx: +block.dataset.ci };
     e.dataTransfer.effectAllowed = 'move';
     try{ e.dataTransfer.setData('text/plain', 'contact'); }catch(_){}
     block.classList.add('dragging-contact');
@@ -2551,9 +2696,7 @@ document.addEventListener('dragstart', e => {
   if(itemHandle){
     const row = itemHandle.closest('[data-iid]');
     if(!row) return;
-    draggingItem = {
-      pid: row.dataset.pid, aid: row.dataset.aid, iid: row.dataset.iid,
-    };
+    draggingItem = { pid: row.dataset.pid, aid: row.dataset.aid, iid: row.dataset.iid };
     e.dataTransfer.effectAllowed = 'move';
     try{ e.dataTransfer.setData('text/plain', 'item'); }catch(_){}
     row.classList.add('dragging-row');
@@ -2565,10 +2708,7 @@ document.addEventListener('dragstart', e => {
     const areaEl = areaHandle.closest('.area');
     const pageEl = areaHandle.closest('[data-pageid]');
     if(!areaEl || !pageEl) return;
-    draggingArea = {
-      pid: pageEl.dataset.pageid,
-      aid: areaEl.dataset.aid,
-    };
+    draggingArea = { pid: pageEl.dataset.pageid, aid: areaEl.dataset.aid };
     e.dataTransfer.effectAllowed = 'move';
     try{ e.dataTransfer.setData('text/plain', 'area'); }catch(_){}
     areaEl.classList.add('dragging-area');
@@ -2582,13 +2722,11 @@ document.addEventListener('dragend', () => {
   draggingItem = null;
   draggingArea = null;
   $$('.dragging-row,.dragging-contact,.drop-target-row,.drop-target-contact,.dragging-area,.drop-target-area')
-    .forEach(el => el.classList.remove(
-      'dragging-row','dragging-contact','drop-target-row','drop-target-contact',
-      'dragging-area','drop-target-area'
-    ));
+    .forEach(el => el.classList.remove('dragging-row','dragging-contact','drop-target-row','drop-target-contact','dragging-area','drop-target-area'));
 });
 
 document.addEventListener('dragover', e => {
+  if (permissionLevel !== 'full') return;
   if(draggingSupplier){
     const row = e.target.closest('.row');
     if(!row) return;
@@ -2650,6 +2788,7 @@ document.addEventListener('dragleave', e => {
 });
 
 document.addEventListener('drop', e => {
+  if (permissionLevel !== 'full') return;
   if(draggingSupplier){
     const row = e.target.closest('.row');
     if(!row) return;
@@ -2737,8 +2876,9 @@ document.addEventListener('drop', e => {
 /* ============ 下拉變更 ============ */
 document.addEventListener('change', e => {
   const el = e.target;
-
+  
   if(el.name === 'cm'){
+    if (permissionLevel === 'readonly') return;
     state.codeMode = el.value;
     saveState(); render();
     toast('已切換條碼類型');
@@ -2746,6 +2886,7 @@ document.addEventListener('change', e => {
   }
 
   if(el.dataset && el.dataset.f === 'contact'){
+    if (permissionLevel !== 'full') return;
     const row = el.closest('[data-iid]');
     if(!row) return;
     const p = getPage(row.dataset.pid);
@@ -2792,11 +2933,7 @@ document.addEventListener('click', e => {
 
     const head = e.target.closest('.area-head');
     if(head){
-      if(e.target.closest('.area-drag-handle') ||
-         e.target.closest('.area-name') ||
-         e.target.closest('input') ||
-         e.target.closest('button') ||
-         e.target.closest('select')){
+      if(e.target.closest('.area-drag-handle') || e.target.closest('.area-name') || e.target.closest('input') || e.target.closest('button') || e.target.closest('select')){
         return;
       }
       const areaEl = head.closest('.area');
@@ -2806,6 +2943,20 @@ document.addEventListener('click', e => {
     return;
   }
   const act = t.dataset.act;
+
+  // 權限過濾：非 Full 權限，攔截特定行為
+  if (permissionLevel !== 'full') {
+      const forbidden = ['add-page', 'add-area', 'add-item', 'del-area', 'del-item', 'delnote', 'addnote', 'delcontact', 'addcontact', 'delctag', 'restore-json', 'wipe'];
+      if (forbidden.includes(act)) {
+          return toast('無權限執行此操作');
+      }
+  }
+  if (permissionLevel === 'readonly') {
+      const readonlyForbidden = ['toggle-out', 'toggle-no-expiry', 'add-extra', 'del-extra'];
+      if (readonlyForbidden.includes(act)) {
+          return;
+      }
+  }
 
   if(act === 'font-up' || act === 'font-down' || act === 'font-reset'){
     if(act === 'font-up')    state.fontScale = Math.min(1.5, +(state.fontScale + 0.05).toFixed(2));
@@ -2819,7 +2970,12 @@ document.addEventListener('click', e => {
 
   if(act === 'add-page'){ openAddPageModal(); return; }
   if(act === 'export'){ openExportModal(); return; }
-  if(act === 'admin'){ currentView = 'admin'; render(); return; }
+  if(act === 'admin'){ 
+      if (permissionLevel === 'readonly') return toast('無權限進入管理頁');
+      currentView = 'admin'; 
+      render(); 
+      return; 
+  }
   if(act === 'logout'){
     confirmBox('確定要登出嗎？', () => {
       $('#app').classList.remove('on');
@@ -2827,6 +2983,7 @@ document.addEventListener('click', e => {
       $('#empInput').value = '';
       $('#loginErr').textContent = '';
       $('#empInput').focus();
+      permissionLevel = 'readonly'; // Reset
     });
     return;
   }
@@ -2981,6 +3138,7 @@ document.addEventListener('click', e => {
     saveState();
     const cell = row.querySelector('[data-col="note"]');
     cell.innerHTML = notesHTML(item);
+    applyPermissions(cell);
     const inputs = cell.querySelectorAll('[data-f="note"]');
     inputs[inputs.length-1].focus();
     return;
@@ -2992,6 +3150,7 @@ document.addEventListener('click', e => {
     saveState();
     const cell = row.querySelector('[data-col="note"]');
     cell.innerHTML = notesHTML(item);
+    applyPermissions(cell);
     return;
   }
 
@@ -3025,6 +3184,7 @@ document.addEventListener('click', e => {
 const ctx = $('#ctxmenu');
 
 document.addEventListener('contextmenu', e => {
+  if (permissionLevel !== 'full') return;
   const inp = e.target.closest('input[data-ctxcontact], textarea[data-ctxcontact]');
   if(!inp) return;
   e.preventDefault();
@@ -3100,10 +3260,65 @@ document.addEventListener('scroll', e => {
   closeCtx();
 }, true);
 
-/* ============ Hover 資訊 ============ */
+/* ============ 手機端彈出詳情 / Hover 資訊 ============ */
 const tipbox = $('#tipbox');
 
+function showMobileContactModal(it, p) {
+    let html = '';
+    if(p.type === 'common' || p.type === 'special'){
+        const list = it.contactList || [];
+        if(!list.length) return toast('此物品未選擇聯絡人');
+        html = `<div class="tt" style="font-weight:700;margin-bottom:8px;">聯絡資訊（${list.length} 位）</div>` +
+          list.map(lbl => {
+            const info = lookupContact(lbl);
+            const tags = info.tags && info.tags.length ? `<div style="color:#6b8a9c;font-size:0.75rem;margin-top:4px;">標籤: ${esc(info.tags.join('、'))}</div>` : '';
+            return `<div style="border-top:1px solid #eef1f6;padding:10px 0;">
+              <div style="font-weight:700;color:#1e2b3c;margin-bottom:4px;">${esc(info.name)}</div>
+              <div style="color:#475569;font-size:0.81rem;">電話：${esc(info.phone)}</div>
+              <div style="color:#475569;font-size:0.81rem;">供應商：${esc(info.supplier)}</div>
+              ${tags}
+            </div>`;
+          }).join('');
+    } else {
+        if(!it.contact) return toast('此物品未選擇聯絡人');
+        const info = lookupContact(it.contact);
+        const tags = info.tags && info.tags.length ? `<div style="color:#6b8a9c;font-size:0.75rem;margin-top:4px;">標籤: ${esc(info.tags.join('、'))}</div>` : '';
+        html = `<div class="tt" style="font-weight:700;margin-bottom:8px;">聯絡資訊</div>
+          <div style="padding:10px 0;">
+            <div style="font-weight:700;color:#1e2b3c;margin-bottom:4px;">${esc(info.name || '—')}</div>
+            <div style="color:#475569;font-size:0.81rem;">電話：${esc(info.phone || '—')}</div>
+            <div style="color:#475569;font-size:0.81rem;">供應商：${esc(info.supplier || '—')}</div>
+            ${tags}
+          </div>`;
+    }
+    
+    openModal({
+        title: '聯絡人詳情',
+        body: html,
+        okText: '關閉',
+        onOk: () => {}
+    });
+}
+
+// 點擊事件 (手機端)
+document.addEventListener('click', e => {
+    const el = e.target.closest('[data-mclick="1"]');
+    if(!el || window.innerWidth > 768) return;
+    
+    // 如果是 readonly 但只有 readonly 的 input，不應該觸發 modal? 
+    // 需求上：專用物品聯絡人點開詳情顯示，所以不管權限，點擊都可以看
+    const row = el.closest('[data-iid]');
+    if(!row) return;
+    const p = getPage(row.dataset.pid);
+    const it = getItem(p, row.dataset.aid, row.dataset.iid);
+    if(!it) return;
+    
+    showMobileContactModal(it, p);
+});
+
+// 電腦端 Hover
 document.addEventListener('mouseover', e => {
+  if(window.innerWidth <= 768) return;
   const el = e.target.closest('[data-tip="1"]');
   if(!el) return;
   const row = el.closest('[data-iid]');
@@ -3119,9 +3334,7 @@ document.addEventListener('mouseover', e => {
     tipbox.innerHTML = `<div class="tt">聯絡資訊（${list.length} 位）</div>` +
       list.map(lbl => {
         const info = lookupContact(lbl);
-        const tags = info.tags && info.tags.length
-          ? `<div class="row-t"><b>標籤</b><span>${esc(info.tags.join('、'))}</span></div>`
-          : '';
+        const tags = info.tags && info.tags.length ? `<div class="row-t"><b>標籤</b><span>${esc(info.tags.join('、'))}</span></div>` : '';
         return `<div class="ct-item">
           <div class="row-t"><b>聯絡人員</b><span>${esc(info.name)}</span></div>
           <div class="row-t"><b>聯絡電話</b><span>${esc(info.phone)}</span></div>
@@ -3133,9 +3346,7 @@ document.addEventListener('mouseover', e => {
     if(!it.contact) return;
 
     const info = lookupContact(it.contact);
-    const tags = info.tags && info.tags.length
-      ? `<div class="row-t"><b>標籤</b><span>${esc(info.tags.join('、'))}</span></div>`
-      : '';
+    const tags = info.tags && info.tags.length ? `<div class="row-t"><b>標籤</b><span>${esc(info.tags.join('、'))}</span></div>` : '';
     tipbox.innerHTML = `<div class="tt">聯絡資訊</div>
       <div class="row-t"><b>聯絡人員</b><span>${esc(info.name || '—')}</span></div>
       <div class="row-t"><b>聯絡電話</b><span>${esc(info.phone || '—')}</span></div>
@@ -3146,6 +3357,7 @@ document.addEventListener('mouseover', e => {
 });
 
 document.addEventListener('mouseout', e => {
+  if(window.innerWidth <= 768) return;
   const el = e.target.closest('[data-tip="1"]');
   if(el) tipbox.classList.remove('on');
 });
@@ -3164,6 +3376,7 @@ document.addEventListener('mousemove', e => {
 let resizing = null;
 
 document.addEventListener('mousedown', e => {
+  if (permissionLevel !== 'full') return;
   const rz = e.target.closest('.rz');
   if(!rz) return;
   e.preventDefault();
@@ -3179,9 +3392,7 @@ document.addEventListener('mousemove', e => {
   const nw = Math.max(48, Math.round(resizing.startW + (e.clientX - resizing.startX)));
   if(!state.colWidths[resizing.type]) state.colWidths[resizing.type] = {};
   state.colWidths[resizing.type][resizing.col] = nw;
-  document.querySelectorAll(
-    `.cell[data-col="${resizing.col}"][data-type="${resizing.type}"]`
-  ).forEach(el => {
+  document.querySelectorAll(`.cell[data-col="${resizing.col}"][data-type="${resizing.type}"]`).forEach(el => {
     el.style.width = nw + 'px';
     el.style.minWidth = nw + 'px';
     const ta = el.querySelector('.name-area');
@@ -3310,6 +3521,7 @@ function exportXLSX(pageIds, label){
 }
 
 function restoreJSON(){
+  if (permissionLevel !== 'full') return toast('無權限還原備份');
   const inp = document.createElement('input');
   inp.type = 'file';
   inp.accept = '.json,application/json';
@@ -3479,9 +3691,15 @@ $('#search').addEventListener('input', e => {
 });
 
 /* ============ 側邊欄收合 ============ */
+let pageNavTimer = null;
 $('#menuBtn').addEventListener('click', () => {
   $('#sidebar').classList.toggle('collapsed');
-  setTimeout(() => { autoResizeAllNames(); alignSupplierRows(); alignQtyExpiryRows(); updateStickyHeights(); }, 250);
+  setTimeout(() => { 
+      autoResizeAllNames(); 
+      alignSupplierRows(); 
+      alignQtyExpiryRows(); 
+      updateStickyHeights(); 
+  }, 250);
 });
 
 /* ============ 視窗尺寸變化 ============ */
@@ -3489,11 +3707,16 @@ let _alignTimer = null;
 window.addEventListener('resize', () => {
   clearTimeout(_alignTimer);
   _alignTimer = setTimeout(() => {
+    // 手機/桌面切換時，重新渲染表頭
+    if ((window.innerWidth <= 768) !== (window._isMobile || false)) {
+        window._isMobile = window.innerWidth <= 768;
+        renderContent();
+    }
     autoResizeAllNames();
     alignSupplierRows();
     alignQtyExpiryRows();
     updateStickyHeights();
-  }, 120);
+  }, 150);
 });
 
 /* ============ 啟動 ============ */
@@ -3526,11 +3749,13 @@ async function initApp() {
         console.warn("⚠️ Firebase 無法載入，使用離線模式");
     }
 
+    // 初始化是否為手機的標記
+    window._isMobile = window.innerWidth <= 768;
+
     initLogin();
 }
 
 initApp();
-
 </script>
 </body>
 </html>
