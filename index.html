@@ -410,22 +410,27 @@ body.resizing *{cursor:col-resize !important}
 /* 手機端詳情按鈕專用樣式 */
 .mobile-contact-btn {
   border: none;
-  background: var(--accent); /* 使用主色調（深青色），高亮突顯 */
-  color: #fff; /* 白色文字 */
-  font-size: 13px; /* 稍微放大字體 */
+  background: var(--accent);
+  color: #fff;
+  font-size: 13px;
   font-weight: 700;
-  border-radius: 8px; /* 圓角更大一點 */
-  padding: 8px 12px; /* 增加內邊距，讓按鈕變大，方便手指點擊 */
+  border-radius: 8px;
+  padding: 8px 12px;
   white-space: nowrap;
-  box-shadow: 0 2px 6px rgba(30, 126, 131, 0.3); /* 增加陰影，更有立體感 */
+  box-shadow: 0 2px 6px rgba(30, 126, 131, 0.3);
   transition: all 0.15s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 .mobile-contact-btn:active {
-  transform: scale(0.95); /* 點擊時有按下的回饋感 */
+  transform: scale(0.95);
   box-shadow: 0 1px 3px rgba(30, 126, 131, 0.3);
+}
+
+/* 長按物品名稱時，避免彈出瀏覽器原生「複製/貼上」選單 */
+.cell[data-col="name"] .name-area {
+  -webkit-touch-callout: none;
 }
   
 /* ================= 手機端適配 (768px 以下) ================= */
@@ -433,129 +438,135 @@ body.resizing *{cursor:col-resize !important}
   /* 隱藏左下角的設備 UID */
   #uidDisplay { display: none !important; }
   
-  /* 遮罩層：當側邊欄打開時，點擊背景可以關閉 */
-  #mobile-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.45);
-    z-index: 850;
-    display: none;
-    opacity: 0;
-    transition: opacity 0.25s;
-  }
-  #mobile-overlay.on {
-    display: block;
-    opacity: 1;
-  }
+  /* 遮罩層 */
+  #mobile-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.45); z-index: 850; display: none; opacity: 0; transition: opacity 0.25s; }
+  #mobile-overlay.on { display: block; opacity: 1; }
 
-  /* 側邊欄改為固定絕對定位並使用 transform 隱藏 */
-  #sidebar{
-    position: fixed !important;
-    left:0; top:0; bottom:0;
-    z-index: 900;
-    width: 260px;
-    box-shadow: 10px 0 30px rgba(0,0,0,0.3);
-    transform: translateX(-100%);
-    transition: transform 0.25s ease;
-  }
-  /* 當側邊欄沒有 collapsed 時，滑動出來 */
-  #sidebar:not(.collapsed){
-    transform: translateX(0);
-  }
-  /* 強制覆蓋桌面的寬度設定 */
-  #sidebar.collapsed{ 
-    width: 260px !important; 
-    transform: translateX(-100%); 
-    display: flex !important; 
-  }
+  /* 側邊欄 */
+  #sidebar { position: fixed !important; left:0; top:0; bottom:0; z-index: 900; width: 260px; box-shadow: 10px 0 30px rgba(0,0,0,0.3); transform: translateX(-100%); transition: transform 0.25s ease; }
+  #sidebar:not(.collapsed) { transform: translateX(0); }
+  #sidebar.collapsed { width: 260px !important; transform: translateX(-100%); display: flex !important; }
   
-  /* 主畫面寬度填滿 */
-  #main{ width: 100vw; }
+  #main { width: 100vw; min-width: 0; }
   
   /* 頂部工具列 */
-  #topbar{ padding: 8px 10px; gap: 6px; }
+  #topbar { padding: 8px 10px; gap: 6px; }
   #search { order: 3; width: 100%; max-width: none; flex: none; margin-top: 4px; }
-  .font-ctrl { display: none; } /* 手機上隱藏字體縮放，省空間 */
+  .font-ctrl { display: none; }
   .btn { padding: 6px 10px; font-size: 0.75rem; }
   
-  /* 取消欄寬限制，改為自動寬度 */
-  .cell { width: auto !important; min-width: 0 !important; }
-  .hrow { display: none !important; } /* 隱藏表頭 */
+  /* 強制所有格子寬度自適應，絕對不允許撐破螢幕 */
+  .cell { width: auto !important; min-width: 0 !important; max-width: 100% !important; }
+  .hrow { display: none !important; }
   
-  /* 將 Row 改為卡片佈局 */
+  /* 卡片佈局 */
   .row {
+    display: flex;
     flex-direction: column;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 10px;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 12px;
     border: 1px solid var(--border);
     background: #fff;
     position: relative;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    width: 100%;
+    box-sizing: border-box;
   }
   .row:hover { background: #fff; }
   
-  /* 卡片內部樣式調整 */
+  /* 卡片內部通用樣式 */
   .cell {
     border-right: none;
     border-bottom: 1px dashed #eef1f6;
-    padding: 8px 4px;
+    padding: 10px 0;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
+    width: 100%;
+    box-sizing: border-box;
   }
   .cell:last-child { border-bottom: none; }
   
-  /* 為每個欄位加上前置標籤 */
+  /* 格子左側標籤 */
   .cell::before {
     content: attr(data-m-label);
     font-size: 0.75rem;
     color: #6b8a9c;
     font-weight: 700;
-    width: 70px;
+    width: 65px;
     flex: none;
     text-align: left;
+    margin-top: 6px;
   }
+  
   /* 特殊欄位隱藏標籤 */
   .cell[data-col="code"]::before,
-  .cell[data-col="name"]::before,
-  .cell[data-col="act"]::before { display: none !important; }
+  .cell[data-col="name"]::before { display: none !important; }
   
-  /* 編號與名稱放大 */
-  .cell[data-col="code"] { padding-bottom: 2px; }
-  .cell[data-col="code"] .inp { font-size: 1rem; font-weight: 700; color: var(--accent); }
-  .cell[data-col="name"] { padding-top: 0; padding-bottom: 8px; }
-  .cell[data-col="name"] .name-area { font-size: 0.95rem; font-weight: 700; color: #1e2b3c; }
+  /* 物品編號 */
+  .cell[data-col="code"] { padding-bottom: 0; }
+  .cell[data-col="code"] .inp { font-size: 1.1rem; font-weight: 700; color: var(--accent); }
   
-  /* 數量與日期的寬度調整 */
-  .qty-wrap, .expiry-wrap { flex: 1; }
+  /* 物品名稱：強制換行，不撐破 */
+  .cell[data-col="name"] { padding-top: 4px; padding-bottom: 12px; border-bottom: none; }
+  .cell[data-col="name"] .name-area { 
+    font-size: 1rem; 
+    font-weight: 700; 
+    color: #1e2b3c; 
+    white-space: pre-wrap !important; 
+    word-break: break-all !important; 
+    overflow-wrap: break-word !important;
+  }
+  /* 手機端聯絡人按鈕縮小，避免佔位過多 */
+  .mobile-contact-btn {
+    flex-shrink: 0;
+    padding: 6px 9px;
+    font-size: 12px;
+    border-radius: 6px;
+  }
+  
+  /* 備注、數量、日期、聯絡人：對齊右側 */
+  .cell[data-col="note"], 
+  .cell[data-col="curQty"], 
+  .cell[data-col="expiry"] {
+    align-items: center;
+  }
+
+  .cell[data-col="note"] .notes,
+  .cell[data-col="curQty"] .qty-wrap,
+  .cell[data-col="expiry"] .expiry-wrap {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* 數量與日期輸入框 */
   .qty-main-row, .expiry-main-row { justify-content: flex-end; }
   .qty-main-row .inp, .expiry-main-row .inp { text-align: right; }
   
-  /* 隱藏拖拽手柄 */
+  /* 隱藏拖拽手柄、刪除按鈕移到右上角 */
   .item-drag-handle, .area-drag-handle, .contact-drag-handle, .supplier-drag-handle { display: none !important; }
   .rz { display: none !important; }
   
-  /* 右上角刪除按鈕絕對定位 */
   .cell[data-col="act"] { 
     padding: 0 !important;
     border-bottom: none;
     position: absolute;
-    top: 4px;
-    right: 4px;
+    top: 8px;
+    right: 8px;
     width: auto !important;
   }
   .cell[data-col="act"] .icon-btn {
     background: #fff;
     border: 1px solid var(--border);
     border-radius: 50%;
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   
-  /* 區域標題調整 */
+  /* 區域標題 */
   .area-head { flex-wrap: wrap; top: 0; padding-right: 30px; }
   .area-head .grow { display: none; }
   .area-head .btn { flex: 1; text-align: center; margin: 2px; }
@@ -761,7 +772,7 @@ function applyPermissions(container = document) {
     // 禁用新增/删除等按钮
     if (permissionLevel !== 'full') {
         const forbiddenActions = [
-            'add-page', 'add-area', 'add-item', 'del-area', 'del-item',
+            'add-area', 'add-item', 'del-area', 'del-item',
             'delnote', 'addnote', 'delcontact', 'addcontact', 'delctag', 'add-extra', 'del-extra',
             'backup-json', 'restore-json', 'wipe', 'export-all-xlsx'
         ];
@@ -1856,10 +1867,11 @@ function rowHTML(page, area, item){
         </div>
       </div>`, type);
 
-     const hasContacts = (item.contactList && item.contactList.length > 0);
+          const hasContacts = (item.contactList && item.contactList.length > 0);
+     const longPressAttr = window.innerWidth <= 768 ? 'data-mlongpress="1"' : '';
     cells += cellHTML('name', w.name,
       `<div style="display:flex; gap:5px; align-items:center; width:100%;">
-         <textarea class="inp name-area" data-f="name" ${window.innerWidth>768?'data-tip="1"':''} ${permissionLevel==='full'?'data-ctxcontact="1"':''} rows="1" placeholder="物品名稱" style="flex:1;">${esc(item.name||'')}</textarea>
+         <textarea class="inp name-area" data-f="name" ${window.innerWidth>768?'data-tip="1"':''} ${permissionLevel==='full'?'data-ctxcontact="1"':''} ${longPressAttr} rows="1" placeholder="物品名稱" style="flex:1;">${esc(item.name||'')}</textarea>
          ${window.innerWidth<=768 && hasContacts ? `<button class="mobile-contact-btn" data-mclick="1">👤 聯絡人</button>` : ''}
       </div>`, type);
 
@@ -1890,7 +1902,8 @@ function rowHTML(page, area, item){
         </div>
       </div>`, type);
 
-        const hasContactsC = item.contact !== undefined && item.contact !== '';
+    const consignContact = (item.contactList || [])[0] || '';
+    const hasContactsC = !!consignContact;
     cells += cellHTML('name', w.name,
       `<div style="display:flex; gap:5px; align-items:center; width:100%;">
          <textarea class="inp name-area" data-f="name" ${window.innerWidth>768?'data-tip="1"':''} rows="1" placeholder="物品名稱" style="flex:1;">${esc(item.name||'')}</textarea>
@@ -1903,10 +1916,10 @@ function rowHTML(page, area, item){
     let opts = ['<option value="">— 選擇聯絡人員 —</option>'];
     contacts.forEach(c => {
       const tags = (c.tags && c.tags.length) ? ` [${c.tags.join('·')}]` : '';
-      opts.push(`<option value="${esc(c.label)}" ${item.contact===c.label?'selected':''}>${esc(c.label)}${esc(tags)}</option>`);
+      opts.push(`<option value="${esc(c.label)}" ${consignContact===c.label?'selected':''}>${esc(c.label)}${esc(tags)}</option>`);
     });
-    if(item.contact && !contacts.some(c => c.label === item.contact)){
-      opts.push(`<option value="${esc(item.contact)}" selected>${esc(item.contact)}</option>`);
+    if(consignContact && !contacts.some(c => c.label === consignContact)){
+      opts.push(`<option value="${esc(consignContact)}" selected>${esc(consignContact)}</option>`);
     }
     if (permissionLevel === 'full') {
       opts.push(`<option value="__new__">＋ 新增聯絡人員…</option>`);
@@ -2027,7 +2040,6 @@ function viewPage(page){
   return h;
 }
 
-/* ============ 搜索 ============ */
 function viewSearch(){
   const q = searchQuery.toLowerCase();
   const recs = getAllRecords().filter(r => {
@@ -2040,7 +2052,7 @@ function viewSearch(){
       const hay = [it.code, it.name, (it.contactList||[]).join(' '), ...(it.notes||[])].join(' ').toLowerCase();
       return hay.includes(q);
     }
-    const hay = [it.code, it.name, it.contact, ...(it.notes||[])].join(' ').toLowerCase();
+    const hay = [it.code, it.name, ...(it.contactList||[]), ...(it.notes||[])].join(' ').toLowerCase();
     return hay.includes(q);
   });
 
@@ -2057,26 +2069,42 @@ function viewSearch(){
       <div class="cell hcell" style="width:150px">編號 / 供應商</div>
       <div class="cell hcell" style="width:180px">名稱 / 聯絡人</div>
       <div class="cell hcell" style="width:90px">現存量</div>
-      <div class="cell hcell" style="width:110px">有效日期</div>
+      <div class="cell hcell" style="width:110px">日期 / 電話</div>
       <div class="cell hcell" style="flex:1">備注 / 標籤</div>
     </div>`;
   recs.forEach(r => {
     const { page, area, item } = r;
     const st = itemStatus(page, item);
     const isSup = page.type === 'supplier';
+    const isConsign = page.type === 'consign';
     const isComSp = (page.type === 'common' || page.type === 'special');
     const code = isSup ? (item.name || '') : (item.code || '');
     const name = isSup ? (item.contacts || []).map(c => c.name).filter(Boolean).join('、') : (item.name || '');
     const extra = isSup ? (item.contacts||[]).flatMap(c => c.tags || []).join('、') : (item.notes || []).filter(Boolean).join('；');
     const contactInfo = isComSp ? (item.contactList || []).join('、') : '';
-    
+
+    // 第六欄：供應商 / 寄沽物品 → 電話；其他 → 有效日期
+    let col6Label = '日期';
+    let col6Value = '';
+
+    if (isSup) {
+      col6Label = '電話';
+      col6Value = (item.contacts || []).map(c => c.phone).filter(Boolean).join('、') || '—';
+    } else if (isConsign) {
+      col6Label = '電話';
+      const consignC0 = (item.contactList || [])[0] || '';
+      col6Value = consignC0 ? (lookupContact(consignC0).phone || '—') : '—';
+    } else {
+      col6Value = item.noExpiry ? '不過期' : (item.expiry || '—');
+    }
+
     h += `<div class="row ${st !== 'normal' ? st : ''}">
       <div class="cell" style="width:130px" data-m-label="倉庫">${esc(page.name)}</div>
       <div class="cell" style="width:110px" data-m-label="區域">${esc(area.name)}</div>
       <div class="cell" style="width:150px" data-m-label="編號">${esc(code)}</div>
       <div class="cell" style="width:180px;word-break:break-word" data-m-label="名稱">${esc(name)}${contactInfo ? `<div style="color:#7a8395;font-size:.72rem">${esc(contactInfo)}</div>` : ''}</div>
       <div class="cell" style="width:90px" data-m-label="現存量">${isSup ? '—' : (item.out ? '<b style="color:#e5484d">缺貨</b>' : (item.curQty ?? '—'))}</div>
-      <div class="cell" style="width:110px" data-m-label="日期">${esc(isSup ? '—' : (item.noExpiry ? '不過期' : (item.expiry || '—')))}</div>
+      <div class="cell" style="width:110px" data-m-label="${col6Label}">${esc(col6Value)}</div>
       <div class="cell" style="flex:1;word-break:break-word" data-m-label="備注">${esc(extra)}</div>
     </div>`;
   });
@@ -2935,7 +2963,7 @@ document.addEventListener('change', e => {
     if(!it) return;
 
     if(el.value === '__new__'){
-      const old = it.contact || '';
+      const old = (it.contactList || [])[0] || '';
       const bg = openModal({
         title: '新增聯絡人員',
         body: `<div class="field"><label>聯絡人員名稱</label><input type="text" id="newContactName" placeholder="輸入名稱"></div>
@@ -2949,7 +2977,7 @@ document.addEventListener('change', e => {
           if(!name){ toast('請輸入名稱'); return false; }
           const label = supplier ? `${name}（${supplier}）` : name;
           if(!state.customContacts.includes(label)) state.customContacts.push(label);
-          it.contact = label;
+          it.contactList = [label];
           saveState(); render();
           toast('已新增並選取：' + label);
         }
@@ -2960,7 +2988,7 @@ document.addEventListener('change', e => {
       }, 10);
       return;
     }
-    it.contact = el.value;
+    it.contactList = el.value ? [el.value] : [];
     saveState();
   }
 });
@@ -2986,10 +3014,14 @@ document.addEventListener('click', e => {
   const act = t.dataset.act;
 
   // 權限過濾：非 Full 權限，攔截特定行為
-  if (permissionLevel !== 'full') {
-      const forbidden = ['add-page', 'add-area', 'add-item', 'del-area', 'del-item', 'delnote', 'addnote', 'delcontact', 'addcontact', 'delctag', 'restore-json', 'wipe'];
+    if (permissionLevel !== 'full') {
+      const forbidden = ['add-area', 'add-item', 'del-area', 'del-item', 'delnote', 'addnote', 'delcontact', 'addcontact', 'delctag', 'restore-json', 'wipe'];
       if (forbidden.includes(act)) {
           return toast('無權限執行此操作');
+      }
+      // 單獨處理 add-page 的提示
+      if (act === 'add-page') {
+          return toast('您沒有新增頁面的權限');
       }
   }
   if (permissionLevel === 'readonly') {
@@ -3320,9 +3352,10 @@ function showMobileContactModal(it, p) {
               ${tags}
             </div>`;
           }).join('');
-    } else {
-        if(!it.contact) return toast('此物品未選擇聯絡人');
-        const info = lookupContact(it.contact);
+ } else {
+        const c0 = (it.contactList || [])[0] || '';
+        if(!c0) return toast('此物品未選擇聯絡人');
+        const info = lookupContact(c0);
         const tags = info.tags && info.tags.length ? `<div style="color:#6b8a9c;font-size:0.75rem;margin-top:4px;">標籤: ${esc(info.tags.join('、'))}</div>` : '';
         html = `<div class="tt" style="font-weight:700;margin-bottom:8px;">聯絡資訊</div>
           <div style="padding:10px 0;">
@@ -3341,13 +3374,111 @@ function showMobileContactModal(it, p) {
     });
 }
 
+/* ============ 手機端長按選擇聯絡人 ============ */
+let _pressTimer = null;
+let _longPressFired = false;
+let _touchStartX = 0, _touchStartY = 0;
+
+function showMobileContactPicker(it){
+  if (permissionLevel !== 'full') return toast('您沒有修改聯絡人的權限');
+  if(!Array.isArray(it.contactList)) it.contactList = [];
+
+  const list = getAllContactsFull();
+  const selected = new Set(it.contactList);
+
+  let h = `<div class="checklist" style="max-height:50vh;">`;
+  if(!list.length){
+    h += `<div style="padding:10px;color:#7a8395;font-size:.8rem;">（尚無供應商聯絡人，請先至供應商資料新增）</div>`;
+  }else{
+    list.forEach(c => {
+      const checked = selected.has(c.label) ? 'checked' : '';
+      const tags = (c.tags && c.tags.length) ? ` [${c.tags.join('·')}]` : '';
+      h += `<label style="display:flex;align-items:center;gap:10px;padding:8px;border-bottom:1px solid #eef1f6;">
+        <input type="checkbox" data-m-pick-label="${esc(c.label)}" ${checked} style="width:18px;height:18px;">
+        <span style="font-size:.85rem;">${esc(c.label)}${esc(tags)}</span>
+      </label>`;
+    });
+  }
+  h += `</div>`;
+
+  const bg = openModal({
+    title: '選擇聯絡人員',
+    body: h,
+    okText: '確定',
+    onOk: () => {
+      const checks = bg.querySelectorAll('input[data-m-pick-label]:checked');
+      it.contactList = [...checks].map(c => c.dataset.mPickLabel);
+      saveState();
+      render();
+      toast(it.contactList.length ? `已選擇 ${it.contactList.length} 位聯絡人` : '已清除聯絡人');
+    }
+  });
+}
+
+document.addEventListener('touchstart', e => {
+  const el = e.target.closest('[data-mlongpress="1"]');
+  if(!el || window.innerWidth > 768) return;
+
+  const touch = e.touches[0];
+  _touchStartX = touch.clientX;
+  _touchStartY = touch.clientY;
+  _longPressFired = false;
+
+  if(_pressTimer) clearTimeout(_pressTimer);
+  _pressTimer = setTimeout(() => {
+    _longPressFired = true;
+    _pressTimer = null;
+
+    if (navigator.vibrate) { try { navigator.vibrate(50); } catch(_){} }
+
+    const row = el.closest('[data-iid]');
+    if(!row) return;
+    const p = getPage(row.dataset.pid);
+    const it = getItem(p, row.dataset.aid, row.dataset.iid);
+    if(!it) return;
+
+    // 避免瀏覽器原生選字選單干擾
+    try { el.blur(); } catch(_){}
+    showMobileContactPicker(it);
+  }, 600);
+}, { passive: true });
+
+document.addEventListener('touchmove', e => {
+  if(!_pressTimer) return;
+  const touch = e.touches[0];
+  if (Math.abs(touch.clientX - _touchStartX) > 10 || Math.abs(touch.clientY - _touchStartY) > 10) {
+    clearTimeout(_pressTimer);
+    _pressTimer = null;
+  }
+}, { passive: true });
+
+document.addEventListener('touchend', () => {
+  if(_pressTimer){
+    clearTimeout(_pressTimer);
+    _pressTimer = null;
+  }
+  if(_longPressFired){
+    // 給後續 click 一個短暫的抑制窗口
+    setTimeout(() => { _longPressFired = false; }, 300);
+  }
+}, { passive: true });
+
+document.addEventListener('touchcancel', () => {
+  if(_pressTimer){
+    clearTimeout(_pressTimer);
+    _pressTimer = null;
+  }
+  _longPressFired = false;
+}, { passive: true });
+  
 // 點擊事件 (手機端)
 document.addEventListener('click', e => {
+    // 長按剛結束時，抑制這次 click（避免同時彈詳情）
+    if (_longPressFired) return;
+
     const el = e.target.closest('[data-mclick="1"]');
     if(!el || window.innerWidth > 768) return;
     
-    // 如果是 readonly 但只有 readonly 的 input，不應該觸發 modal? 
-    // 需求上：專用物品聯絡人點開詳情顯示，所以不管權限，點擊都可以看
     const row = el.closest('[data-iid]');
     if(!row) return;
     const p = getPage(row.dataset.pid);
@@ -3384,9 +3515,10 @@ document.addEventListener('mouseover', e => {
         </div>`;
       }).join('');
   }else{
-    if(!it.contact) return;
+    const c0 = (it.contactList || [])[0] || '';
+    if(!c0) return;
 
-    const info = lookupContact(it.contact);
+    const info = lookupContact(c0);
     const tags = info.tags && info.tags.length ? `<div class="row-t"><b>標籤</b><span>${esc(info.tags.join('、'))}</span></div>` : '';
     tipbox.innerHTML = `<div class="tt">聯絡資訊</div>
       <div class="row-t"><b>聯絡人員</b><span>${esc(info.name || '—')}</span></div>
@@ -3513,9 +3645,24 @@ function exportXLSX(pageIds, label){
               (c.tags || []).join('、'),
             ]);
           });
-        }
+         }
       }));
-    }else{
+    } else if(p.type === 'consign'){
+      aoa.push(['物品編號','物品名稱','備注','聯絡人員','聯絡電話','','']);
+      p.areas.forEach(a => a.items.forEach(it => {
+        const c0 = (it.contactList || [])[0] || '';
+        const info = c0 ? lookupContact(c0) : null;
+        aoa.push([
+          it.code || '',
+          it.name || '',
+          (it.notes || []).filter(Boolean).join(' / '),
+          info ? (info.name || '') : '',
+          info ? (info.phone || '') : '',
+          '',
+          '',
+        ]);
+      }));
+    } else{
       aoa.push(['物品編號','物品名稱','備注','基數量','現存量','有效日期','追加批次']);
       p.areas.forEach(a => a.items.forEach(it => {
         const extrasText = (it.extras || [])
