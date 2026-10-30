@@ -409,17 +409,44 @@ body.resizing *{cursor:col-resize !important}
 
 /* ================= 手機端適配 (768px 以下) ================= */
 @media(max-width:768px){
-  /* 側邊欄覆蓋 */
+  /* 隱藏左下角的設備 UID */
+  #uidDisplay { display: none !important; }
+  
+  /* 遮罩層：當側邊欄打開時，點擊背景可以關閉 */
+  #mobile-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 850;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  #mobile-overlay.on {
+    display: block;
+    opacity: 1;
+  }
+
+  /* 側邊欄改為固定絕對定位並使用 transform 隱藏 */
   #sidebar{
-    position:fixed;left:0;top:0;bottom:0;z-index:900;
+    position: fixed !important;
+    left:0; top:0; bottom:0;
+    z-index: 900;
+    width: 260px;
     box-shadow: 10px 0 30px rgba(0,0,0,0.3);
     transform: translateX(-100%);
     transition: transform 0.25s ease;
   }
+  /* 當側邊欄沒有 collapsed 時，滑動出來 */
   #sidebar:not(.collapsed){
     transform: translateX(0);
   }
-  #sidebar.collapsed{ width: 250px; transform: translateX(-100%); }
+  /* 強制覆蓋桌面的寬度設定 */
+  #sidebar.collapsed{ 
+    width: 260px !important; 
+    transform: translateX(-100%); 
+    display: flex !important; 
+  }
   
   /* 主畫面寬度填滿 */
   #main{ width: 100vw; }
@@ -432,7 +459,7 @@ body.resizing *{cursor:col-resize !important}
   
   /* 取消欄寬限制，改為自動寬度 */
   .cell { width: auto !important; min-width: 0 !important; }
-  .hrow { display: none; } /* 隱藏表頭 */
+  .hrow { display: none !important; } /* 隱藏表頭 */
   
   /* 將 Row 改為卡片佈局 */
   .row {
@@ -468,10 +495,9 @@ body.resizing *{cursor:col-resize !important}
     text-align: left;
   }
   /* 特殊欄位隱藏標籤 */
-  .cell[data-col="code"]::before { display: none; }
-  .cell[data-col="name"]::before { display: none; }
-  .cell[data-col="act"] { border-bottom: none; padding-top: 0; justify-content: flex-end; }
-  .cell[data-col="act"]::before { display: none; }
+  .cell[data-col="code"]::before,
+  .cell[data-col="name"]::before,
+  .cell[data-col="act"]::before { display: none !important; }
   
   /* 編號與名稱放大 */
   .cell[data-col="code"] { padding-bottom: 2px; }
@@ -485,18 +511,19 @@ body.resizing *{cursor:col-resize !important}
   .qty-main-row .inp, .expiry-main-row .inp { text-align: right; }
   
   /* 隱藏拖拽手柄 */
-  .item-drag-handle, .area-drag-handle, .contact-drag-handle, .supplier-drag-handle {
-    display: none !important;
-  }
-  
-  /* 隱藏欄寬拖拽條 */
+  .item-drag-handle, .area-drag-handle, .contact-drag-handle, .supplier-drag-handle { display: none !important; }
   .rz { display: none !important; }
   
   /* 右上角刪除按鈕絕對定位 */
-  .cell[data-col="act"] .icon-btn {
+  .cell[data-col="act"] { 
+    padding: 0 !important;
+    border-bottom: none;
     position: absolute;
     top: 4px;
     right: 4px;
+    width: auto !important;
+  }
+  .cell[data-col="act"] .icon-btn {
     background: #fff;
     border: 1px solid var(--border);
     border-radius: 50%;
@@ -508,14 +535,9 @@ body.resizing *{cursor:col-resize !important}
   }
   
   /* 區域標題調整 */
-  .area-head {
-    flex-wrap: wrap;
-    top: 0;
-  }
+  .area-head { flex-wrap: wrap; top: 0; padding-right: 30px; }
   .area-head .grow { display: none; }
   .area-head .btn { flex: 1; text-align: center; margin: 2px; }
-  
-  /* 只顯示按鈕 */
   .out-btn { width: 100%; text-align: center; justify-content: center; }
 }
 </style>
@@ -532,6 +554,7 @@ body.resizing *{cursor:col-resize !important}
 </div>
 
 <div id="app">
+  <div id="mobile-overlay"></div>
   <aside id="sidebar">
     <div class="brand">📦 倉存管理</div>
     <div class="side-scroll" id="pageList"></div>
@@ -1274,7 +1297,7 @@ function renderSidebar(){
 
   list.innerHTML = h;
 
-  list.onclick = e => {
+  l  list.onclick = e => {
     const delBtn = e.target.closest('[data-delpage]');
     if(delBtn){
       if (permissionLevel !== 'full') return;
@@ -1299,8 +1322,10 @@ function renderSidebar(){
         currentView = nav.dataset.nav;
         searchQuery = '';
         $('#search').value = '';
-        render();
-        if(window.innerWidth <= 768) $('#sidebar').classList.add('collapsed');
+        if(window.innerWidth <= 768) {
+            $('#sidebar').classList.add('collapsed');
+            $('#mobile-overlay').classList.remove('on');
+        }
       }, 250);
       return;
     }
@@ -1310,7 +1335,10 @@ function renderSidebar(){
     searchQuery = '';
     $('#search').value = '';
     render();
-    if(window.innerWidth <= 768) $('#sidebar').classList.add('collapsed');
+    if(window.innerWidth <= 768) {
+        $('#sidebar').classList.add('collapsed');
+        $('#mobile-overlay').classList.remove('on');
+    }
   };
 
   list.ondblclick = e => {
@@ -1807,9 +1835,12 @@ function rowHTML(page, area, item){
         </div>
       </div>`, type);
 
+            const hasContacts = (item.contactList && item.contactList.length > 0);
     cells += cellHTML('name', w.name,
-      `<textarea class="inp name-area" data-f="name" ${window.innerWidth<=768?'data-mclick="1"':'data-tip="1"'} ${permissionLevel==='full'?'data-ctxcontact="1"':''} rows="1"
-        placeholder="物品名稱">${esc(item.name||'')}</textarea>`, type);
+      `<div style="display:flex; gap:5px; align-items:center; width:100%;">
+         <textarea class="inp name-area" data-f="name" ${window.innerWidth>768?'data-tip="1"':''} ${permissionLevel==='full'?'data-ctxcontact="1"':''} rows="1" placeholder="物品名稱" style="flex:1;">${esc(item.name||'')}</textarea>
+         ${window.innerWidth<=768 && hasContacts ? `<button class="mobile-contact-btn" data-mclick="1" style="border:none; background:#eef2ff; color:#4338ca; font-size:12px; border-radius:4px; padding:4px 6px; white-space:nowrap;">👤詳情</button>` : ''}
+      </div>`, type);
 
     cells += cellHTML('note', w.note, notesHTML(item), type);
 
@@ -3679,13 +3710,30 @@ $('#search').addEventListener('input', e => {
 /* ============ 側邊欄收合 ============ */
 let pageNavTimer = null;
 $('#menuBtn').addEventListener('click', () => {
-  $('#sidebar').classList.toggle('collapsed');
+  const sidebar = $('#sidebar');
+  const overlay = $('#mobile-overlay');
+  const isCollapsed = sidebar.classList.toggle('collapsed');
+  
+  if (window.innerWidth <= 768) {
+    if (!isCollapsed) {
+      overlay.classList.add('on');
+    } else {
+      overlay.classList.remove('on');
+    }
+  }
+  
   setTimeout(() => { 
       autoResizeAllNames(); 
       alignSupplierRows(); 
       alignQtyExpiryRows(); 
       updateStickyHeights(); 
   }, 250);
+});
+
+// 點擊遮罩關閉側邊欄
+$('#mobile-overlay').addEventListener('click', () => {
+  $('#sidebar').classList.add('collapsed');
+  $('#mobile-overlay').classList.remove('on');
 });
 
 /* ============ 視窗尺寸變化 ============ */
@@ -3737,6 +3785,10 @@ async function initApp() {
 
     // 初始化是否為手機的標記
     window._isMobile = window.innerWidth <= 768;
+    // 如果是手機，預設把側邊欄收起
+    if (window._isMobile) {
+        $('#sidebar').classList.add('collapsed');
+    }
 
     initLogin();
 }
