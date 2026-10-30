@@ -525,9 +525,9 @@ body.resizing *{cursor:col-resize !important}
 <div id="login">
   <div class="login-box">
     <h1>📦 倉存管理系統</h1>
-    <input id="empInput" inputmode="numeric" autocomplete="off" placeholder="請輸入 7 位工號">
+    <input id="empInput" inputmode="numeric" autocomplete="off" placeholder="請輸入工號">
     <div class="err" id="loginErr"></div>
-    <button id="loginBtn">登 入</button>
+    <button id="loginBtn">登入</button>
   </div>
 </div>
 
@@ -957,25 +957,10 @@ const getArea  = (p, id) => p?.areas.find(a => a.id === id);
 const getItem  = (p, aid, iid) => getArea(p, aid)?.items.find(i => i.id === iid);
 
 function seedDemo(){
-  const p1 = newPage('common', '共用物品倉');
-  p1.areas = [ newArea('A 區') ];
-  p1.areas[0].items = [
-    { id:uid(), code:'SP-0001', name:'螺絲 M4', baseQty:200, curQty:150, out:false,
-      expiry: isoDate(120), notes:['常備件'], contactList:[], extras:[], noExpiry:false },
-    { id:uid(), code:'SP-0002', name:'墊片',     baseQty:100, curQty:0,   out:true,
-      expiry: isoDate(45),  notes:['已通知採購'], contactList:[], extras:[], noExpiry:false },
-    { id:uid(), code:'SP-0003', name:'六角扳手', baseQty:30,  curQty:25,  out:false,
-      expiry: isoDate(200), notes:['工具類'], contactList:[], extras:[], noExpiry:false },
-  ];
-  const p2 = newPage('supplier', '供應商資料');
-  p2.areas = [ newArea('主要供應商') ];
-  p2.areas[0].items = [
-    { id:uid(), name:'永達五金', contacts:[ { name:'陳先生', phone:'9123 4567', tags:['五金','螺絲'] }, { name:'李小姐', phone:'2345 6789', tags:['發票'] } ] },
-    { id:uid(), name:'大昌行', contacts:[{ name:'陳先生', phone:'9988 7766', tags:['工具'] }] },
-  ];
-  state.pages = [p1, p2];
+  state.pages = [];
   saveState();
 }
+  
 function isoDate(offsetDays){
   const d = new Date(Date.now() + offsetDays * 86400000);
   return `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}`;
@@ -1663,8 +1648,9 @@ function viewOverview(){
     if(r.item.out) outs++;
   });
 
-  let h = `<div class="page-head"><h2>總覽</h2>
+   let h = `<div class="page-head"><h2>總覽</h2>
       <span class="pill">工號 ${esc(state.empId)}</span>
+      <button class="btn danger" data-act="logout" style="padding: 2px 10px; border-radius: 20px; font-size: 0.72rem; margin-left: 4px;">登出</button>
       <div class="grow"></div>
       <button class="btn" data-act="export">⬇ 匯出 Excel</button>
     </div>`;
