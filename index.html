@@ -2477,8 +2477,10 @@ function focusNextMainField(el){
   if(!row0) return;
   const f0 = el.dataset.f;
 
-  // 先 blur，等 blur / focusout 嘅儲存、日期 finalize、現存量連動全部行完
+  // Enter 跳欄時，標記為「跳欄中」，focusout 會跳過自動缺貨聯動
+  window._enterJumping = true;
   try{ el.blur(); }catch(_){}
+  setTimeout(() => { window._enterJumping = false; }, 0);
 
   const row = row0.isConnected ? row0 : document.querySelector(`.row[data-iid="${row0.dataset.iid}"]`);
   if(!row) return;
@@ -2503,7 +2505,7 @@ function focusNextMainField(el){
     }
   }
 
-  // 行內到尾 → 下一行嘅物品名稱
+  // 行內到尾 → 下一行嘅物品編號（冇 code 時 fallback 去名稱）
   const area = row.closest('.area');
   if(!area) return;
   const rows = [...area.querySelectorAll('.row[data-iid]')];
@@ -2824,14 +2826,16 @@ document.addEventListener('focusout', e => {
       el.value = n;
     }
 
-    const shouldBeOut = (it.curQty <= 0);
-    if(shouldBeOut !== it.out){
-      it.out = shouldBeOut;
-      syncOutBtn(row, it);
+    // Enter 跳欄時唔自動標缺貨，要手動點「缺貨」按鈕
+    if(!window._enterJumping){
+      const shouldBeOut = (it.curQty <= 0);
+      if(shouldBeOut !== it.out){
+        it.out = shouldBeOut;
+        syncOutBtn(row, it);
+      }
     }
     updateRowStatus(row);
     saveState();
-  }
 
   if(el.dataset && el.dataset.f === 'extra-qty'){
     if (permissionLevel === 'readonly') return;
