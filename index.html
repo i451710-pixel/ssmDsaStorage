@@ -590,6 +590,28 @@ body.resizing *{cursor:col-resize !important}
   .area-head .btn { flex: 1; text-align: center; margin: 2px; }
   .out-btn { width: 100%; text-align: center; justify-content: center; }
 }
+
+  .row.jumpable { cursor: pointer; }
+@keyframes jumpFlash {
+  0%, 100% { outline: 0 solid transparent; outline-offset: 0; }
+  50%      { outline: 3px solid #f59e0b; outline-offset: -3px; }
+}
+.row.jump-highlight { animation: jumpFlash 0.5s ease-in-out 3; }
+
+  .alert-filters{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+.filter-btn{padding:3px 10px;border-radius:20px;border:1px solid var(--border);background:#fff;
+  font-size:.72rem;color:var(--text);cursor:pointer;font-weight:600;transition:.12s;
+  font-family:inherit;line-height:1.4}
+.filter-btn:hover{border-color:var(--accent);color:var(--accent)}
+.filter-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+
+.row.jumpable{cursor:pointer}
+@keyframes jumpFlash{
+  0%,100%{outline:0 solid transparent;outline-offset:0}
+  50%{outline:3px solid #f59e0b;outline-offset:-3px}
+}
+.row.jump-highlight{animation:jumpFlash 0.5s ease-in-out 3}
+  
 </style>
 </head>
 <body>
@@ -1332,6 +1354,10 @@ let currentView = 'overview';
 let searchQuery = '';
 let lastRenderedView = null;
 
+// 總覽警示區篩選 & 每倉庫折疊狀態
+let alertFilter = 'all';        // 'all' | 'red' | 'lt30'
+const _alertCollapsed = new Set();
+
 function render(){
   const content = $('#content');
   const viewChanged = (currentView !== lastRenderedView);
@@ -1745,7 +1771,7 @@ function viewOverview(){
     if(r.item.out) outs++;
   });
 
-   let h = `<div class="page-head"><h2>總覽</h2>
+  let h = `<div class="page-head"><h2>總覽</h2>
       <span class="pill">工號 ${esc(state.empId)}</span>
       <button class="btn danger" data-act="logout" style="padding: 2px 10px; border-radius: 20px; font-size: 0.72rem; margin-left: 4px;">登出</button>
       <div class="grow"></div>
@@ -1761,40 +1787,99 @@ function viewOverview(){
 
   const alerts = recs.filter(r => r.page.type !== 'supplier' && itemStatus(r.page, r.item) !== 'normal')
                      .sort((a,b) => {
-const da = daysLeft(getEarliestExpiry(a.item)) ?? 99999;
-const db = daysLeft(getEarliestExpiry(b.item)) ?? 99999;
+                       const da = daysLeft(getEarliestExpiry(a.item)) ?? 99999;
+                       const db = daysLeft(getEarliestExpiry(b.item)) ?? 99999;
                        return da - db;
                      });
 
   if(alerts.length){
-    h += `<div class="area">
-      <div class="area-head"><span class="area-dot" style="background:#e5484d"></span>
-        <span style="font-weight:700">⚠ 需要關注的物品</span>
-        <span class="count">${alerts.length} 項</span></div>
-      <div class="hrow">
-        <div class="cell hcell" style="width:130px">倉庫</div>
-        <div class="cell hcell" style="width:110px">區域</div>
-        <div class="cell hcell" style="width:150px">物品編號</div>
-        <div class="cell hcell" style="width:180px">物品名稱</div>
-        <div class="cell hcell" style="width:80px">現存量</div>
-        <div class="cell hcell" style="width:110px">有效日期</div>
-        <div class="cell hcell" style="width:90px">剩餘天數</div>
-      </div>`;
+    // 依倉庫分組（保留原有排序）
+    const groups = [];
+    const gmap = new Map();
     alerts.forEach(r => {
-const st = itemStatus(r.page, r.item);
-const earliest = getEarliestExpiry(r.item);
-const d = earliest ? daysLeft(earliest) : null;
-      h += `<div class="row ${st}">
-        <div class="cell" style="width:130px" data-m-label="倉庫">${esc(r.page.name)}</div>
-        <div class="cell" style="width:110px" data-m-label="區域">${esc(r.area.name)}</div>
-        <div class="cell" style="width:150px" data-m-label="編號">${esc(r.item.code||'—')}</div>
-        <div class="cell" style="width:180px;word-break:break-word" data-m-label="名稱">${esc(r.item.name||'—')}</div>
-        <div class="cell" style="width:80px" data-m-label="現存量">${r.item.out ? '<b style="color:#e5484d">缺貨</b>' : (r.item.curQty ?? '—')}</div>
-        <div class="cell" style="width:110px" data-m-label="日期">${esc(r.item.noExpiry ? '不過期' : (earliest || '—'))}</div>
-<div class="cell" style="width:90px" data-m-label="剩餘">${r.item.noExpiry ? '—' : (d === null ? '—' : (d < 0 ? '已過期' : d + ' 天'))}</div>
-      </div>`;
+      if(!gmap.has(r.page.id)){
+        const g = { page: r.page, items: [] };
+        gmap.set(r.page.id, g);
+        groups.push(g);
+      }
+      gmap.get(r.page.id).items.push(r);
     });
-    h += `</div>`;
+
+    const allRedN = alerts.filter(r => itemStatus(r.page, r.item) === 'red').length;
+    const allLt30N = alerts.filter(r => {
+      const earliest = getEarliestExpiry(r.item);
+      const d = earliest ? daysLeft(earliest) : null;
+      return d !== null && d <= 30;
+    }).length;
+
+    h += `<div class="sec-title" style="margin-top:20px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+      <span>⚠ 需要關注的物品</span>
+      <span class="count">${alerts.length} 項</span>
+      <div class="alert-filters">
+        <button class="filter-btn ${alertFilter==='all'?'active':''}" data-alert-filter="all">全部 ${alerts.length}</button>
+        <button class="filter-btn ${alertFilter==='red'?'active':''}" data-alert-filter="red">紅色 ${allRedN}</button>
+        <button class="filter-btn ${alertFilter==='lt30'?'active':''}" data-alert-filter="lt30">≤30 天 ${allLt30N}</button>
+      </div>
+    </div>`;
+
+    let anyRendered = false;
+
+    groups.forEach(g => {
+      let items = g.items;
+      if(alertFilter === 'red'){
+        items = items.filter(r => itemStatus(r.page, r.item) === 'red');
+      }else if(alertFilter === 'lt30'){
+        items = items.filter(r => {
+          const earliest = getEarliestExpiry(r.item);
+          const d = earliest ? daysLeft(earliest) : null;
+          return d !== null && d <= 30;
+        });
+      }
+      if(!items.length) return;
+      anyRendered = true;
+
+      const collapsed = _alertCollapsed.has(g.page.id);
+      const redN = items.filter(r => itemStatus(r.page, r.item) === 'red').length;
+      const yellowN = items.filter(r => itemStatus(r.page, r.item) === 'yellow').length;
+
+      h += `<div class="area${collapsed?' collapsed':''}">
+        <div class="area-head" data-alert-toggle="${g.page.id}" style="cursor:pointer" title="點擊折疊 / 展開此倉庫">
+          <button class="collapse-toggle" type="button">▼</button>
+          <span class="area-dot" style="background:#e5484d"></span>
+          <span style="font-weight:700">${esc(g.page.name)}</span>
+          <span class="count">${items.length} 項</span>
+          ${redN ? `<span class="pill" style="background:#ffe1e1;color:#b33a3a">紅 ${redN}</span>` : ''}
+          ${yellowN ? `<span class="pill" style="background:#fff8d6;color:#a16207">黃 ${yellowN}</span>` : ''}
+        </div>
+        <div class="hrow">
+          <div class="cell hcell" style="width:120px">區域</div>
+          <div class="cell hcell" style="width:150px">物品編號</div>
+          <div class="cell hcell" style="width:200px">物品名稱</div>
+          <div class="cell hcell" style="width:80px">現存量</div>
+          <div class="cell hcell" style="width:110px">有效日期</div>
+          <div class="cell hcell" style="width:90px">剩餘天數</div>
+        </div>`;
+
+      items.forEach(r => {
+        const st = itemStatus(r.page, r.item);
+        const earliest = getEarliestExpiry(r.item);
+        const d = earliest ? daysLeft(earliest) : null;
+        h += `<div class="row ${st} jumpable" data-jump-pid="${r.page.id}" data-jump-aid="${r.area.id}" data-jump-iid="${r.item.id}">
+          <div class="cell" style="width:120px" data-m-label="區域">${esc(r.area.name)}</div>
+          <div class="cell" style="width:150px" data-m-label="編號">${esc(r.item.code||'—')}</div>
+          <div class="cell" style="width:200px;word-break:break-word" data-m-label="名稱">${esc(r.item.name||'—')}</div>
+          <div class="cell" style="width:80px" data-m-label="現存量">${r.item.out ? '<b style="color:#e5484d">缺貨</b>' : (r.item.curQty ?? '—')}</div>
+          <div class="cell" style="width:110px" data-m-label="日期">${esc(r.item.noExpiry ? '不過期' : (earliest || '—'))}</div>
+          <div class="cell" style="width:90px" data-m-label="剩餘">${r.item.noExpiry ? '—' : (d === null ? '—' : (d < 0 ? '已過期' : d + ' 天'))}</div>
+        </div>`;
+      });
+
+      h += `</div>`;
+    });
+
+    if(!anyRendered){
+      h += `<div class="empty" style="margin-bottom:16px">目前篩選條件下沒有符合的物品。</div>`;
+    }
   }
 
   if(state.pages.length){
@@ -1867,15 +1952,16 @@ function expiryCellHTML(item){
     </div>`;
   }else{
     h += `<div class="expiry-main-row">
-      <input class="inp exp-inp" data-f="expiry" value="${esc(item.expiry||'')}"
-        placeholder="YYYYMMDD" maxlength="8" inputmode="numeric">
+      <input class="inp exp-inp" data-f="expiry" value="${esc(formatExpiryDisplay(item.expiry||''))}"
+        placeholder="YYYY/MM/DD" maxlength="15"
+        title="輸入日期，例如 2028/01/01 或 2028/1/1">
     </div>`;
 
     extras.forEach((ex, i) => {
       h += `<div class="expiry-extra-row" data-ei="${i}">
-        <input class="inp extra-exp" type="text" inputmode="numeric" maxlength="8"
+        <input class="inp extra-exp" type="text" maxlength="15"
           data-f="extra-expiry" data-ei="${i}"
-          value="${esc(ex.expiry || '')}" placeholder="YYYYMMDD" title="追加有效日期">
+          value="${esc(formatExpiryDisplay(ex.expiry || ''))}" placeholder="YYYY/MM/DD" title="追加有效日期">
       </div>`;
     });
 
@@ -2390,7 +2476,13 @@ document.addEventListener('input', e => {
     if(a){ a.name = el.value; saveState(); }
     return;
   }
-  if(f === 'ctag-input') return;
+    if(f === 'ctag-input') return;
+
+  // 日期：即時格式化 + 月份自動跳轉；存儲仍交由 blur / Enter
+  if(f === 'expiry' || f === 'extra-expiry'){
+    formatExpiryOnInput(el);
+    return;
+  }
 
   const row = el.closest('[data-iid]');
   if(!row) return;
@@ -2446,16 +2538,7 @@ document.addEventListener('input', e => {
       if(n !== null){ it.extras[ei].qty = n; saveState(); }
       break;
     }
-      case 'extra-expiry': {
-      const ei = +el.dataset.ei;
-      if(!Array.isArray(it.extras) || !it.extras[ei]) break;
-      let v = String(el.value).replace(/\D/g, '').slice(0, 8);
-      if(v !== el.value) el.value = v;
-      it.extras[ei].expiry = v;
-      saveState();
-      updateRowStatus(row);
-      break;
-    }
+      
     case 'note': it.notes[+el.dataset.ni] = el.value; break;
     case 's-name': it.name = el.value; break;
     case 'c-name': {
@@ -2521,32 +2604,110 @@ function focusNextMainField(el){
 }
   
 /* ============ 有效日期 ============ */
-function getExpiryState(input){
-  if(!input._exp){
-    const v = input.value;
-    if(v && /^\d{8}$/.test(v)) input._exp = { y: v.slice(2,4), m: v.slice(4,6), d: v.slice(6,8), stage:'done' };
-    else input._exp = { y:'', m:'', d:'', stage:'y' };
-  }
-  return input._exp;
+function formatExpiryDisplay(digits){
+  if(!digits || !/^\d{8}$/.test(digits)) return '';
+  return digits.slice(0,4) + '/' + digits.slice(4,6) + '/' + digits.slice(6,8);
 }
-function renderExpiry(input, st){
-  let v = '';
-  if(st.y){
-    v += '20' + st.y.padStart(2, '0');
-    if(st.m){ v += st.m; if(st.d) v += st.d; }
+
+function parseExpiryInput(str){
+  const s = String(str || '').trim();
+  if(!s) return { y:0, m:1, d:0, valid:false, empty:true };
+
+  const parts = s.split('/');
+  let ys = '', ms = '', ds = '';
+  if(parts.length >= 2){
+    ys = (parts[0] || '').replace(/\D/g, '');
+    ms = (parts[1] || '').replace(/\D/g, '');
+    ds = (parts[2] || '').replace(/\D/g, '');
+  } else {
+    const raw = s.replace(/\D/g, '');
+    if(raw.length === 8){ ys = raw.slice(0,4); ms = raw.slice(4,6); ds = raw.slice(6,8); }
+    else if(raw.length > 4){ ys = raw.slice(0,4); ms = raw.slice(4); ds = ''; }
+    else { ys = raw; ms = ''; ds = ''; }
   }
-  input.value = v;
+
+  let yy = parseInt(ys, 10);
+  if(isNaN(yy) || yy === 0) return { y:0, m:1, d:0, valid:false, empty:true };
+  if(yy < 100) yy = 2000 + yy;
+  if(yy < 2000 || yy > 2099) return { y:0, m:1, d:0, valid:false, empty:false };
+
+  let mm = parseInt(ms, 10) || 1;
+  if(mm < 1) mm = 1;
+  if(mm > 12) mm = 12;
+
+  const last = new Date(yy, mm, 0).getDate();
+  let dd;
+  if(!ds){ dd = last; }
+  else {
+    dd = parseInt(ds, 10) || 1;
+    if(dd < 1) dd = 1;
+    if(dd > last) dd = last;
+  }
+
+  return { y:yy, m:mm, d:dd, valid:true, empty:false };
 }
-function syncExpiryToItem(input){
+
+function formatExpiryOnInput(el){
+  let v = String(el.value || '').replace(/[^\d\/\-]/g, '').replace(/-/g, '/');
+
+  const caretAtEnd = (el.selectionStart === v.length) && (el.selectionEnd === v.length);
+
+  if(caretAtEnd){
+    const m = v.match(/^(\d{2,4})\/(\d{0,2})$/);
+    if(m){
+      const year  = m[1];
+      const month = m[2];
+      let newMonth = month;
+      let shouldJump = false;
+
+      if(month.length === 1){
+        if(month === '0' || month === '1'){
+          shouldJump = false;
+        }else{
+          newMonth = '0' + month;
+          shouldJump = true;
+        }
+      }else if(month.length === 2){
+        let mm = parseInt(month, 10);
+        if(isNaN(mm)) mm = 1;
+        if(mm < 1) mm = 1;
+        if(mm > 12) mm = 12;
+        newMonth = String(mm).padStart(2, '0');
+        shouldJump = true;
+      }
+
+      if(shouldJump){
+        const newVal = year + '/' + newMonth + '/';
+        el.value = newVal;
+        try{ el.setSelectionRange(newVal.length, newVal.length); }catch(_){}
+        return;
+      }
+    }
+  }
+
+  if(v !== el.value){
+    el.value = v;
+    try{ el.setSelectionRange(v.length, v.length); }catch(_){}
+  }
+}
+
+function finalizeExpiry(input){
+  if(permissionLevel === 'readonly') return;
   const row = input.closest('[data-iid]');
   if(!row) return;
   const p = getPage(row.dataset.pid);
   const it = getItem(p, row.dataset.aid, row.dataset.iid);
   if(!it) return;
-  const st = input._exp;
-  if(!st || !st.y || st.y.length < 2) it.expiry = '';
-  else if(!st.m) it.expiry = '';
-  else it.expiry = buildDateStr(st.y, st.m, st.d || '0');
+
+  const parsed = parseExpiryInput(input.value);
+  if(parsed.empty || !parsed.valid){
+    it.expiry = '';
+    input.value = '';
+  } else {
+    const digits = String(parsed.y) + String(parsed.m).padStart(2,'0') + String(parsed.d).padStart(2,'0');
+    it.expiry = digits;
+    input.value = formatExpiryDisplay(digits);
+  }
   saveState();
   updateRowStatus(row);
 }
@@ -2619,12 +2780,26 @@ document.addEventListener('keydown', e => {
   }
 
   if(el.dataset && el.dataset.f === 'expiry'){
-    if (permissionLevel === 'readonly') return;
-    const st = getExpiryState(el);
+    if(permissionLevel === 'readonly') return;
+
     if(e.key === 'Enter'){
-      e.preventDefault(); finalizeExpiry(el, st);
+      e.preventDefault();
+
+      // 若光標在「年份/單位數月份」段（如 2028/1），Enter 先補全月份並跳日期段
+      const v = String(el.value || '');
+      const mMonthOnly = v.match(/^(\d{2,4})\/(\d)$/);
+      if(mMonthOnly){
+        const year = mMonthOnly[1];
+        const mm = '0' + mMonthOnly[2];
+        const newVal = year + '/' + mm + '/';
+        el.value = newVal;
+        try{ el.setSelectionRange(newVal.length, newVal.length); }catch(_){}
+        return;
+      }
+
+      finalizeExpiry(el);
       if(window.innerWidth > 768){
-        focusNextMainField(el);   // 桌面：跳下一行物品名稱
+        focusNextMainField(el);
         return;
       }
       const row = el.closest('[data-iid]');
@@ -2641,47 +2816,10 @@ document.addEventListener('keydown', e => {
       if(nx){ nx.focus(); nx.select(); }
       return;
     }
-    
-    if(e.key === 'Backspace'){
-      e.preventDefault();
-      if(st.d) st.d = st.d.slice(0, -1);
-      else if(st.m) st.m = st.m.slice(0, -1);
-      else if(st.y) st.y = st.y.slice(0, -1);
-      if(st.d) st.stage = 'd'; else if(st.m) st.stage = 'm'; else st.stage = 'y';
-      renderExpiry(el, st); syncExpiryToItem(el);
-      return;
-    }
-    if(!/^\d$/.test(e.key)) return;
-    e.preventDefault();
-    if(st.stage === 'done'){ st.y = ''; st.m = ''; st.d = ''; st.stage = 'y'; }
-    const k = e.key;
-    if(st.stage === 'y'){
-      st.y += k;
-      if(st.y.length >= 2){ st.y = st.y.slice(0, 2); st.stage = 'm'; }
-    }else if(st.stage === 'm'){
-      if(st.m.length === 0){
-        if(k === '0' || k === '1'){ st.m = k; }
-        else{ st.m = '0' + k; st.stage = 'd'; }
-      }else{
-        st.m += k;
-        let mv = parseInt(st.m, 10);
-        if(isNaN(mv) || mv < 1) mv = 1;
-        if(mv > 12) mv = 12;
-        st.m = String(mv).padStart(2, '0');
-        st.stage = 'd';
-      }
-    }else if(st.stage === 'd'){
-      if(st.d.length === 0){
-        if(k >= '4'){ st.d = k; st.stage = 'done'; }
-        else{ st.d = k; }
-      }else{
-        st.d += k; st.d = st.d.slice(0, 2); st.stage = 'done';
-      }
-    }
-    renderExpiry(el, st); syncExpiryToItem(el);
+    // 其他鍵（數字、斜杠、Backspace 等）交由瀏覽器默認處理
     return;
   }
-
+  
   if(e.key === 'Enter' && el.dataset && el.dataset.f === 'ctag-input'){
     if (permissionLevel !== 'full') return;
     e.preventDefault();
@@ -2732,26 +2870,6 @@ document.addEventListener('keydown', e => {
   }
 });
 
-function finalizeExpiry(input, st){
-  if (permissionLevel === 'readonly') return;
-  if(!st.y) return;
-  if(st.y.length < 2){ st.y = st.y.padStart(2, '0'); }
-  if(st.m && !st.d){
-    const y = +('20' + st.y);
-    const m = parseInt(st.m, 10) || 1;
-    const last = new Date(y, m, 0).getDate();
-    st.d = String(last);
-    st.stage = 'done';
-  }else if(st.y && !st.m){
-    st.m = '01'; st.d = '01'; st.stage = 'done';
-  }else if(st.d){
-    st.d = st.d.padStart(2, '0');
-    st.stage = 'done';
-  }
-  renderExpiry(input, st);
-  syncExpiryToItem(input);
-}
-
 document.addEventListener('focusout', e => {
   const el = e.target;
 
@@ -2763,14 +2881,18 @@ document.addEventListener('focusout', e => {
     const p = getPage(row.dataset.pid);
     const it = getItem(p, row.dataset.aid, row.dataset.iid);
     if(!it || !Array.isArray(it.extras) || !it.extras[ei]) return;
-    const norm = normalizeDate8(el.value);
-    if(norm){
-      it.extras[ei].expiry = norm;
-      el.value = norm;
+
+    const parsed = parseExpiryInput(el.value);
+    if(parsed.empty || !parsed.valid){
+      it.extras[ei].expiry = '';
+      el.value = '';
     }else{
-      el.value = it.extras[ei].expiry || '';
+      const digits = String(parsed.y) + String(parsed.m).padStart(2,'0') + String(parsed.d).padStart(2,'0');
+      it.extras[ei].expiry = digits;
+      el.value = formatExpiryDisplay(digits);
     }
     saveState();
+    updateRowStatus(row);
     return;
   }
 
@@ -2783,8 +2905,7 @@ document.addEventListener('focusout', e => {
     }
   }
   if(el.dataset && el.dataset.f === 'expiry'){
-    const st = getExpiryState(el);
-    finalizeExpiry(el, st);
+    finalizeExpiry(el);
   }
   if(el.dataset && el.dataset.f === 'baseQty'){
     if (permissionLevel === 'readonly') return;
@@ -2859,7 +2980,6 @@ document.addEventListener('focusin', e => {
   const el = e.target;
   if(el.dataset && el.dataset.f === 'expiry'){
     if (permissionLevel === 'readonly') return;
-    getExpiryState(el);
     setTimeout(() => { try{ el.select(); }catch(_){} }, 0);
   }
   if(el.dataset && (el.dataset.f === 'baseQty' || el.dataset.f === 'curQty' || el.dataset.f === 'extra-qty')){
@@ -3135,6 +3255,59 @@ document.addEventListener('change', e => {
 document.addEventListener('click', e => {
   const t = e.target.closest('[data-act]');
   if(!t){
+    const fbtn = e.target.closest('[data-alert-filter]');
+    if(fbtn){
+      alertFilter = fbtn.dataset.alertFilter;
+      render();
+      return;
+    }
+
+    const tog = e.target.closest('[data-alert-toggle]');
+    if(tog){
+      const pid = tog.dataset.alertToggle;
+      if(_alertCollapsed.has(pid)) _alertCollapsed.delete(pid);
+      else _alertCollapsed.add(pid);
+      render();
+      return;
+    }
+
+    const jump = e.target.closest('[data-jump-pid]');
+    if(jump){
+      const pid = jump.dataset.jumpPid;
+      const aid = jump.dataset.jumpAid;
+      const iid = jump.dataset.jumpIid;
+
+      const p = getPage(pid);
+      const area = p?.areas.find(a => a.id === aid);
+      if(area && area.collapsed){
+        area.collapsed = false;
+        saveState();
+      }
+
+      currentView = pid;
+      render();
+
+      setTimeout(() => {
+        const target = document.querySelector(`.row[data-iid="${iid}"]`);
+        if(target){
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          target.classList.add('jump-highlight');
+          setTimeout(() => target.classList.remove('jump-highlight'), 1800);
+          // 聚焦第一格（編號 → 名稱 fallback）
+          setTimeout(() => {
+            const firstInput = target.querySelector('[data-f="code"]')
+                            || target.querySelector('[data-f="name"]')
+                            || target.querySelector('[data-f="s-name"]');
+            if(firstInput){
+              firstInput.focus({ preventScroll: true });
+              try{ firstInput.select(); }catch(_){}
+            }
+          }, 400);
+        }
+      }, 150);
+      return;
+    }
+
     const g = e.target.closest('[data-goto]');
     if(g){ currentView = g.dataset.goto; render(); return; }
 
