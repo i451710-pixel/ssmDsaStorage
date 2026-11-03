@@ -2616,43 +2616,70 @@ function parseExpiryInput(str){
   const parts = s.split('/');
   let ys = '', ms = '', ds = '';
   
+  // 如果有斜線，先嘗試正常分段
   if(parts.length >= 2){
     ys = (parts[0] || '').replace(/\D/g, '');
     ms = (parts[1] || '').replace(/\D/g, '');
     ds = (parts[2] || '').replace(/\D/g, '');
-  } else {
+    
+    // ★ 如果月份大於 12 或長度異常，放棄分段，改用純數字重新解析
+    if (parseInt(ms, 10) > 12 || ms.length > 2 || ds.length > 2) {
+       ys = ''; ms = ''; ds = '';
+    }
+  }
+
+  // 純數字解析（或是異常情況的補救）
+  if (!ys) {
     let raw = s.replace(/\D/g, '');
-    // 處理使用者連續輸入的純數字
+    if (!raw) return { y:0, m:1, d:0, valid:false, empty:false };
+    
+    if (raw.length > 8) raw = raw.slice(0, 8);
+
     if (raw.length <= 4) {
       ys = raw;
     } else if (raw.length === 5) {
-      ys = raw.slice(0, 4);
-      ms = raw.slice(4, 5);
+      if (raw.startsWith('20') || raw.startsWith('19')) {
+        // 例如 20265 -> 2026年5月
+        ys = raw.slice(0, 4);
+        ms = raw.slice(4, 5);
+      } else {
+        // 例如 26111 -> 26年，優先將前兩位當月份
+        let mStr = raw.slice(2, 4); // '11'
+        if (parseInt(mStr, 10) > 12) {
+          ms = raw.slice(2, 3); // '1'
+          ds = raw.slice(3, 5); // '11'
+        } else {
+          ms = mStr;            // '11'
+          ds = raw.slice(4, 5); // '1'
+        }
+        ys = '20' + raw.slice(0, 2);
+      }
     } else if (raw.length === 6) {
-      // 例如 202605 或 260511
       if (raw.startsWith('20') || raw.startsWith('19')) {
         ys = raw.slice(0, 4);
         ms = raw.slice(4, 6);
+        // ★ 例如 202651，月份 51 > 12，拆成 5 月 1 日
+        if (parseInt(ms, 10) > 12) {
+          ms = raw.slice(4, 5);
+          ds = raw.slice(5, 6);
+        }
       } else {
         ys = '20' + raw.slice(0, 2);
         ms = raw.slice(2, 4);
         ds = raw.slice(4, 6);
       }
     } else if (raw.length === 7) {
-      // 例如 2026511 (預期是 2026/05/11)
+      // ★ 例如 2026511，識別為 2026/05/11
       ys = raw.slice(0, 4);
       let mStr = raw.slice(4, 6);
-      let dStr = raw.slice(6, 8);
-      // 如果前兩位(月份)大於12，代表月份只有1位，把第二位退給日期
       if (parseInt(mStr, 10) > 12) {
         ms = raw.slice(4, 5);
         ds = raw.slice(5, 7);
       } else {
         ms = mStr;
-        ds = dStr;
+        ds = raw.slice(6, 7);
       }
     } else if (raw.length === 8) {
-      // 例如 20260511
       ys = raw.slice(0, 4);
       ms = raw.slice(4, 6);
       ds = raw.slice(6, 8);
@@ -2693,13 +2720,7 @@ function formatExpiryOnInput(el){
       try { el.setSelectionRange(5, 5); } catch(_){}
       return;
     }
-    // 如果打了年份和 2 位數月份，自動補斜線
-    const parts = v.split('/');
-    if (parts.length === 2 && parts[0].length === 4 && parts[1].length === 2) {
-      el.value = v + '/';
-      try { el.setSelectionRange(8, 8); } catch(_){}
-      return;
-    }
+    // ★ 這裡已經移除了自動補第二根斜線的邏輯
   }
 
   // 如果內容不符，維持原樣
@@ -2708,7 +2729,7 @@ function formatExpiryOnInput(el){
     try{ el.setSelectionRange(v.length, v.length); }catch(_){}
   }
 }
-
+  
 function finalizeExpiry(input){
   if(permissionLevel === 'readonly') return;
   const row = input.closest('[data-iid]');
