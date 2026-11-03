@@ -2509,10 +2509,10 @@ function focusNextMainField(el){
   const rows = [...area.querySelectorAll('.row[data-iid]')];
   const ri = rows.indexOf(row);
   for(let i = ri + 1; i < rows.length; i++){
-    const nm = rows[i].querySelector('[data-f="name"]');
-    if(nm && nm.offsetParent !== null){
-      nm.focus();
-      try{ nm.select(); }catch(_){}
+    const nx = rows[i].querySelector('[data-f="code"]') || rows[i].querySelector('[data-f="name"]');
+    if(nx && nx.offsetParent !== null){
+      nx.focus();
+      try{ nx.select(); }catch(_){}
       return;
     }
   }
