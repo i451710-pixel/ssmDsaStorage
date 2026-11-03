@@ -1048,12 +1048,31 @@ function daysLeft(expiry){
   if(isNaN(t)) return null;
   return Math.ceil((t - Date.now()) / 86400000);
 }
+
+function getEarliestExpiry(item){
+  if(!item) return null;
+  if(item.noExpiry) return null;
+  const dates = [];
+  if(item.expiry && /^\d{8}$/.test(item.expiry)) dates.push(item.expiry);
+  if(Array.isArray(item.extras)){
+    item.extras.forEach(ex => {
+      if((ex.qty || 0) > 0 && ex.expiry && /^\d{8}$/.test(ex.expiry)){
+        dates.push(ex.expiry);
+      }
+    });
+  }
+  if(!dates.length) return null;
+  dates.sort();
+  return dates[0];
+}
+  
 function itemStatus(page, item){
   if(!page) return 'normal';
   if(page.type === 'supplier' || page.type === 'consign') return 'normal';
   if(item.out) return 'red';
   if(item.noExpiry) return 'normal';
-  const d = daysLeft(item.expiry);
+  const earliest = getEarliestExpiry(item);
+  const d = earliest ? daysLeft(earliest) : null;
   if(d === null) return 'normal';
   if(d < 30) return 'red';
   if(d < 90) return 'yellow';
@@ -1742,8 +1761,8 @@ function viewOverview(){
 
   const alerts = recs.filter(r => r.page.type !== 'supplier' && itemStatus(r.page, r.item) !== 'normal')
                      .sort((a,b) => {
-                       const da = daysLeft(a.item.expiry) ?? 99999;
-                       const db = daysLeft(b.item.expiry) ?? 99999;
+const da = daysLeft(getEarliestExpiry(a.item)) ?? 99999;
+const db = daysLeft(getEarliestExpiry(b.item)) ?? 99999;
                        return da - db;
                      });
 
@@ -1762,16 +1781,17 @@ function viewOverview(){
         <div class="cell hcell" style="width:90px">剩餘天數</div>
       </div>`;
     alerts.forEach(r => {
-      const st = itemStatus(r.page, r.item);
-      const d = daysLeft(r.item.expiry);
+const st = itemStatus(r.page, r.item);
+const earliest = getEarliestExpiry(r.item);
+const d = earliest ? daysLeft(earliest) : null;
       h += `<div class="row ${st}">
         <div class="cell" style="width:130px" data-m-label="倉庫">${esc(r.page.name)}</div>
         <div class="cell" style="width:110px" data-m-label="區域">${esc(r.area.name)}</div>
         <div class="cell" style="width:150px" data-m-label="編號">${esc(r.item.code||'—')}</div>
         <div class="cell" style="width:180px;word-break:break-word" data-m-label="名稱">${esc(r.item.name||'—')}</div>
         <div class="cell" style="width:80px" data-m-label="現存量">${r.item.out ? '<b style="color:#e5484d">缺貨</b>' : (r.item.curQty ?? '—')}</div>
-        <div class="cell" style="width:110px" data-m-label="日期">${esc(r.item.noExpiry ? '不過期' : (r.item.expiry || '—'))}</div>
-        <div class="cell" style="width:90px" data-m-label="剩餘">${r.item.noExpiry ? '—' : (d === null ? '—' : (d < 0 ? '已過期' : d + ' 天'))}</div>
+        <div class="cell" style="width:110px" data-m-label="日期">${esc(r.item.noExpiry ? '不過期' : (earliest || '—'))}</div>
+<div class="cell" style="width:90px" data-m-label="剩餘">${r.item.noExpiry ? '—' : (d === null ? '—' : (d < 0 ? '已過期' : d + ' 天'))}</div>
       </div>`;
     });
     h += `</div>`;
@@ -2113,9 +2133,9 @@ function viewSearch(){
       const consignC0 = (item.contactList || [])[0] || '';
       col6Value = consignC0 ? (lookupContact(consignC0).phone || '—') : '—';
     } else {
-      col6Value = item.noExpiry ? '不過期' : (item.expiry || '—');
+      const earliest = getEarliestExpiry(item);
+      col6Value = item.noExpiry ? '不過期' : (earliest || '—');
     }
-
     h += `<div class="row ${st !== 'normal' ? st : ''}">
       <div class="cell" style="width:130px" data-m-label="倉庫">${esc(page.name)}</div>
       <div class="cell" style="width:110px" data-m-label="區域">${esc(area.name)}</div>
@@ -2426,13 +2446,14 @@ document.addEventListener('input', e => {
       if(n !== null){ it.extras[ei].qty = n; saveState(); }
       break;
     }
-    case 'extra-expiry': {
+      case 'extra-expiry': {
       const ei = +el.dataset.ei;
       if(!Array.isArray(it.extras) || !it.extras[ei]) break;
       let v = String(el.value).replace(/\D/g, '').slice(0, 8);
       if(v !== el.value) el.value = v;
       it.extras[ei].expiry = v;
       saveState();
+      updateRowStatus(row);
       break;
     }
     case 'note': it.notes[+el.dataset.ni] = el.value; break;
@@ -2449,6 +2470,54 @@ document.addEventListener('input', e => {
   saveState();
 });
 
+/* ============ Enter 跳下一欄（桌面端） ============ */
+function focusNextMainField(el){
+  const MAIN = ['code','name','note','baseQty','curQty','expiry'];
+  const row0 = el.closest('[data-iid]');
+  if(!row0) return;
+  const f0 = el.dataset.f;
+
+  // 先 blur，等 blur / focusout 嘅儲存、日期 finalize、現存量連動全部行完
+  try{ el.blur(); }catch(_){}
+
+  const row = row0.isConnected ? row0 : document.querySelector(`.row[data-iid="${row0.dataset.iid}"]`);
+  if(!row) return;
+
+  // blur 有可能重建欄位（例如現存量歸零時自動提升批次）
+  const cur = el.isConnected ? el : row.querySelector(`[data-f="${f0}"]`);
+
+  const all = [...row.querySelectorAll('input[data-f], textarea[data-f]')]
+    .filter(x => MAIN.includes(x.dataset.f));
+
+  let idx = cur ? all.indexOf(cur) : -1;
+  if(idx < 0 && f0) idx = all.findIndex(x => x.dataset.f === f0);
+
+  // 行內仲有下一欄 → 跳過去並全選
+  if(idx >= 0){
+    for(let i = idx + 1; i < all.length; i++){
+      const nxt = all[i];
+      if(nxt.offsetParent === null) continue;
+      nxt.focus();
+      try{ nxt.select(); }catch(_){}
+      return;
+    }
+  }
+
+  // 行內到尾 → 下一行嘅物品名稱
+  const area = row.closest('.area');
+  if(!area) return;
+  const rows = [...area.querySelectorAll('.row[data-iid]')];
+  const ri = rows.indexOf(row);
+  for(let i = ri + 1; i < rows.length; i++){
+    const nm = rows[i].querySelector('[data-f="name"]');
+    if(nm && nm.offsetParent !== null){
+      nm.focus();
+      try{ nm.select(); }catch(_){}
+      return;
+    }
+  }
+}
+  
 /* ============ 有效日期 ============ */
 function getExpiryState(input){
   if(!input._exp){
@@ -2505,8 +2574,30 @@ document.addEventListener('keydown', e => {
     if(e.key === 'Enter'){ e.preventDefault(); el.blur(); return; }
   }
 
+  if(e.key === 'Enter' && window.innerWidth > 768 && el.dataset){
+    const f = el.dataset.f;
+    if(f === 'code' || f === 'baseQty' || f === 'curQty'){
+      const pageEl = el.closest('[data-pageid]');
+      const p = pageEl ? getPage(pageEl.dataset.pageid) : null;
+      if(p && (p.type === 'common' || p.type === 'special')){
+        e.preventDefault();
+        focusNextMainField(el);
+        return;
+      }
+    }
+  }
+  
   if(e.key === 'Enter' && !e.shiftKey && el.classList && el.classList.contains('name-area')){
-    e.preventDefault(); el.blur();
+    e.preventDefault();
+    const pageEl = el.closest('[data-pageid]');
+    const p = pageEl ? getPage(pageEl.dataset.pageid) : null;
+    const isComSp = p && (p.type === 'common' || p.type === 'special');
+    if(isComSp && window.innerWidth > 768){
+      focusNextMainField(el);
+      return;
+    }
+    // 手機 / 寄沽頁：保持原本「跳下一行名稱」
+    el.blur();
     const row = el.closest('[data-iid]');
     let next = row.nextElementSibling;
     while(next && !next.classList.contains('row')) next = next.nextElementSibling;
@@ -2519,6 +2610,10 @@ document.addEventListener('keydown', e => {
     const st = getExpiryState(el);
     if(e.key === 'Enter'){
       e.preventDefault(); finalizeExpiry(el, st);
+      if(window.innerWidth > 768){
+        focusNextMainField(el);   // 桌面：跳下一行物品名稱
+        return;
+      }
       const row = el.closest('[data-iid]');
       let probe = row.nextElementSibling;
       while(probe && !probe.classList.contains('row')) probe = probe.nextElementSibling;
@@ -2533,6 +2628,7 @@ document.addEventListener('keydown', e => {
       if(nx){ nx.focus(); nx.select(); }
       return;
     }
+    
     if(e.key === 'Backspace'){
       e.preventDefault();
       if(st.d) st.d = st.d.slice(0, -1);
@@ -2598,10 +2694,17 @@ document.addEventListener('keydown', e => {
   }
 
   if(e.key === 'Enter' && el.dataset && el.dataset.f === 'note'){
-    if (permissionLevel !== 'full') return;
     e.preventDefault();
+    const pageEl = el.closest('[data-pageid]');
+    const p = pageEl ? getPage(pageEl.dataset.pageid) : null;
+    const isComSp = p && (p.type === 'common' || p.type === 'special');
+    if(isComSp && window.innerWidth > 768){
+      focusNextMainField(el);   // 桌面：備注 → 基數量
+      return;
+    }
+    // 手機 / 寄沽頁：保持原本「新增一行備注」
+    if (permissionLevel !== 'full') return;
     const row = el.closest('[data-iid]');
-    const p = getPage(row.dataset.pid);
     const it = getItem(p, row.dataset.aid, row.dataset.iid);
     if(it){
       it.notes = it.notes || [];
@@ -2732,6 +2835,7 @@ document.addEventListener('focusout', e => {
     it.extras[ei].qty = n;
     el.value = n;
     saveState();
+    updateRowStatus(row);
   }
 });
 
@@ -3209,6 +3313,7 @@ document.addEventListener('click', e => {
       saveState();
       rebuildQtyCell(row, item);
       rebuildExpiryCell(row, item);
+      updateRowStatus(row);
     }
     return;
   }
