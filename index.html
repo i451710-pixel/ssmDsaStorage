@@ -2836,7 +2836,8 @@ document.addEventListener('focusout', e => {
     }
     updateRowStatus(row);
     saveState();
-
+  }
+  
   if(el.dataset && el.dataset.f === 'extra-qty'){
     if (permissionLevel === 'readonly') return;
     const ei = +el.dataset.ei;
