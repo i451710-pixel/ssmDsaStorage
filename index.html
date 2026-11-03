@@ -2566,6 +2566,17 @@ document.addEventListener('keydown', e => {
     }
   }
 
+  if(e.key === 'Enter' && el.dataset && el.dataset.act === 'toggle-out'){
+    e.preventDefault();
+    const row = el.closest('[data-iid]');
+    if(row){
+      const curQtyEl = row.querySelector('[data-f="curQty"]');
+      if(curQtyEl) focusNextMainField(curQtyEl);
+    }
+    return;
+  }
+
+  
   if(el.dataset && el.dataset.num === '1'){
     if(['-','.','e','E','+'].includes(e.key)){ e.preventDefault(); return; }
   }
