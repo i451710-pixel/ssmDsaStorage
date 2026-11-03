@@ -2980,8 +2980,21 @@ document.addEventListener('focusin', e => {
   const el = e.target;
   if(el.dataset && el.dataset.f === 'expiry'){
     if (permissionLevel === 'readonly') return;
-    setTimeout(() => { try{ el.select(); }catch(_){} }, 0);
+    
+    // ===== 修改這段 =====
+    if (!el.value) {
+      // 如果原本是空的，自動填入 20 並將游標停在 20 後面
+      el.value = '20';
+      setTimeout(() => {
+        try { el.setSelectionRange(2, 2); } catch(_){}
+      }, 0);
+    } else {
+      // 如果已經有值，維持原本的「全選」功能
+      setTimeout(() => { try{ el.select(); }catch(_){} }, 0);
+    }
+    // ====================
   }
+  
   if(el.dataset && (el.dataset.f === 'baseQty' || el.dataset.f === 'curQty' || el.dataset.f === 'extra-qty')){
     if (permissionLevel === 'readonly') return;
     setTimeout(() => { try{ el.select(); }catch(_){} }, 0);
@@ -3253,7 +3266,7 @@ document.addEventListener('change', e => {
 
 /* ============ 點擊事件 ============ */
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-act]');
+   const t = e.target.closest('[data-act]');
   if(!t){
     const fbtn = e.target.closest('[data-alert-filter]');
     if(fbtn){
