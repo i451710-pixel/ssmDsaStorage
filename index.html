@@ -705,6 +705,14 @@ const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 
 const esc = s => String(s ?? '').replace(/[&<>"']/g,
   c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
+function updateToggleAllBtn(pageEl, page){
+  if(!pageEl || !page) return;
+  const btn = pageEl.querySelector('[data-act="toggle-all-areas"]');
+  if(!btn) return;
+  const allCollapsed = page.areas.length > 0 && page.areas.every(a => a.collapsed);
+  btn.textContent = allCollapsed ? '展開全部' : '折疊全部';
+}
+  
 function toast(msg){
   const t = $('#toast');
   t.textContent = msg;
@@ -2116,14 +2124,13 @@ function viewPage(page){
   const isConsign  = page.type === 'consign';
   const addLabel = isSupplier ? '＋ 供應商' : (isConsign ? '＋ 寄沽物品' : '＋ 物品');
 
-  // ★ 新增：是否所有區域都已折疊
   const allCollapsedAreas = page.areas.length > 0 && page.areas.every(a => a.collapsed);
 
   let h = `<div class="page-head">
     <h2>${esc(page.name)}</h2>
     <span class="pill">${TYPES[page.type].icon} ${TYPES[page.type].label}</span>
     <div class="grow"></div>
-    <button class="btn" data-act="toggle-all-areas">${allCollapsedAreas ? '展開全部' : '折疊全部'}</button>
+    ${page.areas.length ? `<button class="btn" data-act="toggle-all-areas">${allCollapsedAreas ? '展開全部' : '折疊全部'}</button>` : ''}
     ${permissionLevel === 'full' ? `<button class="btn" data-act="add-area">＋ 新增區域</button>` : ''}
     <button class="btn" data-act="export-page">⬇ 匯出本頁</button>
     <button class="btn" data-act="toggle-code">
@@ -2132,7 +2139,7 @@ function viewPage(page){
   </div>`;
 
   if(!page.areas.length){
-    h += `<div class="empty">此頁面尚無區域，點擊「＋ 新增區域」開始建立。</div>`;
+    h += `<div class="empty">點擊「＋ 新增區域」開始建立。</div>`;
     return h;
   }
 
@@ -2336,7 +2343,7 @@ function toggleAreaCollapse(areaEl, pageEl){
   a.collapsed = !a.collapsed;
   saveState();
   areaEl.classList.toggle('collapsed', a.collapsed);
-
+  updateToggleAllBtn(pageEl, p); 
   if(!a.collapsed){
     requestAnimationFrame(() => {
       areaEl.querySelectorAll('.name-area').forEach(el => autoResize(el));
@@ -2362,6 +2369,7 @@ function addItemToAreaLocal(page, area){
     area.collapsed = false;
     areaEl.classList.remove('collapsed');
     saveState();
+    updateToggleAllBtn(pageEl, page);
   }
 
   const countEl = areaEl.querySelector('.count');
