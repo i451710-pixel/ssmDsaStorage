@@ -2116,12 +2116,14 @@ function viewPage(page){
   const isConsign  = page.type === 'consign';
   const addLabel = isSupplier ? '＋ 供應商' : (isConsign ? '＋ 寄沽物品' : '＋ 物品');
 
+  // ★ 新增：是否所有區域都已折疊
+  const allCollapsedAreas = page.areas.length > 0 && page.areas.every(a => a.collapsed);
+
   let h = `<div class="page-head">
     <h2>${esc(page.name)}</h2>
     <span class="pill">${TYPES[page.type].icon} ${TYPES[page.type].label}</span>
     <div class="grow"></div>
-    <button class="btn" data-act="expand-all">展開全部</button>
-    <button class="btn" data-act="collapse-all">折疊全部</button>
+    <button class="btn" data-act="toggle-all-areas">${allCollapsedAreas ? '展開全部' : '折疊全部'}</button>
     ${permissionLevel === 'full' ? `<button class="btn" data-act="add-area">＋ 新增區域</button>` : ''}
     <button class="btn" data-act="export-page">⬇ 匯出本頁</button>
     <button class="btn" data-act="toggle-code">
@@ -3480,8 +3482,9 @@ document.addEventListener('click', e => {
     return;
   }
 
-  if((act === 'expand-all' || act === 'collapse-all') && page){
-    const collapse = act === 'collapse-all';
+  if(act === 'toggle-all-areas' && page){
+    const allCollapsed = page.areas.length > 0 && page.areas.every(a => a.collapsed);
+    const collapse = !allCollapsed;          // 全部已折疊 → 展開；否則 → 折疊
     page.areas.forEach(a => a.collapsed = collapse);
     saveState(); render();
     toast(collapse ? '已折疊全部區域' : '已展開全部區域');
