@@ -2231,7 +2231,9 @@ function viewSearch(){
       const earliest = getEarliestExpiry(item);
       col6Value = item.noExpiry ? '不過期' : (earliest || '—');
     }
-    h += `<div class="row ${st !== 'normal' ? st : ''}">
+     h += `<div class="row jumpable ${st !== 'normal' ? st : ''}"
+      data-jump-pid="${page.id}" data-jump-aid="${area.id}" data-jump-iid="${item.id}"
+      title="點擊跳至物品所在區域">
       <div class="cell" style="width:130px" data-m-label="倉庫">${esc(page.name)}</div>
       <div class="cell" style="width:110px" data-m-label="區域">${esc(area.name)}</div>
       <div class="cell" style="width:150px" data-m-label="編號">${esc(code)}</div>
@@ -3347,11 +3349,24 @@ document.addEventListener('click', e => {
       const aid = jump.dataset.jumpAid;
       const iid = jump.dataset.jumpIid;
 
+      // 由搜尋結果跳轉 → 清空搜尋狀態，避免搜尋框與畫面不一致
+      if(currentView === 'search'){
+        searchQuery = '';
+        const se = $('#search');
+        if(se) se.value = '';
+      }
+
       const p = getPage(pid);
       const area = p?.areas.find(a => a.id === aid);
       if(area && area.collapsed){
         area.collapsed = false;
         saveState();
+      }
+
+      // 手機端跳轉後收起側邊欄
+      if(window.innerWidth <= 768){
+        $('#sidebar').classList.add('collapsed');
+        $('#mobile-overlay').classList.remove('on');
       }
 
       currentView = pid;
