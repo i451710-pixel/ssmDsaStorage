@@ -954,14 +954,30 @@ function initRealtimeListener() {
         const cloudState = docSnap.data().stateData;
         if (!cloudState) return;
         
-        if (JSON.stringify(state.pages) !== JSON.stringify(cloudState.pages)) {
+        // ⭐ 關鍵修改 1：比對時「忽略」 collapsed 屬性。
+        // 這樣只要物品內容沒變，就不會因為折疊狀態不同而被雲端強制覆蓋。
+        const stateStr = JSON.stringify(state.pages, (key, value) => key === 'collapsed' ? undefined : value);
+        const cloudStr = JSON.stringify(cloudState.pages, (key, value) => key === 'collapsed' ? undefined : value);
+
+        if (stateStr !== cloudStr) {
             console.log("🔄 偵測到其他設備更新");
             const active = document.activeElement;
             const isTyping = active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.tagName === 'SELECT');
             
-            // 更新記憶體資料但不重繪
+            // ⭐ 關鍵修改 2：先記住本機目前的折疊狀態
+            const localCollapsed = {};
+            state.pages.forEach(p => p.areas.forEach(a => { localCollapsed[a.id] = a.collapsed; }));
+
+            // 更新記憶體資料
             state.pages = cloudState.pages;
             state.customContacts = cloudState.customContacts || [];
+            
+            // ⭐ 關鍵修改 3：套用雲端物品資料後，恢復本機的折疊狀態（不被雲端舊狀態洗掉）
+            state.pages.forEach(p => p.areas.forEach(a => {
+                if (localCollapsed[a.id] !== undefined) {
+                    a.collapsed = localCollapsed[a.id];
+                }
+            }));
             
             if (!isTyping) {
                 const scrollPos = $('#content').scrollTop;
