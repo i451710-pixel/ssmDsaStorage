@@ -709,8 +709,9 @@ function updateToggleAllBtn(pageEl, page){
   if(!pageEl || !page) return;
   const btn = pageEl.querySelector('[data-act="toggle-all-areas"]');
   if(!btn) return;
-  const allCollapsed = page.areas.length > 0 && page.areas.every(a => a.collapsed);
-  btn.textContent = allCollapsed ? '展開全部' : '折疊全部';
+  const anyOpen = page.areas.some(a => !a.collapsed);
+  btn.style.display = anyOpen ? '' : 'none';
+  btn.textContent = '折疊全部';
 }
   
 function toast(msg){
@@ -877,7 +878,7 @@ function migrateData(data){
     if(!p.areas) p.areas = [];
     p.areas.forEach(a => {
       if(!a.items) a.items = [];
-      if(typeof a.collapsed !== 'boolean') a.collapsed = false;
+      if(typeof a.collapsed !== 'boolean') a.collapsed = true;
       a.items.forEach(it => {
         if(p.type === 'supplier'){
           if(!Array.isArray(it.contacts)) it.contacts = [];
@@ -1038,7 +1039,7 @@ function getWidths(type){
   return out;
 }
 
-function newArea(name){ return { id: uid(), name: name || '預設區域', items: [], collapsed: false }; }
+function newArea(name){ return { id: uid(), name: name || '預設區域', items: [], collapsed: true }; }
 function newItem(type){
   if(type === 'supplier'){
     return { id: uid(), name:'', contacts:[{ name:'', phone:'', tags:[] }] };
@@ -1053,7 +1054,9 @@ function newItem(type){
   return { ...base, contactList:[] };
 }
 function newPage(type, name){
-  return { id: uid(), name: name || TYPES[type].label, type, areas: [ newArea('區域 1') ] };
+  const a = newArea('區域 1');
+  a.collapsed = false;
+  return { id: uid(), name: name || TYPES[type].label, type, areas: [ a ] };
 }
 
 const getPage  = id => state.pages.find(p => p.id === id);
@@ -1339,7 +1342,10 @@ function initLogin(){
     
     if(!state.pages.length) seedDemo();
     applyFontScale();
-    
+
+    // 一打開系統：所有倉庫頁的區域一律收起（總覽警示區不受影響）
+    collapseAllAreas();
+
     // 渲染並套用權限
     render();
     applyPermissions();
@@ -2124,13 +2130,13 @@ function viewPage(page){
   const isConsign  = page.type === 'consign';
   const addLabel = isSupplier ? '＋ 供應商' : (isConsign ? '＋ 寄沽物品' : '＋ 物品');
 
-  const allCollapsedAreas = page.areas.length > 0 && page.areas.every(a => a.collapsed);
+    const anyAreaOpen = page.areas.some(a => !a.collapsed);
 
   let h = `<div class="page-head">
     <h2>${esc(page.name)}</h2>
     <span class="pill">${TYPES[page.type].icon} ${TYPES[page.type].label}</span>
     <div class="grow"></div>
-    ${page.areas.length ? `<button class="btn" data-act="toggle-all-areas">${allCollapsedAreas ? '展開全部' : '折疊全部'}</button>` : ''}
+    ${page.areas.length ? `<button class="btn" data-act="toggle-all-areas" style="${anyAreaOpen ? '' : 'display:none'}">折疊全部</button>` : ''}
     ${permissionLevel === 'full' ? `<button class="btn" data-act="add-area">＋ 新增區域</button>` : ''}
     <button class="btn" data-act="export-page">⬇ 匯出本頁</button>
     <button class="btn" data-act="toggle-code">
@@ -2342,13 +2348,28 @@ function toggleAreaCollapse(areaEl, pageEl){
   const p = getPage(pageEl.dataset.pageid);
   const a = getArea(p, areaEl.dataset.aid);
   if(!a) return;
-  a.collapsed = !a.collapsed;
+
+  const willExpand = a.collapsed;
+
+  if(willExpand){
+    p.areas.forEach(other => { if(other.id !== a.id) other.collapsed = true; });
+    a.collapsed = false;
+  }else{
+    a.collapsed = true;
+  }
+
   saveState();
-  areaEl.classList.toggle('collapsed', a.collapsed);
-  updateToggleAllBtn(pageEl, p); 
-  if(!a.collapsed){
+
+  pageEl.querySelectorAll('.area').forEach(el => {
+    const ar = getArea(p, el.dataset.aid);
+    if(ar) el.classList.toggle('collapsed', !!ar.collapsed);
+  });
+
+  updateToggleAllBtn(pageEl, p);
+
+  if(willExpand){
     requestAnimationFrame(() => {
-      areaEl.querySelectorAll('.name-area').forEach(el => autoResize(el));
+      pageEl.querySelectorAll('.area:not(.collapsed) .name-area').forEach(el => autoResize(el));
       alignQtyExpiryRows();
       updateStickyHeights();
     });
@@ -2357,6 +2378,12 @@ function toggleAreaCollapse(areaEl, pageEl){
   }
 }
 
+function collapseAllAreas(){
+  state.pages.forEach(p => {
+    p.areas.forEach(a => { a.collapsed = true; });
+  });
+}
+  
 function addItemToAreaLocal(page, area){
   const newIt = newItem(page.type);
   area.items.push(newIt);
@@ -2367,9 +2394,13 @@ function addItemToAreaLocal(page, area){
   const areaEl = pageEl.querySelector(`.area[data-aid="${area.id}"]`);
   if(!areaEl){ render(); return; }
 
-  if(area.collapsed){
+    if(area.collapsed){
+    page.areas.forEach(o => { if(o.id !== area.id) o.collapsed = true; });
     area.collapsed = false;
-    areaEl.classList.remove('collapsed');
+    pageEl.querySelectorAll('.area').forEach(el => {
+      const ar = getArea(page, el.dataset.aid);
+      if(ar) el.classList.toggle('collapsed', !!ar.collapsed);
+    });
     saveState();
     updateToggleAllBtn(pageEl, page);
   }
@@ -3357,9 +3388,8 @@ document.addEventListener('click', e => {
       }
 
       const p = getPage(pid);
-      const area = p?.areas.find(a => a.id === aid);
-      if(area && area.collapsed){
-        area.collapsed = false;
+      if(p){
+        p.areas.forEach(o => { o.collapsed = (o.id !== aid); });
         saveState();
       }
 
@@ -3486,10 +3516,13 @@ document.addEventListener('click', e => {
   const page = pageId ? getPage(pageId) : null;
 
   if(act === 'add-area' && page){
-    page.areas.push(newArea(`區域 ${page.areas.length + 1}`));
-    saveState(); render();
-    return;
-  }
+  page.areas.forEach(a => { a.collapsed = true; });
+  const na = newArea(`區域 ${page.areas.length + 1}`);
+  na.collapsed = false;
+  page.areas.push(na);
+  saveState(); render();
+  return;
+}
   if(act === 'export-page' && page){ exportXLSX([page.id], page.name); return; }
   if(act === 'toggle-code'){
     state.codeMode = state.codeMode === 'qrcode' ? 'barcode' : 'qrcode';
@@ -3506,13 +3539,11 @@ document.addEventListener('click', e => {
   }
 
   if(act === 'toggle-all-areas' && page){
-    const allCollapsed = page.areas.length > 0 && page.areas.every(a => a.collapsed);
-    const collapse = !allCollapsed;          // 全部已折疊 → 展開；否則 → 折疊
-    page.areas.forEach(a => a.collapsed = collapse);
-    saveState(); render();
-    toast(collapse ? '已折疊全部區域' : '已展開全部區域');
-    return;
-  }
+  page.areas.forEach(a => a.collapsed = true);
+  saveState(); render();
+  toast('已折疊全部區域');
+  return;
+}
 
   const areaEl = t.closest('[data-aid]');
   const area = (page && areaEl) ? getArea(page, areaEl.dataset.aid) : null;
