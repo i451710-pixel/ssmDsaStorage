@@ -709,6 +709,10 @@ function updateToggleAllBtn(pageEl, page){
   if(!pageEl || !page) return;
   const btn = pageEl.querySelector('[data-act="toggle-all-areas"]');
   if(!btn) return;
+  if(page.type === 'supplier') {
+    btn.style.display = 'none'; // 供應商不顯示此按鈕
+    return;
+  }
   const anyOpen = page.areas.some(a => !a.collapsed);
   btn.style.display = anyOpen ? '' : 'none';
   btn.textContent = '折疊全部';
@@ -878,7 +882,11 @@ function migrateData(data){
     if(!p.areas) p.areas = [];
     p.areas.forEach(a => {
       if(!a.items) a.items = [];
-      if(typeof a.collapsed !== 'boolean') a.collapsed = true;
+            if(p.type === 'supplier'){
+        a.collapsed = false;
+      } else if(typeof a.collapsed !== 'boolean') {
+        a.collapsed = true;
+      }
       a.items.forEach(it => {
         if(p.type === 'supplier'){
           if(!Array.isArray(it.contacts)) it.contacts = [];
@@ -1055,7 +1063,7 @@ function getWidths(type){
   return out;
 }
 
-function newArea(name){ return { id: uid(), name: name || '預設區域', items: [], collapsed: true }; }
+function newArea(name, type){ return { id: uid(), name: name || '預設區域', items: [], collapsed: type === 'supplier' ? false : true }; }
 function newItem(type){
   if(type === 'supplier'){
     return { id: uid(), name:'', contacts:[{ name:'', phone:'', tags:[] }] };
@@ -1070,7 +1078,7 @@ function newItem(type){
   return { ...base, contactList:[] };
 }
 function newPage(type, name){
-  const a = newArea('區域 1');
+  const a = newArea('區域 1', type);
   a.collapsed = false;
   return { id: uid(), name: name || TYPES[type].label, type, areas: [ a ] };
 }
@@ -2145,14 +2153,13 @@ function viewPage(page){
   const isSupplier = page.type === 'supplier';
   const isConsign  = page.type === 'consign';
   const addLabel = isSupplier ? '＋ 供應商' : (isConsign ? '＋ 寄沽物品' : '＋ 物品');
-
-    const anyAreaOpen = page.areas.some(a => !a.collapsed);
+  const anyAreaOpen = page.areas.some(a => !a.collapsed);
 
   let h = `<div class="page-head">
     <h2>${esc(page.name)}</h2>
     <span class="pill">${TYPES[page.type].icon} ${TYPES[page.type].label}</span>
     <div class="grow"></div>
-    ${page.areas.length ? `<button class="btn" data-act="toggle-all-areas" style="${anyAreaOpen ? '' : 'display:none'}">折疊全部</button>` : ''}
+    ${page.areas.length && page.type !== 'supplier' ? `<button class="btn" data-act="toggle-all-areas" style="${anyAreaOpen ? '' : 'display:none'}">折疊全部</button>` : ''}
     ${permissionLevel === 'full' ? `<button class="btn" data-act="add-area">＋ 新增區域</button>` : ''}
     <button class="btn" data-act="export-page">⬇ 匯出本頁</button>
     <button class="btn" data-act="toggle-code">
@@ -2165,12 +2172,13 @@ function viewPage(page){
     return h;
   }
 
-  page.areas.forEach(area => {
-    const collapsedCls = area.collapsed ? ' collapsed' : '';
+    page.areas.forEach(area => {
+    const isCollapsed = page.type === 'supplier' ? false : area.collapsed;
+    const collapsedCls = isCollapsed ? ' collapsed' : '';
     h += `<div class="area${collapsedCls}" data-aid="${area.id}">
-      <div class="area-head" title="點擊空白處折疊 / 展開">
+      <div class="area-head" title="${page.type === 'supplier' ? '' : '點擊空白處折疊 / 展開'}">
         ${permissionLevel === 'full' ? `<span class="area-drag-handle" draggable="true" title="拖動排序區域">⋮⋮</span>` : ''}
-        <button class="collapse-toggle" data-act="toggle-area" title="折疊 / 展開">▼</button>
+        ${page.type !== 'supplier' ? `<button class="collapse-toggle" data-act="toggle-area" title="折疊 / 展開">▼</button>` : ''}
         <span class="area-dot"></span>
         <input class="area-name" data-f="area-name" value="${esc(area.name)}">
         <span class="count">${area.items.length} 項</span>
@@ -2362,6 +2370,7 @@ function parseNonNegInt(raw){
 function toggleAreaCollapse(areaEl, pageEl){
   if(!areaEl || !pageEl) return;
   const p = getPage(pageEl.dataset.pageid);
+  if(!p || p.type === 'supplier') return; // 供應商不支援折疊
   const a = getArea(p, areaEl.dataset.aid);
   if(!a) return;
 
@@ -2396,6 +2405,7 @@ function toggleAreaCollapse(areaEl, pageEl){
 
 function collapseAllAreas(){
   state.pages.forEach(p => {
+    if(p.type === 'supplier') return; // 供應商保持展開
     p.areas.forEach(a => { a.collapsed = true; });
   });
 }
@@ -2410,7 +2420,7 @@ function addItemToAreaLocal(page, area){
   const areaEl = pageEl.querySelector(`.area[data-aid="${area.id}"]`);
   if(!areaEl){ render(); return; }
 
-    if(area.collapsed){
+    if(area.collapsed && page.type !== 'supplier'){
     page.areas.forEach(o => { if(o.id !== area.id) o.collapsed = true; });
     area.collapsed = false;
     pageEl.querySelectorAll('.area').forEach(el => {
@@ -3405,7 +3415,9 @@ document.addEventListener('click', e => {
 
       const p = getPage(pid);
       if(p){
-        p.areas.forEach(o => { o.collapsed = (o.id !== aid); });
+        p.areas.forEach(o => { 
+          o.collapsed = p.type === 'supplier' ? false : (o.id !== aid); 
+        });
         saveState();
       }
 
@@ -3532,8 +3544,8 @@ document.addEventListener('click', e => {
   const page = pageId ? getPage(pageId) : null;
 
   if(act === 'add-area' && page){
-  page.areas.forEach(a => { a.collapsed = true; });
-  const na = newArea(`區域 ${page.areas.length + 1}`);
+  page.areas.forEach(a => { if(page.type !== 'supplier') a.collapsed = true; });
+  const na = newArea(`區域 ${page.areas.length + 1}`, page.type);
   na.collapsed = false;
   page.areas.push(na);
   saveState(); render();
