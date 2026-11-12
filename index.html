@@ -9,6 +9,21 @@
 <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <style>
+
+#backToTopBtn {
+  position: fixed; right: 20px; bottom: 80px; z-index: 1000;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--accent); color: #fff; border: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  font-size: 1.2rem; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-weight: 700; 
+  opacity: 0; pointer-events: none; /* 預設隱藏且不可點擊 */
+  transition: opacity 0.25s ease;
+}
+#backToTopBtn.show {
+  opacity: 1; pointer-events: auto; /* 顯示時可點擊 */
+}
+  
 :root{
   --bg:#f4f7fc;
   --panel:#fff;
@@ -468,8 +483,15 @@ body.resizing *{cursor:col-resize !important}
   #main { width: 100vw; min-width: 0; }
   
   /* 頂部工具列 */
-  #topbar { padding: 8px 10px; gap: 6px; }
-  #search { order: 3; width: 100%; max-width: none; flex: none; margin-top: 4px; }
+  #topbar { padding: 8px 10px; gap: 6px; flex-wrap: wrap; }
+  /* 隱藏匯出 Excel 按鈕 */
+  #topbar [data-act="export"] { display: none !important; }
+  /* 漢堡按鈕置左，搜索框緊接在旁 */
+  #menuBtn { order: 1; margin: 0; }
+  #search { order: 2; flex: 1; width: auto; min-width: 0; max-width: none; margin-top: 0; }
+  /* 管理按鈕移至下一行 */
+  .admin-btn { order: 3; margin-top: 4px; }
+  
   .font-ctrl { display: none; }
   .btn { padding: 6px 10px; font-size: 0.75rem; }
   
@@ -654,6 +676,9 @@ body.resizing *{cursor:col-resize !important}
 <div id="ctxmenu"></div>
 <div id="tipbox"></div>
 <div id="toast"></div>
+
+<!-- 回頂部按鈕 -->
+<button id="backToTopBtn" title="回頂部">↑</button>  
 
 <!-- 引入 Firebase 模組 -->
 <script type="module">
@@ -4419,6 +4444,32 @@ async function initApp() {
     }
 
     initLogin();
+}
+
+// ===== 回頂部按鈕邏輯 =====
+const contentElForTop = document.getElementById('content');
+const backToTopBtn = document.getElementById('backToTopBtn');
+
+if (contentElForTop && backToTopBtn) {
+  contentElForTop.addEventListener('scroll', () => {
+    if (window.innerWidth <= 768 && contentElForTop.scrollTop > 200) {
+      backToTopBtn.classList.add('show');
+    } else {
+      backToTopBtn.classList.remove('show');
+    }
+  });
+
+  backToTopBtn.addEventListener('click', () => {
+    contentElForTop.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+      backToTopBtn.classList.remove('show');
+    } else if (contentElForTop.scrollTop > 200) {
+      backToTopBtn.classList.add('show');
+    }
+  });
 }
 
 initApp();
